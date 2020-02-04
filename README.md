@@ -1,6 +1,6 @@
-# CPSC 210 Personal Project
+# CPSC 210 Personal Project: Interactive Map of the Hive
 
-## Interactive Map of the Hive
+## Project Proposal
 
 The goal of this application is to provide an interactive
 map of the *Hive Climbing and Fitness* (Surrey) that can be 
@@ -15,6 +15,21 @@ and I spend most of my free time there. However, when I went to
 the gym for the first time, and whenever I go to a different gym, I find the
 selection of climbs daunting. I think an application that could sort climbs 
 and provide a map of where they are in the gym would be useful to newcomers.
+
+##User Stories
+
+As a user, I want to be able to sort climbs in terms of their difficulty to find one that suits me.
+
+As a user, I want to be able to sort climbs by their style of climbing to find one that suits me.
+
+As a user, I want to be able to see which climbs would improve my skill in a given aspect of climbing.
+
+As a user, I want to be able to locate climbs in a large gym easily.
+
+As a user, I want to be able to track climbs that I have already completed.
+
+As a user, I want to be able to mark climbs that I want to do at a later point in time.
+
 
 
 
