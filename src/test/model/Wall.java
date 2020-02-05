@@ -6,19 +6,27 @@ import java.util.ArrayList;
 public class Wall {
     ArrayList<Problem> problemList;
 
-    public Wall(){
+    public Wall() {
         problemList = new ArrayList<Problem>();
     }
 
-    public void addProblem(Problem p){
+    public void addProblem(Problem p) {
         problemList.add(p);
     }
 
-    public void removeProblem(Problem p){
+    public void removeProblem(Problem p) {
         problemList.remove(p);
     }
 
-    public int quantityProblems(){
+    public String getProblems() {
+        String s = "";
+        for (Problem p : problemList) {
+            s += ("Color: " + p.getColor() + " Grade: " + p.getGrade() + "\n");
+        }
+        return s;
+    }
+
+    public int quantityProblems() {
         return problemList.size();
     }
 }

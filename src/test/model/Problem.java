@@ -6,12 +6,25 @@ public class Problem {
     String color;
     int grade;
     String style;
-    String typeOfHolds;
+    String wall;
 
-    public Problem(String color, int grade, String style, String w){
+    public Problem(String color, int grade, String wall) {
         this.color = color;
         this.grade = grade;
-        this.style = style;
+
+        this.wall = wall;
+    }
+
+    String getColor() {
+        return color;
+    }
+
+    public int getGrade() {
+        return grade;
+    }
+
+    public String getWall(){
+        return wall;
     }
 
 }
