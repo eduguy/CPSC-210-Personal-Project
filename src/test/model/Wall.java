@@ -1,13 +1,19 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 //represents a wall of the gym
 public class Wall {
     ArrayList<Problem> problemList;
-
-    public Wall() {
+    String name;
+    public Wall(String name) {
         problemList = new ArrayList<Problem>();
+        this.name = name;
+    }
+
+    public String getName(){
+        return name;
     }
 
     public void addProblem(Problem p) {
@@ -28,5 +34,9 @@ public class Wall {
 
     public int quantityProblems() {
         return problemList.size();
+    }
+
+    public List<Problem> getProblemList(){
+        return problemList;
     }
 }

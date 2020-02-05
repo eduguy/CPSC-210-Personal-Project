@@ -4,56 +4,53 @@ import java.util.ArrayList;
 
 //Gym is a list of all the climbs
 public class Gym {
-    Wall ShowWall = new Wall();
-    Wall Ship = new Wall();
-    Wall Cave = new Wall();
+    Wall ShowWall = new Wall("Showwall");
+    Wall Ship = new Wall("ship");
+    Wall Cave = new Wall("cave");
     ArrayList<Problem> b;
     ArrayList<Problem> c;
 
-    ArrayList<Problem> problemList;
+    ArrayList<Wall> wallList;
 
 
     public Gym() {
-        b = new ArrayList<Problem>();
-        c = new ArrayList<Problem>();
+        wallList = new ArrayList<Wall>();
+        wallList.add(ShowWall);
+        wallList.add(Ship);
+        wallList.add(Cave);
 
-        problemList = new ArrayList<Problem>();
     }
 
     public String getAllProblems() {
         String record = "";
-        for (Problem p : problemList) {
-            record += ("Color: " + p.getColor() + " Grade: " + p.getGrade() + " Wall: " + p.getWall() + "\n");
+        for (Wall w : wallList) {
+            record += w.getProblems();
         }
         return record;
     }
 
-    public String getProblemsOnWall(String wall) {
+    public String getProblemsOnWall(Wall w) {
+        return w.getProblems();
+    }
+
+    public String getAllClimbsOfDifficulty(int i) {
         String record = "";
-        for (Problem p : problemList){
-            if (p.getWall() == wall){
-                record += ("Color: " + p.getColor() + " Grade: " + p.getGrade() + "\n");
+        for (Wall w : wallList) {
+            for (Problem p : w.getProblemList()){
+                if (p.getGrade() == i){
+                    record += ("Color: " + p.getColor() + " Wall: " + p.getWall() + "\n");
+                }
             }
         }
         return record;
     }
 
-    public String getClimbsOfDifficulty(int i) {
-        String record = null;
-        for (Problem p : problemList) {
-            if (p.getGrade() == i) {
-                record += ("Color: " + p.getColor() + " Wall: " + p.getWall() + "\n");
-            }
-        }
-        return record;
-    }
-
-    public void addProblem(Problem p) {
+   /* public void addProblem(Problem p) {
         problemList.add(p);
     }
 
     public void removeProblem(Problem p) {
         problemList.remove(p);
     }
-
+*/
 }
