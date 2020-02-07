@@ -22,12 +22,12 @@ As a user, I want to be able to sort climbs in terms of their difficulty to find
 
 As a user, I want to be able to sort climbs by their style of climbing to find one that suits me.
 
-As a user, I want to be able to locate climbs in a large gym easily.
-
 As a user, I want to be able to track climbs that I have already completed.
 
 As a user, I want to be able to add climbs that I want to do at a later point in time.
 
+As a user, I want to be able to see recommendations for climbs that I might enjoy.
 
+As a user, I want to be able to locate climbs in a large gym easily.
 
 

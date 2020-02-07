@@ -8,11 +8,11 @@ public class Problem {
     String style;
     String wall;
 
-    public Problem(String color, int grade, String wall) {
+    public Problem(String color, int grade) {
         this.color = color;
         this.grade = grade;
 
-        this.wall = wall;
+        //   this.wall = wall;
     }
 
     String getColor() {
@@ -23,7 +23,7 @@ public class Problem {
         return grade;
     }
 
-    public String getWall(){
+    public String getWall() {
         return wall;
     }
 

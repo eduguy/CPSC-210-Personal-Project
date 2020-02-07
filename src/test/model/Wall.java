@@ -7,12 +7,13 @@ import java.util.List;
 public class Wall {
     ArrayList<Problem> problemList;
     String name;
+
     public Wall(String name) {
         problemList = new ArrayList<Problem>();
         this.name = name;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
@@ -27,7 +28,7 @@ public class Wall {
     public String getProblems() {
         String s = "";
         for (Problem p : problemList) {
-            s += ("Color: " + p.getColor() + " Grade: " + p.getGrade() + "\n");
+            s += ("Color: " + p.getColor() + " Grade: " + p.getGrade() + "Wall: " + p.getWall() + "\n");
         }
         return s;
     }
@@ -36,7 +37,11 @@ public class Wall {
         return problemList.size();
     }
 
-    public List<Problem> getProblemList(){
+    public List<Problem> getProblemList() {
         return problemList;
+    }
+
+    public boolean containsProblem(Problem p) {
+        return problemList.contains(p);
     }
 }

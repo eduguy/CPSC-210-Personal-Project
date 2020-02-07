@@ -7,18 +7,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GymTest {
     Gym gym;
+
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         gym = new Gym();
     }
 
     @Test
-    public void testGetAllProblems(){
-       // gym.addProblem(new Problem("Red", 5, "Show Wall"));
+    public void testGetAllProblems() {
+        gym.addProblem(new Problem("Black", 4), "Cave");
+        gym.addProblem(new Problem("Red", 4), "Show Wall");
+        gym.addProblem(new Problem("Blue", 4), "Ship");
+        //should fail
+        assertEquals("abc", gym.getAllProblems());
 
 
-      //  assertEquals("Color: Red Grade: 5 Wall: Show Wall \n", gym.getAllProblems());
-     //   assertEquals(null, gym.getClimbsOfDifficulty(4));
 
     }
 
