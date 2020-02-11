@@ -38,44 +38,55 @@ public class Gym {
         for (Wall w : wallList) {
             for (Problem p : w.getProblemList()) {
                 if (p.getGrade() == i) {
-                    record += ("Color: " + p.getColor() + " Wall: " + findProblem(p) + "\n");
+                    record += ("Color: " + p.getColor() + " Wall: " + w.getName() + "\n");
                 }
             }
         }
         return record;
     }
 
-    public void addProblem(Problem p, String wall) {
+    public void addProblem(Problem p, Wall wall) {
 
-        for (Wall w : wallList) {
-            if (w.getName().equals(wall)) {
-                w.addProblem(p);
-                return;
-            }
-        }
+        wall.addProblem(p);
 
-        System.out.println("Failed because wall does not exist");
+//        for (Wall w : wallList) {
+//            if (w.getName().equals(wall)) {
+//                w.addProblem(p);
+//                return;
+//            }
+//        }
+//
+//        System.out.println("Failed because wall does not exist");
     }
 
-    public void removeProblem(Problem p, String wall) {
-        for (Wall w : wallList) {
-
-            if (w.getName().equals(wall)) {
-                w.removeProblem(p);
-                return;
-            }
-        }
-        System.out.println("Failed because wall does not exist");
+    public void removeProblem(Problem p, Wall wall) {
+        wall.removeProblem(p);
+//        for (Wall w : wallList) {
+//
+//            if (w.getName().equals(wall)) {
+//                w.removeProblem(p);
+//                return;
+//            }
+//        }
+//        System.out.println("Failed because wall does not exist");
     }
 
     //EFFECTS: return the wall (String) that a specific problem exists in
-    public String findProblem(Problem p) {
-        for (Wall w : wallList) {
-            if (w.containsProblem(p)) {
-                return w.getName();
-            }
-        }
-        return "Problem does not exist";
+//    public String findProblem(Problem p) {
+//        for (Wall w : wallList) {
+//            if (w.containsProblem(p)) {
+//                return w.getName();
+//            }
+//        }
+//        return "Problem does not exist";
+//    }
+
+    public Wall getShowWall(){
+        return ShowWall;
+    }
+
+    public Wall getCave() {
+        return Cave;
     }
 
 

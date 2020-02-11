@@ -18,7 +18,7 @@ and provide a map of where they are in the gym would be useful to newcomers.
 
 ##User Stories
 
-As a user, I want to be able to sort climbs in terms of their difficulty to find one that suits me.
+As a user, I want to be able to sort climbs in terms of their difficulty to find one that suits me.//
 
 As a user, I want to be able to sort climbs by their style of climbing to find one that suits me.
 

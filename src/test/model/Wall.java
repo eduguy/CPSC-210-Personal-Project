@@ -28,7 +28,7 @@ public class Wall {
     public String getProblems() {
         String s = "";
         for (Problem p : problemList) {
-            s += ("Color: " + p.getColor() + " Grade: " + p.getGrade() + "Wall: " + p.getWall() + "\n");
+            s += ("Color: " + p.getColor() + " Grade: " + p.getGrade() + " Wall: " + this.name + "\n");
         }
         return s;
     }
