@@ -1,10 +1,8 @@
 package ui;
 
 import java.util.Scanner;
-import model.Gym;
 
 public class GymApp {
-    Gym gym;
 
     public GymApp() {
         runGym();
@@ -31,26 +29,54 @@ public class GymApp {
     public void performAction(int choice) {
         if (choice == 1) {
             displayAll();
-        } else if (choice.equals("w")) {
-            doWithdrawal();
-        } else if (choice.equals("t")) {
-            doTransfer();
-        } else if (choice.equals("s")) {
-            saveAccounts();
-        } else if (choice.equals("p")) {
-            printAccount();
+        } else if (choice == 2) {
+            displaySorted();
+        } else if (choice == 3) {
+            displayToDo();
+        } else if (choice == 4) {
+            displayClimbsOfDifficulty();
+        } else if (choice == 5) {
+            addClimbs();
         } else {
             System.out.println("Selection not valid...");
         }
     }
 
     public void displayAll() {
+        //display climbs
+        Scanner kbReader = new Scanner(System.in);
+        System.out.println("Do you want to add any of these climbs to your to do list?\n 0 -> No \n 1 -> Yes");
+        int response = kbReader.nextInt();
+        if (response == 1) {
+            // addtoTodo();
+        }
+
+
+    }
+
+    public void displaySorted() {
+
+    }
+
+    public void displayToDo() {
+
+    }
+
+    public void displayClimbsOfDifficulty() {
+
+    }
+
+    public void addClimbs() {
+
+    }
+
+    public void addtoTodo() {
 
     }
 
     public void displayOptions() {
         System.out.println("Select from the below operations\n 1: Display all climbs\n 2: Display all climbs sorted "
-                + "by difficulty\n 3: Show your to do list\n 4: Show your completed climbs\n "
-                + "5: Display all climbs of a specific difficulty\n 6: Add new climbs to the gym");
+                + "by difficulty\n 3: Show your to do list\n  "
+                + "4: Display all climbs of a specific difficulty\n 5: Add new climbs to the gym");
     }
 }

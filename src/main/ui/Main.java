@@ -3,7 +3,6 @@ package ui;
 
 import java.util.*;
 
-import model.*;
 
 public class Main {
 

@@ -24,14 +24,11 @@ As a user, I want to be able to see only climbs that are a specific difficulty
 
 As a user, I want to be able to see all the climbs in the gym.
 
+As a user, I want to be able to add new climbs to the gym.
+
 As a user, I want to be able to track climbs that I have already completed.
 
 As a user, I want to be able to add climbs that I want to do at a later point in time.
 
-As a user, I want to be able to sort climbs by their style of climbing to find one that suits me.
-
 As a user, I want to be able to see recommendations for climbs that I might enjoy.
-
-As a user, I want to be able to locate climbs in a large gym easily.
-
 
