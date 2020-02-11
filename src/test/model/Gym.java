@@ -45,6 +45,12 @@ public class Gym {
         return record;
     }
 
+    public String getAllClimbsInOrderOfDifficulty(){
+        return getAllClimbsOfDifficulty(1) + getAllClimbsOfDifficulty(2) + getAllClimbsOfDifficulty(3)
+                + getAllClimbsOfDifficulty(4) + getAllClimbsOfDifficulty(5) + getAllClimbsOfDifficulty(6);
+    }
+
+
     public void addProblem(Problem p, Wall wall) {
 
         wall.addProblem(p);
