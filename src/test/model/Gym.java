@@ -7,8 +7,7 @@ public class Gym {
     Wall ShowWall = new Wall("Show Wall");
     Wall Ship = new Wall("Ship");
     Wall Cave = new Wall("Cave");
-    ArrayList<Problem> b;
-    ArrayList<Problem> c;
+
 
     ArrayList<Wall> wallList;
 
