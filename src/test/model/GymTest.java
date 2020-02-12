@@ -28,22 +28,22 @@ public class GymTest {
 
     @Test
     public void testGetClimbsOfDifficulty() {
-        gym.addProblem(new Problem("Black", 4), gym.getShowWall());
+        gym.addProblem(new Problem("Black", 4), gym.getSlab());
         gym.addProblem(new Problem("Red", 4), gym.getBigCave());
-        gym.addProblem(new Problem("Blue", 3), gym.getShowWall());
-        assertEquals("Color: Black Grade: 4 Wall: Show Wall\n" +
-                "Color: Red Grade: 4 Wall: Big Cave\n", gym.getAllClimbsOfDifficulty(4));
-        assertEquals("Color: Blue Grade: 3 Wall: Show Wall\n", gym.getAllClimbsOfDifficulty(3));
+        gym.addProblem(new Problem("Blue", 3), gym.getShip());
+        assertEquals("Color: Red Grade: 4 Wall: Big Cave\n" +
+                "Color: Black Grade: 4 Wall: Slab\n", gym.getAllClimbsOfDifficulty(4));
+        assertEquals("Color: Blue Grade: 3 Wall: Ship\n", gym.getAllClimbsOfDifficulty(3));
 
     }
 
     @Test
     public void testGetAllClimbsInOrderOfDifficulty() {
         gym.addProblem(new Problem("Black", 4), gym.getShowWall());
-        gym.addProblem(new Problem("Red", 3), gym.getBigCave());
-        gym.addProblem(new Problem("Blue", 1), gym.getShowWall());
-        assertEquals("Color: Blue Grade: 1 Wall: Show Wall\n" +
-                "Color: Red Grade: 3 Wall: Big Cave\n" +
+        gym.addProblem(new Problem("Red", 3), gym.getSmallCave());
+        gym.addProblem(new Problem("Blue", 1), gym.getBerg());
+        assertEquals("Color: Blue Grade: 1 Wall: Berg\n" +
+                "Color: Red Grade: 3 Wall: Small Cave\n" +
                 "Color: Black Grade: 4 Wall: Show Wall\n", gym.getAllClimbsInOrderOfDifficulty());
     }
 
@@ -62,6 +62,13 @@ public class GymTest {
         assertFalse(gym.hasClimbs());
         gym.addProblem(new Problem("red", 2), gym.getShowWall());
         assertTrue(gym.hasClimbs());
+    }
+
+    @Test
+    public void testGetWall() {
+        Problem p = new Problem ("Red" , 2);
+        gym.addProblem(p, gym.getSmallCave());
+        assertEquals("Small Cave", p.getWall());
     }
 //    @Test
 //    public void testProblemsOnWall(){
