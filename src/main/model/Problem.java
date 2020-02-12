@@ -17,7 +17,7 @@ public class Problem {
         //   this.wall = wall;
     }
 
-    String getColor() {
+    public String getColor() {
         return color;
     }
 

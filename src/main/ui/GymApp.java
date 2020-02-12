@@ -4,15 +4,20 @@ import java.util.Scanner;
 
 import model.Gym;
 import model.Problem;
+import model.Wall;
 
+//Gym application
 public class GymApp {
+    Gym gym;
 
+    //EFFECTS: starts gym application
     public GymApp() {
         runGym();
     }
 
-    Gym gym;
 
+    //MODIFIES: this
+    //EFFECTS: processes user input
     public void runGym() {
         int response = 0;
         Scanner kbReader = new Scanner(System.in);
@@ -32,13 +37,15 @@ public class GymApp {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: select the action for the program
     public void performAction(int choice) {
         if (choice == 1) {
             displayAll();
         } else if (choice == 2) {
             displaySorted();
         } else if (choice == 3) {
-            displayToDo();
+            removeClimbs();
         } else if (choice == 4) {
             displayClimbsOfDifficulty();
         } else if (choice == 5) {
@@ -48,6 +55,7 @@ public class GymApp {
         }
     }
 
+    //EFFECTS: display all climbs
     public void displayAll() {
         if (!gym.hasClimbs()) {
             System.out.println("Gym has no climbs");
@@ -59,19 +67,71 @@ public class GymApp {
 
     }
 
+    //EFFECTS: display climbs sorted by grades
     public void displaySorted() {
         if (!gym.hasClimbs()) {
             System.out.println("Gym has no climbs");
         } else {
-            System.out.println("test");
             System.out.println(gym.getAllClimbsInOrderOfDifficulty());
         }
     }
 
-    public void displayToDo() {
+    //MODIFIES: this
+    //EFFECTS: if climbs exist, allow user to pick a climb to remove from gym
+    public void removeClimbs() {
+        if (!gym.hasClimbs()) {
+            System.out.println("Gym has no climbs");
+        } else {
+            Scanner kbReader = new Scanner(System.in);
+            System.out.println(gym.toStringAllProblems());
+            System.out.println("What wall is the climb you want to remove on?");
+            System.out.println("1: Show Wall\n2: Ship\n3: Slab\n4: Berg\n5: Small Cave\n6: Big Cave");
+            int response = kbReader.nextInt();
+            Wall w = selectWall(response);
+            if (w.getProblemList().isEmpty()) {
+                System.out.println("No climbs");
+            } else {
+                System.out.println("Press the number corresponding to the climb you want to remove");
+                System.out.println(getProblemsForApp(w));
+                int input = kbReader.nextInt();
+                w.getProblemList().remove(input - 1);
+            }
+
+        }
 
     }
 
+    //EFFECTS: Prints out all problems on this wall with their information
+    public String getProblemsForApp(Wall w) {
+        String s = "";
+        int i = 1;
+        for (Problem p : w.getProblemList()) {
+            s += (i + ": Color: " + p.getColor() + " Grade: " + p.getGrade() + " Wall: " + p.getWall() + "\n");
+            i++;
+        }
+        return s;
+    }
+
+
+    //REQUIRES: response is between 1 and 6
+    //EFFECTS: user input selects a wall to operate on
+    public Wall selectWall(int response) {
+        if (response == 1) {
+            return gym.getShowWall();
+        } else if (response == 2) {
+            return gym.getShip();
+        } else if (response == 3) {
+            return gym.getSlab();
+        } else if (response == 4) {
+            return gym.getBerg();
+        } else if (response == 5) {
+            return gym.getSmallCave();
+        }
+        return gym.getBigCave();
+
+    }
+
+    //EFFECTS: displays all climbs of a specific difficulty
     public void displayClimbsOfDifficulty() {
         if (!gym.hasClimbs()) {
             System.out.println("Gym has no climbs");
@@ -85,6 +145,8 @@ public class GymApp {
 
     }
 
+    //MODIFIES: this
+    //EFFECTS: adds a climb to the gym
     public void addClimbs() {
         Scanner kbReader = new Scanner(System.in);
         System.out.println("What color is the climb?");
@@ -92,32 +154,17 @@ public class GymApp {
         System.out.println("What grade is it? (1-6)");
         int grade = kbReader.nextInt();
         System.out.println("What wall is it on?");
-        System.out.println("1: Show Wall\n2:Ship\n3:Slab\n4:Berg\n5:Small Cave\n6:Big Cave");
+        System.out.println("1: Show Wall\n2: Ship\n3: Slab\n4: Berg\n5: Small Cave\n6: Big Cave");
         int response = kbReader.nextInt();
-        if (response == 1) {
-            gym.addProblem(new Problem(color, grade), gym.getShowWall());
-        } else if (response == 2) {
-            gym.addProblem(new Problem(color, grade), gym.getShip());
-        } else if (response == 3) {
-            gym.addProblem(new Problem(color, grade), gym.getSlab());
-        } else if (response == 4) {
-            gym.addProblem(new Problem(color, grade), gym.getBerg());
-        } else if (response == 5) {
-            gym.addProblem(new Problem(color, grade), gym.getSmallCave());
-        } else if (response == 6) {
-            gym.addProblem(new Problem(color, grade), gym.getBigCave());
-        } else {
-            System.out.println("Invalid wall");
-        }
+        Wall w = selectWall(response);
+        gym.addProblem(new Problem(color, grade), w);
     }
 
-//    public void addtoTodo() {
-//
-//    }
 
+    //EFFECTS: displays all actions application can take
     public void displayOptions() {
         System.out.println("Select from the below operations:\n\n1: Display all climbs\n2: Display all climbs sorted "
-                + "by difficulty\n3: Show your to do list\n"
+                + "by difficulty\n3: Remove climbs from the gym\n"
                 + "4: Display all climbs of a specific difficulty\n5: Add new climbs to the gym\nPress 9 to exit");
     }
 }

@@ -35,9 +35,7 @@ public class Gym {
         return record;
     }
 
-    //public String getProblemsOnWall(Wall w) {
-    //  return w.getProblems();
-    // }
+
 
     //EFFECTS: Prints out all problems in the gym with their information
     public String getAllClimbsOfDifficulty(int i) {
@@ -68,7 +66,7 @@ public class Gym {
     //EFFECTS: returns true if gym has > 0 climbs, false otherwise
     public boolean hasClimbs() {
         for (Wall w : wallList) {
-            if (w.quantityProblems() > 0) {
+            if (!w.getProblemList().isEmpty()) {
                 return true;
             }
         }

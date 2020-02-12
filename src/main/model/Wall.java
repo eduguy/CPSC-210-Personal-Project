@@ -28,6 +28,8 @@ public class Wall {
         p.setWall(null);
     }
 
+
+
     //EFFECTS: Prints out all problems on this wall with their information
     public String getProblems() {
         String s = "";
@@ -37,9 +39,10 @@ public class Wall {
         return s;
     }
 
-    public int quantityProblems() {
-        return problemList.size();
-    }
+
+
+
+
 
     public List<Problem> getProblemList() {
         return problemList;
@@ -50,7 +53,4 @@ public class Wall {
     }
 
 
-//    public boolean containsProblem(Problem p) {
-//        return problemList.contains(p);
-//    }
 }
