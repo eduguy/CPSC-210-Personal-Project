@@ -2,15 +2,21 @@ package ui;
 
 import java.util.Scanner;
 
+import model.Gym;
+import model.Problem;
+
 public class GymApp {
 
     public GymApp() {
         runGym();
     }
 
+    Gym gym;
+
     public void runGym() {
         int response = 0;
         Scanner kbReader = new Scanner(System.in);
+        gym = new Gym();
 
         while (true) {
             displayOptions();
@@ -43,19 +49,23 @@ public class GymApp {
     }
 
     public void displayAll() {
-        //display climbs
-        Scanner kbReader = new Scanner(System.in);
-        System.out.println("Do you want to add any of these climbs to your to do list?\n 0 -> No \n 1 -> Yes");
-        int response = kbReader.nextInt();
-        if (response == 1) {
-            // addtoTodo();
+        if (!gym.hasClimbs()) {
+            System.out.println("Gym has no climbs");
+        } else {
+            System.out.println(gym.toStringAllProblems());
+
         }
 
 
     }
 
     public void displaySorted() {
-
+        if (!gym.hasClimbs()) {
+            System.out.println("Gym has no climbs");
+        } else {
+            System.out.println("test");
+            System.out.println(gym.getAllClimbsInOrderOfDifficulty());
+        }
     }
 
     public void displayToDo() {
@@ -63,20 +73,51 @@ public class GymApp {
     }
 
     public void displayClimbsOfDifficulty() {
+        if (!gym.hasClimbs()) {
+            System.out.println("Gym has no climbs");
+        } else {
+            Scanner kbReader = new Scanner(System.in);
+            System.out.println("What grade of climbs do you want to see? (1-6)");
+            int response = kbReader.nextInt();
+            System.out.println(gym.getAllClimbsOfDifficulty(response));
+
+        }
 
     }
 
     public void addClimbs() {
-
+        Scanner kbReader = new Scanner(System.in);
+        System.out.println("What color is the climb?");
+        String color = kbReader.nextLine();
+        System.out.println("What grade is it? (1-6)");
+        int grade = kbReader.nextInt();
+        System.out.println("What wall is it on?");
+        System.out.println("1: Show Wall\n2:Ship\n3:Slab\n4:Berg\n5:Small Cave\n6:Big Cave");
+        int response = kbReader.nextInt();
+        if (response == 1) {
+            gym.addProblem(new Problem(color, grade), gym.getShowWall());
+        } else if (response == 2) {
+            gym.addProblem(new Problem(color, grade), gym.getShip());
+        } else if (response == 3) {
+            gym.addProblem(new Problem(color, grade), gym.getSlab());
+        } else if (response == 4) {
+            gym.addProblem(new Problem(color, grade), gym.getBerg());
+        } else if (response == 5) {
+            gym.addProblem(new Problem(color, grade), gym.getSmallCave());
+        } else if (response == 6) {
+            gym.addProblem(new Problem(color, grade), gym.getBigCave());
+        } else {
+            System.out.println("Invalid wall");
+        }
     }
 
-    public void addtoTodo() {
-
-    }
+//    public void addtoTodo() {
+//
+//    }
 
     public void displayOptions() {
-        System.out.println("Select from the below operations\n 1: Display all climbs\n 2: Display all climbs sorted "
-                + "by difficulty\n 3: Show your to do list\n  "
-                + "4: Display all climbs of a specific difficulty\n 5: Add new climbs to the gym");
+        System.out.println("Select from the below operations:\n\n1: Display all climbs\n2: Display all climbs sorted "
+                + "by difficulty\n3: Show your to do list\n"
+                + "4: Display all climbs of a specific difficulty\n5: Add new climbs to the gym\nPress 9 to exit");
     }
 }

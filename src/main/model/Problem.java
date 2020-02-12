@@ -27,7 +27,7 @@ public class Problem {
         return wall;
     }
 
-    public void setWall(String name){
+    public void setWall(String name) {
         wall = name;
     }
 

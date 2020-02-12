@@ -43,7 +43,7 @@ public class Wall  {
         return problemList;
     }
 
-    public boolean containsProblem(Problem p) {
-        return problemList.contains(p);
-    }
+//    public boolean containsProblem(Problem p) {
+//        return problemList.contains(p);
+//    }
 }

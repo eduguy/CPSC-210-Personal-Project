@@ -18,17 +18,17 @@ and provide a map of where they are in the gym would be useful to newcomers.
 
 ##User Stories
 
-As a user, I want to be able to sort climbs in terms of their difficulty to find one that suits me.//
-__
+As a user, I want to be able to sort climbs in terms of their difficulty.//
+
 As a user, I want to be able to see only climbs that are a specific difficulty
 
 As a user, I want to be able to see all the climbs in the gym.
 
 As a user, I want to be able to add new climbs to the gym.
 
-As a user, I want to be able to track climbs that I have already completed.
-
 As a user, I want to be able to add climbs that I want to do at a later point in time.
+
+As a user, I want to be able to track climbs that I have already completed.
 
 As a user, I want to be able to see recommendations for climbs that I might enjoy.
 
