@@ -1,6 +1,6 @@
 package model;
 
-//Represents a single boulder problem
+//Represents a single boulder problem having a color and grade
 public class Problem {
 
     String color;
@@ -8,6 +8,8 @@ public class Problem {
     String style;
     String wall;
 
+    //REQUIRES: grade is integer in [1,6]
+    //EFFECTS: color of climb is set to color, grade of climb is set to grade
     public Problem(String color, int grade) {
         this.color = color;
         this.grade = grade;

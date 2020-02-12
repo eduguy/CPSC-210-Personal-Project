@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-//Gym is a list of all the climbs
+//Represents the whole Gym, which consists of walls with climbs
 public class Gym {
     Wall showWall = new Wall("Show Wall");
     Wall bigCave = new Wall("Big Cave");
@@ -14,7 +14,7 @@ public class Gym {
 
     ArrayList<Wall> wallList;
 
-
+    //EFFECTS: Creates a new gym object
     public Gym() {
         wallList = new ArrayList<Wall>();
         wallList.add(showWall);
@@ -26,6 +26,7 @@ public class Gym {
 
     }
 
+    //EFFECTS: Prints out all problems in the gym with their information
     public String toStringAllProblems() {
         String record = "";
         for (Wall w : wallList) {
@@ -35,9 +36,10 @@ public class Gym {
     }
 
     //public String getProblemsOnWall(Wall w) {
-      //  return w.getProblems();
-   // }
+    //  return w.getProblems();
+    // }
 
+    //EFFECTS: Prints out all problems in the gym with their information
     public String getAllClimbsOfDifficulty(int i) {
         String record = "";
         for (Wall w : wallList) {
@@ -50,17 +52,20 @@ public class Gym {
         return record;
     }
 
+    //EFFECTS: Prints out all problems in the gym in order of their grades
     public String getAllClimbsInOrderOfDifficulty() {
         return getAllClimbsOfDifficulty(1) + getAllClimbsOfDifficulty(2) + getAllClimbsOfDifficulty(3)
                 + getAllClimbsOfDifficulty(4) + getAllClimbsOfDifficulty(5) + getAllClimbsOfDifficulty(6);
     }
 
-
+    //MODIFIES: wall parameter
+    //EFFECTS: adds a new problem to given wall
     public void addProblem(Problem p, Wall wall) {
 
         wall.addProblem(p);
     }
 
+    //EFFECTS: returns true if gym has > 0 climbs, false otherwise
     public boolean hasClimbs() {
         for (Wall w : wallList) {
             if (w.quantityProblems() > 0) {
@@ -70,6 +75,8 @@ public class Gym {
         return false;
     }
 
+    //MODIFIES: wall parameter
+    //EFFECTS: removes a given problem from given wall
     public void removeProblem(Problem p, Wall wall) {
         wall.removeProblem(p);
     }
