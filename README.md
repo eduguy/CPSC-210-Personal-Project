@@ -3,7 +3,9 @@
 ## Project Proposal
 
 The goal of this application is to provide an interface for a user to track climbs
-in the rock climbing gym and add/remove climbs as they are set or removed.
+in the rock climbing gym and add/remove climbs as they are set or removed. The grading scale used in 
+ this program is made
+for *The Hive Climbing*.
  Eventually, this functionality will be extended into an interactive
 map of the rock climbing gym that can be 
 be used to display all boulders in the gym. Additionally, it will be able to allow the user
