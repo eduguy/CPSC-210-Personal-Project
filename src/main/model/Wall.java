@@ -28,21 +28,14 @@ public class Wall {
         p.setWall(null);
     }
 
-
-
     //EFFECTS: Prints out all problems on this wall with their information
     public String getProblems() {
         String s = "";
         for (Problem p : problemList) {
-            s += ("Color: " + p.getColor() + " Grade: " + p.getGrade() + " Wall: " + this.name + "\n");
+            s += ("Color: " + p.getColor() + " | Grade: " + p.getGrade() + " | Wall: " + this.name + "\n");
         }
         return s;
     }
-
-
-
-
-
 
     public List<Problem> getProblemList() {
         return problemList;

@@ -51,7 +51,7 @@ public class GymApp {
         } else if (choice == 5) {
             addClimbs();
         } else {
-            System.out.println("Selection not valid...");
+            System.out.println("Selection is not valid");
         }
     }
 
@@ -106,7 +106,7 @@ public class GymApp {
         String s = "";
         int i = 1;
         for (Problem p : w.getProblemList()) {
-            s += (i + ": Color: " + p.getColor() + " Grade: " + p.getGrade() + " Wall: " + p.getWall() + "\n");
+            s += (i + ": Color: " + p.getColor() + " | Grade: " + p.getGrade() + " | Wall: " + p.getWall() + "\n");
             i++;
         }
         return s;

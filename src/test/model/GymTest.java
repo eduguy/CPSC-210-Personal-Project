@@ -19,9 +19,9 @@ public class GymTest {
         gym.addProblem(new Problem("Red", 4), gym.getBigCave());
         gym.addProblem(new Problem("Blue", 4), gym.getShowWall());
         //should fail
-        assertEquals("Color: Black Grade: 4 Wall: Show Wall\n" +
-                "Color: Blue Grade: 4 Wall: Show Wall\n" +
-                "Color: Red Grade: 4 Wall: Big Cave\n", gym.toStringAllProblems());
+        assertEquals("Color: Black | Grade: 4 | Wall: Show Wall\n" +
+                "Color: Blue | Grade: 4 | Wall: Show Wall\n" +
+                "Color: Red | Grade: 4 | Wall: Big Cave\n", gym.toStringAllProblems());
 
 
     }
@@ -31,9 +31,9 @@ public class GymTest {
         gym.addProblem(new Problem("Black", 4), gym.getSlab());
         gym.addProblem(new Problem("Red", 4), gym.getBigCave());
         gym.addProblem(new Problem("Blue", 3), gym.getShip());
-        assertEquals("Color: Red Grade: 4 Wall: Big Cave\n" +
-                "Color: Black Grade: 4 Wall: Slab\n", gym.getAllClimbsOfDifficulty(4));
-        assertEquals("Color: Blue Grade: 3 Wall: Ship\n", gym.getAllClimbsOfDifficulty(3));
+        assertEquals("Color: Red | Grade: 4 | Wall: Big Cave\n" +
+                "Color: Black | Grade: 4 | Wall: Slab\n", gym.getAllClimbsOfDifficulty(4));
+        assertEquals("Color: Blue | Grade: 3 | Wall: Ship\n", gym.getAllClimbsOfDifficulty(3));
 
     }
 
@@ -42,9 +42,9 @@ public class GymTest {
         gym.addProblem(new Problem("Black", 4), gym.getShowWall());
         gym.addProblem(new Problem("Red", 3), gym.getSmallCave());
         gym.addProblem(new Problem("Blue", 1), gym.getBerg());
-        assertEquals("Color: Blue Grade: 1 Wall: Berg\n" +
-                "Color: Red Grade: 3 Wall: Small Cave\n" +
-                "Color: Black Grade: 4 Wall: Show Wall\n", gym.getAllClimbsInOrderOfDifficulty());
+        assertEquals("Color: Blue | Grade: 1 | Wall: Berg\n" +
+                "Color: Red | Grade: 3 | Wall: Small Cave\n" +
+                "Color: Black | Grade: 4 | Wall: Show Wall\n", gym.getAllClimbsInOrderOfDifficulty());
     }
 
 
@@ -70,13 +70,6 @@ public class GymTest {
         gym.addProblem(p, gym.getSmallCave());
         assertEquals("Small Cave", p.getWall());
     }
-//    @Test
-//    public void testProblemsOnWall(){
-//        gym.addProblem(new Problem("Black", 4), gym.getShowWall());
-//        gym.addProblem(new Problem("Red", 4), gym.getBigCave());
-//        gym.addProblem(new Problem("Blue", 3), gym.getShowWall());
-//        assertEquals("a", gym.getProblemsOnWall(gym.getShowWall()));
-//
-//    }
+
 
 }

@@ -5,7 +5,6 @@ public class Problem {
 
     String color;
     int grade;
-    String style;
     String wall;
 
     //REQUIRES: grade is integer in [1,6]
@@ -13,8 +12,6 @@ public class Problem {
     public Problem(String color, int grade) {
         this.color = color;
         this.grade = grade;
-
-        //   this.wall = wall;
     }
 
     public String getColor() {

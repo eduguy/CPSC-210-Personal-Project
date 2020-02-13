@@ -36,14 +36,14 @@ public class Gym {
     }
 
 
-
     //EFFECTS: Prints out all problems in the gym with their information
     public String getAllClimbsOfDifficulty(int i) {
         String record = "";
         for (Wall w : wallList) {
             for (Problem p : w.getProblemList()) {
                 if (p.getGrade() == i) {
-                    record += ("Color: " + p.getColor() + " Grade: " + p.getGrade() + " Wall: " + w.getName() + "\n");
+                    record += ("Color: " + p.getColor() + " | Grade: " + p.getGrade()
+                            + " | Wall: " + w.getName() + "\n");
                 }
             }
         }
@@ -63,6 +63,12 @@ public class Gym {
         wall.addProblem(p);
     }
 
+    //MODIFIES: wall parameter
+    //EFFECTS: removes a given problem from given wall
+    public void removeProblem(Problem p, Wall wall) {
+        wall.removeProblem(p);
+    }
+
     //EFFECTS: returns true if gym has > 0 climbs, false otherwise
     public boolean hasClimbs() {
         for (Wall w : wallList) {
@@ -71,12 +77,6 @@ public class Gym {
             }
         }
         return false;
-    }
-
-    //MODIFIES: wall parameter
-    //EFFECTS: removes a given problem from given wall
-    public void removeProblem(Problem p, Wall wall) {
-        wall.removeProblem(p);
     }
 
 
