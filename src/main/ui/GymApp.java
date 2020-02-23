@@ -1,10 +1,15 @@
 package ui;
 
+import java.io.File;
+import java.io.IOError;
+import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 import model.Gym;
 import model.Problem;
 import model.Wall;
+import persistence.Reader;
 
 //Gym application
 public class GymApp {
@@ -37,6 +42,18 @@ public class GymApp {
 
         }
     }
+
+    //MODIFIES: this
+    //EFFECTS: Loads climbs from the gym file, if climbs exist;
+    //         otherwise it will initilaize an empty gym
+    public void loadGym() {
+        try {
+            List<Problem> list = Reader.readGym(new File(GYM_FILE));
+        } catch (IOException e) {
+            gym = new Gym();
+        }
+    }
+
 
     //MODIFIES: this
     //EFFECTS: select the action for the program

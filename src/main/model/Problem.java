@@ -14,6 +14,12 @@ public class Problem {
         this.grade = grade;
     }
 
+    public Problem(String color, int grade, String wall) {
+        this.color = color;
+        this.grade = grade;
+        this.wall = wall;
+    }
+
     public String getColor() {
         return color;
     }
