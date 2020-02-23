@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.*;
 
+//CODE USED FROM TELLERAPP
 // A reader that can read Gym data from a file
 public class Reader {
 
