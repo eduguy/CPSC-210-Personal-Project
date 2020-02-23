@@ -9,6 +9,7 @@ import model.Wall;
 //Gym application
 public class GymApp {
     Gym gym;
+    private static final String GYM_FILE = "./data/climbs.txt";
 
     //EFFECTS: starts gym application
     public GymApp() {

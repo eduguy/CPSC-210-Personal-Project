@@ -32,6 +32,10 @@ and provide a map of where they are in the gym would be useful to newcomers.
 
 - As a user, I want to be able to remove climbs from the gym.
 
+- As a user, I want to be able to save the list of climbs to a file.
+
+- As a user, I want to be able to load the list of climbs when the program starts.
+
 
 
 - As a user, I want to be able to add climbs that I want to do at a later point in time.
