@@ -1,8 +1,6 @@
 package ui;
 
-import java.io.File;
-import java.io.IOError;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,6 +8,7 @@ import model.Gym;
 import model.Problem;
 import model.Wall;
 import persistence.Reader;
+import persistence.Writer;
 
 //Gym application
 public class GymApp {
@@ -27,7 +26,7 @@ public class GymApp {
     public void runGym() {
         int response = 0;
         Scanner kbReader = new Scanner(System.in);
-        gym = new Gym();
+        loadGym();
 
         while (true) {
             displayOptions();
@@ -49,6 +48,7 @@ public class GymApp {
     public void loadGym() {
         try {
             List<Problem> list = Reader.readGym(new File(GYM_FILE));
+            gym = new Gym();
             for (Problem p : list) {
                 if (p.getWall().equals("Show Wall")) {
                     gym.getShowWall().addProblem(p);
@@ -71,6 +71,23 @@ public class GymApp {
 
     //EFFECTS: saves all problems to GYM_FILE
     public void saveGym() {
+        Writer writer = null;
+        try {
+            writer = new Writer(new File(GYM_FILE));
+
+            for (Wall w : gym.wallList) {
+                for (Problem p : w.getProblemList()) {
+                    writer.write(p);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("Unable to save to the gym file");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        writer.close();
+        System.out.println("Gym saved");
 
     }
 
@@ -88,10 +105,13 @@ public class GymApp {
             displayClimbsOfDifficulty();
         } else if (choice == 5) {
             addClimbs();
+        } else if (choice == 6) {
+            saveGym();
         } else {
             System.out.println("Selection is not valid");
         }
     }
+
 
     //EFFECTS: display all climbs
     public void displayAll() {
@@ -203,6 +223,6 @@ public class GymApp {
     public void displayOptions() {
         System.out.println("Select from the below operations:\n\n1: Display all climbs\n2: Display all climbs sorted "
                 + "by difficulty\n3: Remove climbs from the gym\n"
-                + "4: Display all climbs of a specific difficulty\n5: Add new climbs to the gym\nPress 9 to exit");
+                + "4: Display all climbs of a specific difficulty\n5: Add new climbs to the gym\n6: Save all climbs\nPress 9 to exit");
     }
 }

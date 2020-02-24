@@ -12,7 +12,7 @@ public class Gym {
     Wall slab = new Wall("Slab");
 
 
-    ArrayList<Wall> wallList;
+    public ArrayList<Wall> wallList;
 
     //EFFECTS: Creates a new gym object
     public Gym() {
