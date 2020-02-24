@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class WriterTest {
 
-    String testFile = "/.data/writeTest.txt";
+    String testFile = "./data/writeTest.txt";
     Gym gym;
     Writer test;
     Problem p1;
@@ -22,8 +22,9 @@ public class WriterTest {
     @BeforeEach
     void setUp() throws FileNotFoundException, UnsupportedEncodingException {
         p1 = new Problem("Red", 5);
-        gym.addProblem(p1, gym.getShowWall());
         p2 = new Problem("Blue", 2);
+        gym = new Gym();
+        gym.addProblem(p1, gym.getShowWall());
         gym.addProblem(p2, gym.getBigCave());
         test = new Writer(new File(testFile));
 

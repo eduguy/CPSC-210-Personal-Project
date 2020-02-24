@@ -69,6 +69,11 @@ public class GymApp {
         }
     }
 
+    //EFFECTS: saves all problems to GYM_FILE
+    public void saveGym() {
+
+    }
+
 
     //MODIFIES: this
     //EFFECTS: select the action for the program

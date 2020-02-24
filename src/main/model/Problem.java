@@ -46,6 +46,6 @@ public class Problem implements Saveable {
         printWriter.print(",");
         printWriter.print(grade);
         printWriter.print(",");
-        printWriter.print(wall);
+        printWriter.println(wall);
     }
 }
