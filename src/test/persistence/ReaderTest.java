@@ -34,9 +34,9 @@ public class ReaderTest {
             assertEquals(p1.getGrade(), 5);
             assertEquals(p1.getWall(), "Show Wall");
             Problem p2 = trial.get(1);
-            assertEquals(p1.getColor(), "Blue");
-            assertEquals(p1.getGrade(), 3);
-            assertEquals(p1.getWall(), "Big Cave");
+            assertEquals(p2.getColor(), "Blue");
+            assertEquals(p2.getGrade(), 3);
+            assertEquals(p2.getWall(), "Big Cave");
         } catch (IOException e) {
             fail("Shouldn't have thrown exception :(");
         }

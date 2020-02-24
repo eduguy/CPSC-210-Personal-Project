@@ -1,7 +1,11 @@
 package model;
 
+import persistence.Saveable;
+
+import java.io.PrintWriter;
+
 //Represents a single boulder problem having a color and grade
-public class Problem {
+public class Problem implements Saveable {
 
     String color;
     int grade;
@@ -36,4 +40,8 @@ public class Problem {
         wall = name;
     }
 
+    @Override
+    public void save(PrintWriter printWriter) {
+
+    }
 }

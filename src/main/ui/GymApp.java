@@ -45,10 +45,25 @@ public class GymApp {
 
     //MODIFIES: this
     //EFFECTS: Loads climbs from the gym file, if climbs exist;
-    //         otherwise it will initilaize an empty gym
+    //         otherwise it will initialize an empty gym
     public void loadGym() {
         try {
             List<Problem> list = Reader.readGym(new File(GYM_FILE));
+            for (Problem p : list) {
+                if (p.getWall().equals("Show Wall")) {
+                    gym.getShowWall().addProblem(p);
+                } else if (p.getWall().equals("Ship")) {
+                    gym.getShip().addProblem(p);
+                } else if (p.getWall().equals("Slab")) {
+                    gym.getSlab().addProblem(p);
+                } else if (p.getWall().equals("Berg")) {
+                    gym.getBerg().addProblem(p);
+                } else if (p.getWall().equals("Small Cave")) {
+                    gym.getSmallCave().addProblem(p);
+                } else {
+                    gym.getBigCave().addProblem(p);
+                }
+            }
         } catch (IOException e) {
             gym = new Gym();
         }
