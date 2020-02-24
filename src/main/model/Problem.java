@@ -42,6 +42,10 @@ public class Problem implements Saveable {
 
     @Override
     public void save(PrintWriter printWriter) {
-
+        printWriter.print(color);
+        printWriter.print(",");
+        printWriter.print(grade);
+        printWriter.print(",");
+        printWriter.print(wall);
     }
 }
