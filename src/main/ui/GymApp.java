@@ -223,6 +223,7 @@ public class GymApp {
     public void displayOptions() {
         System.out.println("Select from the below operations:\n\n1: Display all climbs\n2: Display all climbs sorted "
                 + "by difficulty\n3: Remove climbs from the gym\n"
-                + "4: Display all climbs of a specific difficulty\n5: Add new climbs to the gym\n6: Save all climbs\nPress 9 to exit");
+                + "4: Display all climbs of a specific difficulty\n5: Add new climbs to the gym\n"
+                + "6: Save all climbs\nPress 9 to exit");
     }
 }
