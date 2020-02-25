@@ -47,7 +47,7 @@ public class GymApp {
     //         otherwise it will initialize an empty gym
     public void loadGym() {
         try {
-            List<Problem> list = Reader.readGym(new File(GYM_FILE));
+            List<Problem> list = Reader.readProblems(new File(GYM_FILE));
             gym = new Gym();
             for (Problem p : list) {
                 if (p.getWall().equals("Show Wall")) {

@@ -16,7 +16,7 @@ public class ReaderTest {
     @Test
     void testParseTestFile1() {
         try {
-            List<Problem> trial = Reader.readGym(new File("./data/testfile.txt"));
+            List<Problem> trial = Reader.readProblems(new File("./data/testfile.txt"));
             Problem p1 = trial.get(0);
             assertEquals(p1.getColor(), "Red");
             assertEquals(p1.getGrade(), 5);
@@ -26,10 +26,12 @@ public class ReaderTest {
         }
     }
 
+
+
     @Test
     void testParseTestFile2() {
         try {
-            List<Problem> trial = Reader.readGym(new File("./data/testfile2.txt"));
+            List<Problem> trial = Reader.readProblems(new File("./data/testfile2.txt"));
             Problem p1 = trial.get(0);
             assertEquals(p1.getColor(), "Red");
             assertEquals(p1.getGrade(), 5);
@@ -46,7 +48,7 @@ public class ReaderTest {
     @Test
     void testIOException() {
         try {
-            Reader.readGym(new File("./data/dne"));
+            Reader.readProblems(new File("./data/dne"));
         } catch (IOException e) {
             //expected
         }

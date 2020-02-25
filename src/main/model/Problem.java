@@ -18,6 +18,10 @@ public class Problem implements Saveable {
         this.grade = grade;
     }
 
+
+    //REQUIRES: grade is integer in [1,6], wall name is one of the walls in gym class
+    //EFFECTS: creates a new problem
+    //SHOULD ONLY BE USED FOR LOADING DATA
     public Problem(String color, int grade, String wall) {
         this.color = color;
         this.grade = grade;

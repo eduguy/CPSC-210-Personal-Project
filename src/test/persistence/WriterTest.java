@@ -39,7 +39,7 @@ public class WriterTest {
         test.close();
 
         try {
-            List<Problem> problems = Reader.readGym(new File(testFile));
+            List<Problem> problems = Reader.readProblems(new File(testFile));
             Problem p1_1 = problems.get(0);
             Problem p2_1 = problems.get(1);
 

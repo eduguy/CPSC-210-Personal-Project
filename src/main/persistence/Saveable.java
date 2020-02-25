@@ -2,10 +2,8 @@ package persistence;
 
 import java.io.PrintWriter;
 
-// Represents data that can be saved to file
+// Represents data that can be saved to file,with code borrowed from CPSC 210 Teller App
 public interface Saveable {
-
-    //WITH CODE FROM TELLERAPP
 
     // MODIFIES: printWriter
     // EFFECTS: writes the saveable to printWriter
