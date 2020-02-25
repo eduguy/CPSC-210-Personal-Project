@@ -7,9 +7,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.*;
 
-//CODE USED FROM TELLERAPP
 // A reader that can read Gym data from a file
 public class Reader {
+
+    //CODE FROM TELLERAPP
 
     //EFFECTS: return a list of Problems from a file, with their wall information
     public static List<Problem> readGym(File info) throws IOException {

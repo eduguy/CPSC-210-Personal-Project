@@ -11,6 +11,8 @@ import java.io.UnsupportedEncodingException;
 public class Writer {
     private PrintWriter printWriter;
 
+    //WITH CODE FROM TELLER APP
+
     // EFFECTS: constructs a writer that will write data to file
     public Writer(File file) throws FileNotFoundException, UnsupportedEncodingException {
         printWriter = new PrintWriter(file, "UTF-8");
