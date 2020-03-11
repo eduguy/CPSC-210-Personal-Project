@@ -11,7 +11,7 @@ public class GUI extends JFrame {
 
     private final int HEIGHT = 500;
     private final int WIDTH = 750;
-    final String MAIN_PANEL = "Main Panel";
+
     JPanel mainPanel;
     JPanel addPanel;
     JLabel textBox1;
@@ -20,7 +20,11 @@ public class GUI extends JFrame {
     private JButton addNewButton;
     private JButton seeClimbsButton;
     private JButton removeClimbsButton;
-    CardLayout cardLayout;
+    private JTextField colorClimbAdded;
+    private JButton backAddPanel;
+    private JComboBox addPanelWalls;
+    String[] wallNames = {"Show Wall", "Ship", "Slab", "Berg", "Small Cave"};
+    CardLayout cardLayout = new CardLayout();
 
 
     public GUI() {
@@ -32,14 +36,12 @@ public class GUI extends JFrame {
         setVisible(true);
         gym = new Gym();
 
-        cards = new JPanel(new CardLayout());
+        cards = new JPanel(cardLayout);
         mainPanel = new JPanel();
-        mainPanel.setName("Main Panel");
-        cards.add(mainPanel);
+        cards.add("Main Panel", mainPanel);
         add(cards);
         setUpHome();
-
-        initializeButtons();
+        initAddPanel();
 
 //        cardLayout.first(cards);
 
@@ -52,6 +54,13 @@ public class GUI extends JFrame {
         //   background.setIcon(new ImageIcon("data/review.PNG"));// your image here
         mainPanel.add(background);
         addNewButton = new JButton("Click here to add climbs");
+        addNewButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                CardLayout c1 = new CardLayout();
+                cardLayout.show(cards, "Add Panel");
+            }
+        });
         seeClimbsButton = new JButton("Click here to see all climbs");
         removeClimbsButton = new JButton("Click here to remove climbs.");
         mainPanel.add(addNewButton);
@@ -59,27 +68,28 @@ public class GUI extends JFrame {
         mainPanel.add(removeClimbsButton);
     }
 
-//    public void showMain() {
-//        CardLayout c1 = new CardLayout();
-//        c1.show(mainPanel, "Main Panel");
-//    }
 
-    public void initializeButtons() {
-        addNewButton = new JButton("Click here to add climbs");
+
+    public void initAddPanel() {
         addPanel = new JPanel();
-        addPanel.setName("Add Panel");
-        textBox1 = new JLabel("add climbs");
-        //addPanel.add(addNewButton);
-        //addPanel.add(textBox1);
-        //cards.add(addPanel);
-        addNewButton.addActionListener(new ActionListener() {
+        textBox1 = new JLabel("Add climbs below\nWhat is the color of the climb?");
+        addPanel.add(textBox1);
+        colorClimbAdded = new JTextField();
+        colorClimbAdded.setColumns(10);
+        addPanel.add(colorClimbAdded);
+        addPanelWalls = new JComboBox(wallNames);
+        addPanel.add(addPanelWalls);
+        cards.add("Add Panel", addPanel);
+
+        backAddPanel = new JButton("Back");
+        addPanel.add(backAddPanel);
+        backAddPanel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                System.out.println("HI ALL");
-                // CardLayout c1 = (CardLayout)(cards.getLayout());
-                //  c1.show(addPanel, "Add Panel");
+                cardLayout.show(cards, "Main Panel");
             }
         });
+
     }
 
 
