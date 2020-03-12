@@ -3,16 +3,24 @@ package ui;
 import model.Gym;
 import model.Problem;
 import model.Wall;
+import persistence.Reader;
+import persistence.Writer;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 public class GUI extends JFrame {
 
     private final int HEIGHT = 500;
     private final int WIDTH = 750;
+    private static final String GYM_FILE = "./data/testfile2.txt";
 
     private final int WALL_QUANTITY = 6;
     JPanel mainPanel;
@@ -43,8 +51,7 @@ public class GUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
-        gym = new Gym();
-
+        loadGym();
         cards = new JPanel(cardLayout);
         mainPanel = new JPanel();
         cards.add("Main Panel", mainPanel);
@@ -158,6 +165,56 @@ public class GUI extends JFrame {
             return gym.getSmallCave();
         }
         return gym.getBigCave();
+
+    }
+
+    //stright copy from app
+    //MODIFIES: this
+    //EFFECTS: Loads climbs from the gym file, if climbs exist;
+    //         otherwise it will initialize an empty gym
+    public void loadGym() {
+        try {
+            List<Problem> list = Reader.readProblems(new File(GYM_FILE));
+            gym = new Gym();
+            for (Problem p : list) {
+                if (p.getWall().equals("Show Wall")) {
+                    gym.getShowWall().addProblem(p);
+                } else if (p.getWall().equals("Ship")) {
+                    gym.getShip().addProblem(p);
+                } else if (p.getWall().equals("Slab")) {
+                    gym.getSlab().addProblem(p);
+                } else if (p.getWall().equals("Berg")) {
+                    gym.getBerg().addProblem(p);
+                } else if (p.getWall().equals("Small Cave")) {
+                    gym.getSmallCave().addProblem(p);
+                } else {
+                    gym.getBigCave().addProblem(p);
+                }
+            }
+        } catch (IOException e) {
+            gym = new Gym();
+        }
+    }
+
+    //EFFECTS: saves all problems to GYM_FILE
+    public void saveGym() {
+        Writer writer = null;
+        try {
+            writer = new Writer(new File(GYM_FILE));
+
+            for (Wall w : gym.wallList) {
+                for (Problem p : w.getProblemList()) {
+                    writer.write(p);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("Unable to save to the gym file");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        writer.close();
+        System.out.println("Gym saved");
 
     }
 
