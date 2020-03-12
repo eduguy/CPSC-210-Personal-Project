@@ -1,6 +1,7 @@
 package ui;
 
 import model.Gym;
+import model.Problem;
 import model.Wall;
 
 import javax.swing.*;
@@ -13,7 +14,7 @@ public class GUI extends JFrame {
     private final int HEIGHT = 500;
     private final int WIDTH = 750;
 
-    private final int WALL_QUANTITY = 5;
+    private final int WALL_QUANTITY = 6;
     JPanel mainPanel;
     JPanel addPanel;
     JLabel textBox1;
@@ -26,7 +27,7 @@ public class GUI extends JFrame {
     private JButton backAddPanel;
     private JComboBox addPanelWalls;
     private JComboBox addPanelGrade;
-    String[] wallNames = {"Show Wall", "Ship", "Slab", "Berg", "Small Cave"};
+    String[] wallNames = {"Show Wall", "Ship", "Slab", "Berg", "Small Cave", "Big Cave"};
     Integer[] grades = {1, 2, 3, 4, 5, 6,};
     CardLayout cardLayout = new CardLayout();
     private JPanel climbsPanel;
@@ -75,6 +76,7 @@ public class GUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 cardLayout.show(cards, "Climbs Panel");
+                allClimbs.setText(gym.toStringAllProblems());
             }
         });
         removeClimbsButton = new JButton("Click here to remove climbs.");
@@ -87,7 +89,7 @@ public class GUI extends JFrame {
         climbsPanel = new JPanel();
         allClimbs = new JLabel(gym.toStringAllProblems());
         climbsPanel.add(allClimbs);
-
+        System.out.println(gym.toStringAllProblems());
         cards.add("Climbs Panel", climbsPanel);
 
         backClimbPanel = new JButton("Back");
@@ -99,10 +101,6 @@ public class GUI extends JFrame {
         });
         climbsPanel.add(backClimbPanel);
     }
-
-    String color = "";
-    Wall wall;
-    int grade;
 
     public void initAddPanel() {
 
@@ -136,14 +134,31 @@ public class GUI extends JFrame {
         addClimbButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                System.out.println(addPanelGrade.getSelectedIndex() + 1);
-                System.out.println(colorClimbAdded.getText());
-                System.out.println((String) addPanelWalls.getSelectedItem());
+                int grade = addPanelGrade.getSelectedIndex() + 1;
+                String color = colorClimbAdded.getText();
+                int index = addPanelWalls.getSelectedIndex() + 1;
+
+                gym.addProblem(new Problem(color, grade), selectWall(index));
             }
         });
         addPanel.add(addClimbButton);
 
     }
 
+    public Wall selectWall(int index) {
+        if (index == 1) {
+            return gym.getShowWall();
+        } else if (index == 2) {
+            return gym.getShip();
+        } else if (index == 3) {
+            return gym.getSlab();
+        } else if (index == 4) {
+            return gym.getBerg();
+        } else if (index == 5) {
+            return gym.getSmallCave();
+        }
+        return gym.getBigCave();
+
+    }
 
 }
