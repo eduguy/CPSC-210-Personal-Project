@@ -10,6 +10,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -49,6 +51,16 @@ public class GUI extends JFrame {
         setLayout(new BorderLayout());
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //window listener code from stackoverflow
+        // (https://stackoverflow.com/questions/16295942/java-swing-adding-action-listener-for-exit-on-close)
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                saveGym();
+                e.getWindow().dispose();
+            }
+        });
+
         setLocationRelativeTo(null);
         setVisible(true);
         loadGym();
