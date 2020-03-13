@@ -1,3 +1,2 @@
 Red,5,Show Wall
 Blue,3,Big Cave
-black,1,Big Cave

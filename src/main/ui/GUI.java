@@ -26,7 +26,7 @@ public class GUI extends JFrame {
 
     private final int WALL_QUANTITY = 6;
     JPanel mainPanel;
-    JPanel addPanel;
+    JPanel addRemovePanel;
     JLabel textBox1;
     JPanel cards;
     Gym gym;
@@ -39,11 +39,19 @@ public class GUI extends JFrame {
     private JComboBox addPanelGrade;
     String[] wallNames = {"Show Wall", "Ship", "Slab", "Berg", "Small Cave", "Big Cave"};
     Integer[] grades = {1, 2, 3, 4, 5, 6,};
+    String[] options = {"Wall", "Difficulty", "Color"};
     CardLayout cardLayout = new CardLayout();
     private JPanel climbsPanel;
     private JLabel allClimbs;
     private JButton backClimbPanel;
     private JButton addClimbButton;
+    private JLabel removeLabel;
+    private JTextField colorClimbRemove;
+    private JComboBox removePanelWalls;
+    private JComboBox<Integer> removePanelGrade;
+    private JComboBox<String> sortingOptionsComboBox;
+    private int OPTIONS_SIZE = 2;
+    private JButton sortingOptionsGo;
 
 
     public GUI() {
@@ -69,7 +77,7 @@ public class GUI extends JFrame {
         cards.add("Main Panel", mainPanel);
         add(cards);
         setUpHome();
-        initAddPanel();
+        initAndAddRemovePanel();
         initSeeClimbs();
 
 //        cardLayout.first(cards);
@@ -101,7 +109,6 @@ public class GUI extends JFrame {
         removeClimbsButton = new JButton("Click here to remove climbs.");
         mainPanel.add(addNewButton);
         mainPanel.add(seeClimbsButton);
-        mainPanel.add(removeClimbsButton);
     }
 
     public void initSeeClimbs() {
@@ -111,6 +118,19 @@ public class GUI extends JFrame {
         System.out.println(gym.toStringAllProblems());
         cards.add("Climbs Panel", climbsPanel);
 
+        sortingOptionsComboBox = new JComboBox<String>(options);
+        sortingOptionsComboBox.setSelectedIndex(OPTIONS_SIZE);
+        sortingOptionsGo = new JButton("Sort");
+        sortingOptionsGo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                allClimbs.setText(gym.getAllClimbsInOrderOfDifficulty());
+            }
+        });
+        // TODO: 2020-03-12 : continue the sorting method, take input for how to sort, also reformat
+
+        climbsPanel.add(sortingOptionsGo);
+        climbsPanel.add(sortingOptionsComboBox);
         backClimbPanel = new JButton("Back");
         backClimbPanel.addActionListener(new ActionListener() {
             @Override
@@ -121,27 +141,27 @@ public class GUI extends JFrame {
         climbsPanel.add(backClimbPanel);
     }
 
-    public void initAddPanel() {
+    public void initAndAddRemovePanel() {
 
-        addPanel = new JPanel();
+        addRemovePanel = new JPanel();
         textBox1 = new JLabel("Add climbs below\nWhat is the color of the climb?");
-        addPanel.add(textBox1);
+        addRemovePanel.add(textBox1);
         colorClimbAdded = new JTextField();
         colorClimbAdded.setColumns(10);
 
-        addPanel.add(colorClimbAdded);
+        addRemovePanel.add(colorClimbAdded);
 
         addPanelWalls = new JComboBox(wallNames);
         addPanelWalls.setSelectedIndex(WALL_QUANTITY - 1);
 
 
-        addPanel.add(addPanelWalls);
+        addRemovePanel.add(addPanelWalls);
         addPanelGrade = new JComboBox<>(grades);
-        addPanel.add(addPanelGrade);
-        cards.add("Add Panel", addPanel);
+        addRemovePanel.add(addPanelGrade);
+        cards.add("Add Panel", addRemovePanel);
 
         backAddPanel = new JButton("Back");
-        addPanel.add(backAddPanel);
+        addRemovePanel.add(backAddPanel);
         backAddPanel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -156,11 +176,46 @@ public class GUI extends JFrame {
                 int grade = addPanelGrade.getSelectedIndex() + 1;
                 String color = colorClimbAdded.getText();
                 int index = addPanelWalls.getSelectedIndex() + 1;
+                Wall w = selectWall(index);
+                // TODO: 2020-03-12: not possible to remove problems because I can't match problems
+            }
+        });
+        addRemovePanel.add(addClimbButton);
+
+        initRemovePanel();
+
+    }
+
+    public void initRemovePanel() {
+        removeLabel = new JLabel("Remove climbs here");
+        addRemovePanel.add(removeLabel);
+
+        colorClimbRemove = new JTextField();
+        colorClimbRemove.setColumns(10);
+
+        addRemovePanel.add(colorClimbRemove);
+
+        removePanelWalls = new JComboBox(wallNames);
+        removePanelWalls.setSelectedIndex(WALL_QUANTITY - 1);
+
+        addRemovePanel.add(removePanelWalls);
+        removePanelGrade = new JComboBox<>(grades);
+        addRemovePanel.add(removePanelGrade);
+
+        removeClimbsButton = new JButton("Remove");
+        addRemovePanel.add(removeClimbsButton);
+        removeClimbsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                int grade = addPanelGrade.getSelectedIndex() + 1;
+                String color = colorClimbAdded.getText();
+                int index = addPanelWalls.getSelectedIndex() + 1;
 
                 gym.addProblem(new Problem(color, grade), selectWall(index));
             }
         });
-        addPanel.add(addClimbButton);
+
+        addRemovePanel.add(removeClimbsButton);
 
     }
 
