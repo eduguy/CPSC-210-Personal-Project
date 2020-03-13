@@ -1,2 +1,3 @@
 Red,5,Show Wall
+asdf,5,Show Wall
 Blue,3,Ship

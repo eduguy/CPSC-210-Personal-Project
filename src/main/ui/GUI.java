@@ -232,7 +232,8 @@ public class GUI extends JFrame {
                 int grade = addPanelGrade.getSelectedIndex() + 1;
                 String color = colorClimbAdded.getText();
                 int index = addPanelWalls.getSelectedIndex() + 1;
-                // TODO: 2020-03-12: not possible to remove problems because I can't match problems
+                // TODO: 2020-03-12: not possible to remove problems because I can't match problems, should probably make a seperate panel
+                //
 
                 gym.addProblem(new Problem(color, grade), selectWall(index));
 
