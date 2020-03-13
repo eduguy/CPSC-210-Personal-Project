@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 //Represents the whole Gym, which consists of walls with climbs
 public class Gym {
-    Wall showWall = new Wall("Show Wall");
-    Wall bigCave = new Wall("Big Cave");
-    Wall ship = new Wall("Ship");
-    Wall smallCave = new Wall("Small Cave");
-    Wall berg = new Wall("Berg");
-    Wall slab = new Wall("Slab");
+    private Wall showWall = new Wall("Show Wall");
+    private Wall bigCave = new Wall("Big Cave");
+    private Wall ship = new Wall("Ship");
+    private Wall smallCave = new Wall("Small Cave");
+    private Wall berg = new Wall("Berg");
+    private Wall slab = new Wall("Slab");
 
 
     public ArrayList<Wall> wallList;
@@ -28,11 +28,10 @@ public class Gym {
 
     //EFFECTS: Prints out all problems in the gym with their information
     public String toStringAllProblems() {
-        String record = "<html>";
+        String record = "";
         for (Wall w : wallList) {
-            record += w.getProblems() + "<br>";
+            record += w.getProblems();
         }
-        record += "</html>";
         return record;
     }
 

@@ -39,7 +39,7 @@ public class GUI extends JFrame {
     private JComboBox addPanelGrade;
     String[] wallNames = {"Show Wall", "Ship", "Slab", "Berg", "Small Cave", "Big Cave"};
     Integer[] grades = {1, 2, 3, 4, 5, 6,};
-    String[] options = {"Wall", "Difficulty", "Color"};
+    String[] options = {"Wall", "Difficulty"};
     CardLayout cardLayout = new CardLayout();
     private JPanel climbsPanel;
     private JLabel allClimbs;
@@ -50,7 +50,7 @@ public class GUI extends JFrame {
     private JComboBox removePanelWalls;
     private JComboBox<Integer> removePanelGrade;
     private JComboBox<String> sortingOptionsComboBox;
-    private static int OPTIONS_SIZE = 2;
+    private static int OPTIONS_SIZE = 1;
     private JButton sortingOptionsGo;
     private JOptionPane confirmAddOption;
 
@@ -120,15 +120,16 @@ public class GUI extends JFrame {
         cards.add("Climbs Panel", climbsPanel);
 
         sortingOptionsComboBox = new JComboBox<String>(options);
-        sortingOptionsComboBox.setSelectedIndex(OPTIONS_SIZE);
+        sortingOptionsComboBox.setSelectedIndex(OPTIONS_SIZE - 1);
         sortingOptionsGo = new JButton("Sort");
         sortingOptionsGo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                allClimbs.setText(gym.getAllClimbsInOrderOfDifficulty());
+                sortIndex();
             }
         });
         // TODO: 2020-03-12 : continue the sorting method, take input for how to sort, also reformat
+        // TODO: possibly make names clickable to add to wishilst
 
         climbsPanel.add(sortingOptionsGo);
         climbsPanel.add(sortingOptionsComboBox);
@@ -140,6 +141,16 @@ public class GUI extends JFrame {
             }
         });
         climbsPanel.add(backClimbPanel);
+    }
+
+    private void sortIndex() {
+        if (sortingOptionsComboBox.getSelectedIndex() == 0) {
+            allClimbs.setText(gym.toStringAllProblems());
+        } else if (sortingOptionsComboBox.getSelectedIndex() == 1) {
+            allClimbs.setText(gym.getAllClimbsInOrderOfDifficulty());
+        }
+
+
     }
 
     public void initAndAddRemovePanel() {
@@ -155,7 +166,7 @@ public class GUI extends JFrame {
         addPanelWalls = new JComboBox(wallNames);
         addPanelWalls.setSelectedIndex(WALL_QUANTITY - 1);
 
-        confirmAddOption = new JOptionPane();
+        confirmAddOption = new JOptionPane("Success!");
 
         addRemovePanel.add(addPanelWalls);
         addPanelGrade = new JComboBox<>(grades);
@@ -172,6 +183,14 @@ public class GUI extends JFrame {
             }
         });
 
+        initAddClimbButton();
+
+        initRemovePanel();
+
+    }
+
+    //https://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html
+    private void initAddClimbButton() {
         addClimbButton = new JButton("Add");
         addClimbButton.addActionListener(new ActionListener() {
             @Override
@@ -180,14 +199,14 @@ public class GUI extends JFrame {
                 String color = colorClimbAdded.getText();
                 int index = addPanelWalls.getSelectedIndex() + 1;
                 gym.addProblem(new Problem(color, grade), selectWall(index));
-                addRemovePanel.add(confirmAddOption);
-                //confirmAddOption.showConfirmDialog(addRemovePanel, "Abc");
+                JOptionPane.showMessageDialog(addRemovePanel,
+                        "Success!.",
+                        "Message",
+                        JOptionPane.PLAIN_MESSAGE);
+                colorClimbAdded.setText("");
             }
         });
         addRemovePanel.add(addClimbButton);
-
-        initRemovePanel();
-
     }
 
     public void initRemovePanel() {
