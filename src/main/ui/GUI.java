@@ -20,11 +20,11 @@ import java.util.List;
 
 public class GUI extends JFrame {
 
-    private final int HEIGHT = 500;
-    private final int WIDTH = 750;
+    private static final int HEIGHT = 500;
+    private static final int WIDTH = 750;
     private static final String GYM_FILE = "./data/testfile2.txt";
 
-    private final int WALL_QUANTITY = 6;
+    private static final int WALL_QUANTITY = 6;
     JPanel mainPanel;
     JPanel addRemovePanel;
     JLabel textBox1;
@@ -50,8 +50,9 @@ public class GUI extends JFrame {
     private JComboBox removePanelWalls;
     private JComboBox<Integer> removePanelGrade;
     private JComboBox<String> sortingOptionsComboBox;
-    private int OPTIONS_SIZE = 2;
+    private static int OPTIONS_SIZE = 2;
     private JButton sortingOptionsGo;
+    private JOptionPane confirmAddOption;
 
 
     public GUI() {
@@ -154,6 +155,7 @@ public class GUI extends JFrame {
         addPanelWalls = new JComboBox(wallNames);
         addPanelWalls.setSelectedIndex(WALL_QUANTITY - 1);
 
+        confirmAddOption = new JOptionPane();
 
         addRemovePanel.add(addPanelWalls);
         addPanelGrade = new JComboBox<>(grades);
@@ -166,6 +168,7 @@ public class GUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 cardLayout.show(cards, "Main Panel");
+
             }
         });
 
@@ -177,6 +180,8 @@ public class GUI extends JFrame {
                 String color = colorClimbAdded.getText();
                 int index = addPanelWalls.getSelectedIndex() + 1;
                 gym.addProblem(new Problem(color, grade), selectWall(index));
+                addRemovePanel.add(confirmAddOption);
+                //confirmAddOption.showConfirmDialog(addRemovePanel, "Abc");
             }
         });
         addRemovePanel.add(addClimbButton);
@@ -200,7 +205,6 @@ public class GUI extends JFrame {
         addRemovePanel.add(removePanelWalls);
         removePanelGrade = new JComboBox<>(grades);
         addRemovePanel.add(removePanelGrade);
-
         removeClimbsButton = new JButton("Remove");
         addRemovePanel.add(removeClimbsButton);
         removeClimbsButton.addActionListener(new ActionListener() {
@@ -212,6 +216,7 @@ public class GUI extends JFrame {
                 // TODO: 2020-03-12: not possible to remove problems because I can't match problems
 
                 gym.addProblem(new Problem(color, grade), selectWall(index));
+
             }
         });
 

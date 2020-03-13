@@ -28,10 +28,11 @@ public class Gym {
 
     //EFFECTS: Prints out all problems in the gym with their information
     public String toStringAllProblems() {
-        String record = "";
+        String record = "<html>";
         for (Wall w : wallList) {
-            record += w.getProblems();
+            record += w.getProblems() + "<br>";
         }
+        record += "</html>";
         return record;
     }
 

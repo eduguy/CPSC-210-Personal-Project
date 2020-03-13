@@ -1,3 +1,12 @@
 Red,5,Show Wall
 Black,5,Show Wall
+asd,1,Show Wall
+Yellow,3,Ship
 Blue,3,Big Cave
+,1,Big Cave
+asdfs,1,Big Cave
+asdfs,1,Big Cave
+asdfs,1,Big Cave
+asdfasdf,1,Big Cave
+asdfasdf,1,Big Cave
+asdfasdf,1,Big Cave
