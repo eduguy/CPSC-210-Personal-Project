@@ -7,6 +7,7 @@ import persistence.Reader;
 import persistence.Writer;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,6 +54,7 @@ public class GUI extends JFrame {
     private static int OPTIONS_SIZE = 1;
     private JButton sortingOptionsGo;
     private JOptionPane confirmAddOption;
+    JLabel photo;
 
 
     public GUI() {
@@ -74,7 +76,7 @@ public class GUI extends JFrame {
         setVisible(true);
         loadGym();
         cards = new JPanel(cardLayout);
-        mainPanel = new JPanel();
+        mainPanel = new JPanel(new BorderLayout());
         cards.add("Main Panel", mainPanel);
         add(cards);
         setUpHome();
@@ -88,9 +90,7 @@ public class GUI extends JFrame {
     }
 
     public void setUpHome() {
-        JLabel background = new JLabel("Welcome to my program!");
-        //   background.setIcon(new ImageIcon("data/review.PNG"));// your image here
-        mainPanel.add(background);
+
         addNewButton = new JButton("Click here to add climbs");
         addNewButton.addActionListener(new ActionListener() {
             @Override
@@ -108,8 +108,15 @@ public class GUI extends JFrame {
             }
         });
         removeClimbsButton = new JButton("Click here to remove climbs.");
-        mainPanel.add(addNewButton);
-        mainPanel.add(seeClimbsButton);
+        mainPanel.add(addNewButton,BorderLayout.NORTH);
+        mainPanel.add(seeClimbsButton, BorderLayout.SOUTH);
+
+        photo = new JLabel();
+        ImageIcon img = new ImageIcon("./data/2.png");
+        photo.setIcon(img);
+        mainPanel.add(photo);
+        System.out.println(img);
+
     }
 
     public void initSeeClimbs() {
