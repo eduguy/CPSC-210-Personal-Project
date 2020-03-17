@@ -55,6 +55,7 @@ public class GUI extends JFrame {
     private JButton sortingOptionsGo;
     private JOptionPane confirmAddOption;
     JLabel photo;
+    private JButton slabButton;
 
 
     public GUI() {
@@ -108,15 +109,22 @@ public class GUI extends JFrame {
             }
         });
         removeClimbsButton = new JButton("Click here to remove climbs.");
-        mainPanel.add(addNewButton,BorderLayout.NORTH);
+        mainPanel.add(addNewButton, BorderLayout.NORTH);
         mainPanel.add(seeClimbsButton, BorderLayout.SOUTH);
 
         photo = new JLabel();
-        ImageIcon img = new ImageIcon("./data/2.png");
+        ImageIcon img = new ImageIcon("./data/24.png");
         photo.setIcon(img);
-        mainPanel.add(photo);
+        mainPanel.add(photo, BorderLayout.CENTER);
         System.out.println(img);
 
+        initSlab();
+
+    }
+
+    public void initSlab() {
+        slabButton = new JButton("Slab");
+        mainPanel.add(slabButton, BorderLayout.WEST);
     }
 
     public void initSeeClimbs() {
