@@ -56,6 +56,7 @@ public class GUI extends JFrame {
     private JOptionPane confirmAddOption;
     JLabel photo;
     private JButton slabButton;
+    private JPanel mapPanel;
 
 
     public GUI() {
@@ -112,20 +113,27 @@ public class GUI extends JFrame {
         mainPanel.add(addNewButton, BorderLayout.NORTH);
         mainPanel.add(seeClimbsButton, BorderLayout.SOUTH);
 
+
+        initMapPanel();
+
+
+    }
+
+    public void initMapPanel() {
+        mapPanel = new JPanel(null);
         photo = new JLabel();
         ImageIcon img = new ImageIcon("./data/24.png");
         photo.setIcon(img);
-        mainPanel.add(photo, BorderLayout.CENTER);
-        System.out.println(img);
+        mapPanel.add(photo);
+        mainPanel.add(mapPanel, BorderLayout.CENTER);
 
-        initSlab();
 
+        photo.setBounds(0,0, 750, 500);
+        //slabButton = new JButton("Slab");
+        //slabButton.setBounds(0, 50, 200, 200);
+        //mapPanel.add(slabButton);
     }
 
-    public void initSlab() {
-        slabButton = new JButton("Slab");
-        mainPanel.add(slabButton, BorderLayout.WEST);
-    }
 
     public void initSeeClimbs() {
         climbsPanel = new JPanel();
