@@ -57,6 +57,16 @@ public class GUI extends JFrame {
     JLabel photo;
     private JButton slabButton;
     private JPanel mapPanel;
+    private JButton bigCaveButton;
+    private JButton smallCaveButton;
+    private JButton showWallButton;
+    private JButton bergButton;
+    private JLabel kidsAreaLabel;
+    private JPanel bergPanel;
+    private JPanel showWallPanel;
+    private JPanel slabPanel;
+    private JButton shipButton;
+    private JPanel shipPanel;
 
 
     public GUI() {
@@ -120,18 +130,134 @@ public class GUI extends JFrame {
     }
 
     public void initMapPanel() {
-        mapPanel = new JPanel(null);
+        //mapPanel = new JPanel(null);
         photo = new JLabel();
+        photo.setLayout(null);
         ImageIcon img = new ImageIcon("./data/24.png");
         photo.setIcon(img);
-        mapPanel.add(photo);
-        mainPanel.add(mapPanel, BorderLayout.CENTER);
+        //mapPanel.add(photo);
+        mainPanel.add(photo, BorderLayout.CENTER);
+        photo.setBounds(0, -45, 750, 500);
 
+        initSlab();
+        initBigCave();
+        initSmallCave();
+        initShowWall();
+        initBerg();
+        initShip();
+        kidsAreaLabel = new JLabel("Children's Area");
+        kidsAreaLabel.setBounds(50, 10, 125, 25);
+        photo.add(kidsAreaLabel);
 
-        photo.setBounds(0,0, 750, 500);
-        //slabButton = new JButton("Slab");
-        //slabButton.setBounds(0, 50, 200, 200);
-        //mapPanel.add(slabButton);
+    }
+
+    private void initShip() {
+        //TODO init ship
+        shipButton = new JButton("Ship");
+        shipButton.setBounds(300, 375, 75, 25);
+        photo.add(shipButton);
+        shipButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                cardLayout.show(cards, "Ship Panel");
+            }
+        });
+        shipPanel = new JPanel();
+        cards.add(shipPanel, "Ship Panel");
+        JLabel climbs = new JLabel(gym.getShip().getProblems());
+        shipPanel.add(climbs);
+        JButton backOutShip = new JButton("Back");
+        backOutShip.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                cardLayout.show(cards, "Main Panel");
+            }
+        });
+        shipPanel.add(backOutShip);
+    }
+
+    public void initSlab() {
+        slabButton = new JButton("Slab");
+        slabButton.setBounds(250, 375, 75, 25);
+        photo.add(slabButton);
+        slabButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                cardLayout.show(cards, "Slab Panel");
+            }
+        });
+        slabPanel = new JPanel();
+        cards.add(slabPanel, "Slab Panel");
+        JLabel climbs = new JLabel(gym.getSlab().getProblems());
+        slabPanel.add(climbs);
+        JButton backOutSlab = new JButton("Back");
+        backOutSlab.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                cardLayout.show(cards, "Main Panel");
+            }
+        });
+        slabPanel.add(backOutSlab);
+    }
+
+    private void initBerg() {
+        bergButton = new JButton("Berg");
+        bergButton.setBounds(400, 100, 100, 25);
+        photo.add(bergButton);
+        bergButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                cardLayout.show(cards, "Berg Panel");
+            }
+        });
+        bergPanel = new JPanel();
+        cards.add(bergPanel, "Berg Panel");
+        JLabel climbs = new JLabel(gym.getBerg().getProblems());
+        bergPanel.add(climbs);
+        JButton backOutBerg = new JButton("Back");
+        backOutBerg.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                cardLayout.show(cards, "Main Panel");
+            }
+        });
+        bergPanel.add(backOutBerg);
+    }
+
+    private void initShowWall() {
+        showWallButton = new JButton("Show Wall");
+        showWallButton.setBounds(590, 350, 100, 25);
+        photo.add(showWallButton);
+        showWallButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                cardLayout.show(cards, "Show Wall Panel");
+            }
+        });
+        showWallPanel = new JPanel();
+        cards.add(showWallPanel, "Show Wall Panel");
+        JLabel climbs = new JLabel(gym.getShowWall().getProblems());
+        showWallPanel.add(climbs);
+    }
+
+    private void initSmallCave() {
+        smallCaveButton = new JButton("Small Cave");
+        smallCaveButton.setBounds(450, 100, 100, 25);
+        photo.add(smallCaveButton);
+        bergPanel = new JPanel();
+        cards.add(bergPanel, "Berg Panel");
+        JLabel climbs = new JLabel(gym.getBerg().getProblems());
+        bergPanel.add(climbs);
+    }
+
+    private void initBigCave() {
+        bigCaveButton = new JButton("Big Cave");
+        bigCaveButton.setBounds(590, 100, 100, 25);
+        photo.add(bigCaveButton);
+        bergPanel = new JPanel();
+        cards.add(bergPanel, "Berg Panel");
+        JLabel climbs = new JLabel(gym.getBerg().getProblems());
+        bergPanel.add(climbs);
     }
 
 
@@ -255,8 +381,9 @@ public class GUI extends JFrame {
                 int grade = addPanelGrade.getSelectedIndex() + 1;
                 String color = colorClimbAdded.getText();
                 int index = addPanelWalls.getSelectedIndex() + 1;
-                // TODO: 2020-03-12: not possible to remove problems because I can't match problems, should probably make a seperate panel
-                //
+                // TODO: 2020-03-12: not possible to remove problems because I can't match problems,
+                //  should probably make a seperate panel
+
 
                 gym.addProblem(new Problem(color, grade), selectWall(index));
 
