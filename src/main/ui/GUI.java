@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GUI extends JFrame {
@@ -142,6 +143,9 @@ public class GUI extends JFrame {
         //mapPanel.add(photo);
         mainPanel.add(photo, BorderLayout.CENTER);
         photo.setBounds(0, -45, 750, 500);
+        kidsAreaLabel = new JLabel("Children's Area");
+        kidsAreaLabel.setBounds(50, 10, 125, 25);
+        photo.add(kidsAreaLabel);
 
         initSlab();
         initBigCave();
@@ -153,11 +157,18 @@ public class GUI extends JFrame {
         initMapPanels();
         addClimbForWallPanel(backOutShip);
 
+        removeClimbForWallPanels();
 
-        kidsAreaLabel = new JLabel("Children's Area");
-        kidsAreaLabel.setBounds(50, 10, 125, 25);
-        photo.add(kidsAreaLabel);
 
+
+
+    }
+
+    private void removeClimbForWallPanels() {
+        Wall w = selectWall(wallSelect+1);
+        List<String> climbsOnWall = w.getProblems();
+        JComboBox removeWallPanelsJCombo = new JComboBox(climbsOnWall);
+        mapPanel.add(removeWallPanelsJCombo);
     }
 
     public void initMapPanels() {
@@ -339,7 +350,7 @@ public class GUI extends JFrame {
 
 
     public void initSeeClimbs() {
-        climbsPanel = new JPanel();
+        climbsPanel = new JPanel(new FlowLayout());
         allClimbs = new JLabel(gym.toStringAllProblems());
         climbsPanel.add(allClimbs);
         System.out.println(gym.toStringAllProblems());
