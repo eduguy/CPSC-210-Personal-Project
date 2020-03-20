@@ -7,7 +7,6 @@ import persistence.Reader;
 import persistence.Writer;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,6 +24,7 @@ public class GUI extends JFrame {
     private static final int WIDTH = 750;
     private static final String GYM_FILE = "./data/testfile2.txt";
 
+    int wallSelect;
     private static final int WALL_QUANTITY = 6;
     JPanel mainPanel;
     JPanel addRemovePanel;
@@ -67,7 +67,10 @@ public class GUI extends JFrame {
     private JPanel slabPanel;
     private JButton shipButton;
     private JPanel shipPanel;
-
+    private JPanel wallPanel;
+    private JLabel climbs;
+    private JButton addWallPanel;
+    private JButton backOutShip;
 
     public GUI() {
         super("The Hive Surrey");
@@ -84,20 +87,21 @@ public class GUI extends JFrame {
             }
         });
 
+
+        //basic frame setup
         setLocationRelativeTo(null);
         setVisible(true);
         loadGym();
+        //setting up card layout
         cards = new JPanel(cardLayout);
         mainPanel = new JPanel(new BorderLayout());
         cards.add("Main Panel", mainPanel);
         add(cards);
-        setUpHome();
-        initAndAddRemovePanel();
+        //setting up all panels that will be seen
+        initAddAndRemovePanel();
         initSeeClimbs();
+        setUpHome();
 
-//        cardLayout.first(cards);
-
-//        showMain();
 
     }
 
@@ -145,35 +149,72 @@ public class GUI extends JFrame {
         initShowWall();
         initBerg();
         initShip();
+
+        initMapPanels();
+        addClimbForWallPanel(backOutShip);
+
+
         kidsAreaLabel = new JLabel("Children's Area");
         kidsAreaLabel.setBounds(50, 10, 125, 25);
         photo.add(kidsAreaLabel);
 
     }
 
-    private void initShip() {
-        //TODO init ship
-        shipButton = new JButton("Ship");
-        shipButton.setBounds(300, 375, 75, 25);
-        photo.add(shipButton);
-        shipButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                cardLayout.show(cards, "Ship Panel");
-            }
-        });
-        shipPanel = new JPanel();
-        cards.add(shipPanel, "Ship Panel");
-        JLabel climbs = new JLabel(gym.getShip().getProblems());
-        shipPanel.add(climbs);
-        JButton backOutShip = new JButton("Back");
+    public void initMapPanels() {
+        wallPanel = new JPanel();
+        cards.add(wallPanel, "Wall Panel");
+        backOutShip = new JButton("Back");
         backOutShip.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 cardLayout.show(cards, "Main Panel");
+                climbs.setText("");
+                wallSelect = 0;
             }
         });
-        shipPanel.add(backOutShip);
+    }
+
+    public void addClimbForWallPanel(JButton backOutShip) {
+        wallPanel.add(textBox1);
+
+        wallPanel.add(addPanelGrade);
+        wallPanel.add(colorClimbAdded);
+        wallPanel.add(backOutShip);
+        addWallPanel = new JButton("Add");
+        addWallPanel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+                int grade = addPanelGrade.getSelectedIndex() + 1;
+                String color = colorClimbAdded.getText();
+                gym.addProblem(new Problem(color, grade), selectWall(wallSelect + 1));
+                JOptionPane.showMessageDialog(addRemovePanel,
+                        "Success!.",
+                        "Message",
+                        JOptionPane.PLAIN_MESSAGE);
+                colorClimbAdded.setText("");
+
+            }
+        });
+        wallPanel.add(addWallPanel);
+    }
+
+    private void initShip() {
+        shipButton = new JButton("Ship");
+        shipButton.setBounds(350, 415, 75, 25);
+        photo.add(shipButton);
+        shipButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                cardLayout.show(cards, "Wall Panel");
+                climbs = new JLabel("");
+                climbs.setText(gym.getShip().getProblems());
+                wallPanel.add(climbs);
+                //wallPanelFunctionality();
+            }
+        });
+        wallSelect = 2;
+
     }
 
     public void initSlab() {
@@ -183,45 +224,55 @@ public class GUI extends JFrame {
         slabButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                cardLayout.show(cards, "Slab Panel");
+                cardLayout.show(cards, "Wall Panel");
+                climbs = new JLabel();
+                climbs.setText(gym.getSlab().getProblems());
+                wallPanel.add(climbs);
             }
         });
-        slabPanel = new JPanel();
-        cards.add(slabPanel, "Slab Panel");
-        JLabel climbs = new JLabel(gym.getSlab().getProblems());
-        slabPanel.add(climbs);
-        JButton backOutSlab = new JButton("Back");
-        backOutSlab.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                cardLayout.show(cards, "Main Panel");
-            }
-        });
-        slabPanel.add(backOutSlab);
+        wallSelect = 3;
+
+//        slabPanel = new JPanel();
+//        cards.add(slabPanel, "Slab Panel");
+//        JLabel climbs = new JLabel(gym.getSlab().getProblems());
+//        slabPanel.add(climbs);
+//        JButton backOutSlab = new JButton("Back");
+//        backOutSlab.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                cardLayout.show(cards, "Main Panel");
+//            }
+//        });
+//        slabPanel.add(backOutSlab);
     }
 
     private void initBerg() {
         bergButton = new JButton("Berg");
-        bergButton.setBounds(400, 100, 100, 25);
+        bergButton.setBounds(400, 50, 100, 25);
         photo.add(bergButton);
         bergButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                cardLayout.show(cards, "Berg Panel");
+                cardLayout.show(cards, "Wall Panel");
+                climbs = new JLabel();
+                climbs.setText(gym.getBerg().getProblems());
+                wallPanel.add(climbs);
             }
         });
-        bergPanel = new JPanel();
-        cards.add(bergPanel, "Berg Panel");
-        JLabel climbs = new JLabel(gym.getBerg().getProblems());
-        bergPanel.add(climbs);
-        JButton backOutBerg = new JButton("Back");
-        backOutBerg.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                cardLayout.show(cards, "Main Panel");
-            }
-        });
-        bergPanel.add(backOutBerg);
+        wallSelect = 4;
+
+//        bergPanel = new JPanel();
+//        cards.add(bergPanel, "Berg Panel");
+//        JLabel climbs = new JLabel(gym.getBerg().getProblems());
+//        bergPanel.add(climbs);
+//        JButton backOutBerg = new JButton("Back");
+//        backOutBerg.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                cardLayout.show(cards, "Main Panel");
+//            }
+//        });
+//        bergPanel.add(backOutBerg);
     }
 
     private void initShowWall() {
@@ -231,33 +282,59 @@ public class GUI extends JFrame {
         showWallButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                cardLayout.show(cards, "Show Wall Panel");
+                cardLayout.show(cards, "Wall Panel");
+                climbs = new JLabel();
+                climbs.setText(gym.getShowWall().getProblems());
+                wallPanel.add(climbs);
             }
         });
-        showWallPanel = new JPanel();
-        cards.add(showWallPanel, "Show Wall Panel");
-        JLabel climbs = new JLabel(gym.getShowWall().getProblems());
-        showWallPanel.add(climbs);
+        wallSelect = 1;
+//        showWallPanel = new JPanel();
+//        cards.add(showWallPanel, "Show Wall Panel");
+//        JLabel climbs = new JLabel(gym.getShowWall().getProblems());
+//        showWallPanel.add(climbs);
     }
 
     private void initSmallCave() {
         smallCaveButton = new JButton("Small Cave");
-        smallCaveButton.setBounds(450, 100, 100, 25);
+        smallCaveButton.setBounds(475, 50, 100, 25);
         photo.add(smallCaveButton);
-        bergPanel = new JPanel();
-        cards.add(bergPanel, "Berg Panel");
-        JLabel climbs = new JLabel(gym.getBerg().getProblems());
-        bergPanel.add(climbs);
+        smallCaveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                cardLayout.show(cards, "Wall Panel");
+                climbs = new JLabel();
+                climbs.setText(gym.getSmallCave().getProblems());
+                wallPanel.add(climbs);
+            }
+        });
+        wallSelect = 5;
+
+//        bergPanel = new JPanel();
+//        cards.add(bergPanel, "Berg Panel");
+//        JLabel climbs = new JLabel(gym.getBerg().getProblems());
+//        bergPanel.add(climbs);
     }
 
     private void initBigCave() {
         bigCaveButton = new JButton("Big Cave");
-        bigCaveButton.setBounds(590, 100, 100, 25);
+        bigCaveButton.setBounds(600, 100, 100, 25);
         photo.add(bigCaveButton);
-        bergPanel = new JPanel();
-        cards.add(bergPanel, "Berg Panel");
-        JLabel climbs = new JLabel(gym.getBerg().getProblems());
-        bergPanel.add(climbs);
+        bigCaveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                cardLayout.show(cards, "Wall Panel");
+                climbs = new JLabel();
+                climbs.setText(gym.getBigCave().getProblems());
+                wallPanel.add(climbs);
+            }
+        });
+        wallSelect = 6;
+
+//        bergPanel = new JPanel();
+//        cards.add(bergPanel, "Berg Panel");
+//        JLabel climbs = new JLabel(gym.getBerg().getProblems());
+//        bergPanel.add(climbs);
     }
 
 
@@ -302,7 +379,7 @@ public class GUI extends JFrame {
 
     }
 
-    public void initAndAddRemovePanel() {
+    public void initAddAndRemovePanel() {
 
         addRemovePanel = new JPanel();
         textBox1 = new JLabel("Add climbs below\nWhat is the color of the climb?");

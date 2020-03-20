@@ -1,2 +1,2 @@
 Red,5,Show Wall
-Black,3,Berg
+Blue,5,Ship
