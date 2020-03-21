@@ -16,7 +16,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GUI extends JFrame {
@@ -24,9 +23,10 @@ public class GUI extends JFrame {
     private static final int HEIGHT = 500;
     private static final int WIDTH = 750;
     private static final String GYM_FILE = "./data/testfile2.txt";
-
-    int wallSelect;
+    Integer[] numbers;
+    int wallSelect = 0;
     private static final int WALL_QUANTITY = 6;
+    Wall removeWall;
     JPanel mainPanel;
     JPanel addRemovePanel;
     JLabel textBox1;
@@ -50,6 +50,7 @@ public class GUI extends JFrame {
     private JLabel removeLabel;
     private JTextField colorClimbRemove;
     private JComboBox removePanelWalls;
+    private JComboBox removePanelOptions;
     private JComboBox<Integer> removePanelGrade;
     private JComboBox<String> sortingOptionsComboBox;
     private static int OPTIONS_SIZE = 1;
@@ -57,21 +58,18 @@ public class GUI extends JFrame {
     private JOptionPane confirmAddOption;
     JLabel photo;
     private JButton slabButton;
-    private JPanel mapPanel;
     private JButton bigCaveButton;
     private JButton smallCaveButton;
     private JButton showWallButton;
     private JButton bergButton;
     private JLabel kidsAreaLabel;
-    private JPanel bergPanel;
-    private JPanel showWallPanel;
-    private JPanel slabPanel;
+
     private JButton shipButton;
-    private JPanel shipPanel;
     private JPanel wallPanel;
     private JLabel climbs;
     private JButton addWallPanel;
     private JButton backOutShip;
+    private JButton removeClimbButtonMapPanel;
 
     public GUI() {
         super("The Hive Surrey");
@@ -157,18 +155,27 @@ public class GUI extends JFrame {
         initMapPanels();
         addClimbForWallPanel(backOutShip);
 
-        removeClimbForWallPanels();
-
-
-
 
     }
 
-    private void removeClimbForWallPanels() {
-        Wall w = selectWall(wallSelect+1);
-        List<String> climbsOnWall = w.getProblems();
-        JComboBox removeWallPanelsJCombo = new JComboBox(climbsOnWall);
-        mapPanel.add(removeWallPanelsJCombo);
+
+    //EFFECTS: Prints out all problems on this wall with their information
+    public String getProblemsForRemoveGUI(Wall w) {
+        String s = "";
+        int i = 1;
+        for (Problem p : w.getProblemList()) {
+            s += (i + ": Color: " + p.getColor() + " | Grade: " + p.getGrade() + " | Wall: " + p.getWall() + "\n");
+            i++;
+        }
+        return s;
+    }
+
+
+    //EFFECTS: splits a line of information into a list of individual strings
+    public static String[] splitLine(String line) {
+        String[] splits = line.split(";");
+        System.out.println(splits.length);
+        return splits;
     }
 
     public void initMapPanels() {
@@ -181,8 +188,25 @@ public class GUI extends JFrame {
                 cardLayout.show(cards, "Main Panel");
                 climbs.setText("");
                 wallSelect = 0;
+                wallPanel.remove(removePanelOptions);
             }
         });
+
+        removeClimbButtonMapPanel = new JButton("Remove");
+        wallPanel.add(removeClimbButtonMapPanel);
+        removeClimbButtonMapPanel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                removeWall = selectWall(wallSelect);
+                removeWall.getProblemList().remove(removePanelOptions.getSelectedIndex());
+                JOptionPane.showMessageDialog(addRemovePanel,
+                        "Success!.",
+                        "Message",
+                        JOptionPane.PLAIN_MESSAGE);
+            }
+        });
+
+
     }
 
     public void addClimbForWallPanel(JButton backOutShip) {
@@ -211,37 +235,57 @@ public class GUI extends JFrame {
     }
 
     private void initShip() {
+
         shipButton = new JButton("Ship");
-        shipButton.setBounds(350, 415, 75, 25);
+        shipButton.setBounds(420, 325, 75, 25);
         photo.add(shipButton);
         shipButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                wallSelect = 2;
+
                 cardLayout.show(cards, "Wall Panel");
                 climbs = new JLabel("");
-                climbs.setText(gym.getShip().getProblems());
+                climbs.setText(getProblemsForRemoveGUI(gym.getShip()));
                 wallPanel.add(climbs);
-                //wallPanelFunctionality();
+                int numOptions = gym.getShip().getProblemList().size();
+                numbers = new Integer[numOptions];
+
+                for (int i = 0; i <= numOptions - 1; i++) {
+                    numbers[i] = i + 1;
+                }
+                removePanelOptions = new JComboBox(numbers);
+                wallPanel.add(removePanelOptions);
             }
         });
-        wallSelect = 2;
 
     }
 
     public void initSlab() {
+
         slabButton = new JButton("Slab");
         slabButton.setBounds(250, 375, 75, 25);
         photo.add(slabButton);
         slabButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                wallSelect = 3;
+
                 cardLayout.show(cards, "Wall Panel");
                 climbs = new JLabel();
-                climbs.setText(gym.getSlab().getProblems());
+                climbs.setText(getProblemsForRemoveGUI(gym.getSlab()));
                 wallPanel.add(climbs);
+
+                int numOptions = gym.getSlab().getProblemList().size();
+                numbers = new Integer[numOptions];
+
+                for (int i = 0; i <= numOptions - 1; i++) {
+                    numbers[i] = i + 1;
+                }
+                removePanelOptions = new JComboBox(numbers);
+                wallPanel.add(removePanelOptions);
             }
         });
-        wallSelect = 3;
 
 //        slabPanel = new JPanel();
 //        cards.add(slabPanel, "Slab Panel");
@@ -258,19 +302,30 @@ public class GUI extends JFrame {
     }
 
     private void initBerg() {
+
         bergButton = new JButton("Berg");
         bergButton.setBounds(400, 50, 100, 25);
         photo.add(bergButton);
         bergButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                wallSelect = 4;
+
                 cardLayout.show(cards, "Wall Panel");
                 climbs = new JLabel();
-                climbs.setText(gym.getBerg().getProblems());
+                climbs.setText(getProblemsForRemoveGUI(gym.getBerg()));
                 wallPanel.add(climbs);
+
+                int numOptions = gym.getBerg().getProblemList().size();
+                numbers = new Integer[numOptions];
+
+                for (int i = 0; i <= numOptions - 1; i++) {
+                    numbers[i] = i + 1;
+                }
+                removePanelOptions = new JComboBox(numbers);
+                wallPanel.add(removePanelOptions);
             }
         });
-        wallSelect = 4;
 
 //        bergPanel = new JPanel();
 //        cards.add(bergPanel, "Berg Panel");
@@ -287,19 +342,30 @@ public class GUI extends JFrame {
     }
 
     private void initShowWall() {
+
         showWallButton = new JButton("Show Wall");
         showWallButton.setBounds(590, 350, 100, 25);
         photo.add(showWallButton);
         showWallButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                wallSelect = 1;
+
                 cardLayout.show(cards, "Wall Panel");
                 climbs = new JLabel();
-                climbs.setText(gym.getShowWall().getProblems());
+                climbs.setText(getProblemsForRemoveGUI(gym.getShowWall()));
                 wallPanel.add(climbs);
+
+                int numOptions = gym.getShowWall().getProblemList().size();
+                numbers = new Integer[numOptions];
+
+                for (int i = 0; i <= numOptions - 1; i++) {
+                    numbers[i] = i + 1;
+                }
+                removePanelOptions = new JComboBox(numbers);
+                wallPanel.add(removePanelOptions);
             }
         });
-        wallSelect = 1;
 //        showWallPanel = new JPanel();
 //        cards.add(showWallPanel, "Show Wall Panel");
 //        JLabel climbs = new JLabel(gym.getShowWall().getProblems());
@@ -307,19 +373,30 @@ public class GUI extends JFrame {
     }
 
     private void initSmallCave() {
+
         smallCaveButton = new JButton("Small Cave");
-        smallCaveButton.setBounds(475, 50, 100, 25);
+        smallCaveButton.setBounds(515, 50, 100, 25);
         photo.add(smallCaveButton);
         smallCaveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                wallSelect = 5;
+
                 cardLayout.show(cards, "Wall Panel");
                 climbs = new JLabel();
-                climbs.setText(gym.getSmallCave().getProblems());
+                climbs.setText(getProblemsForRemoveGUI(gym.getSmallCave()));
                 wallPanel.add(climbs);
+
+                int numOptions = gym.getSmallCave().getProblemList().size();
+                numbers = new Integer[numOptions];
+
+                for (int i = 0; i <= numOptions - 1; i++) {
+                    numbers[i] = i + 1;
+                }
+                removePanelOptions = new JComboBox(numbers);
+                wallPanel.add(removePanelOptions);
             }
         });
-        wallSelect = 5;
 
 //        bergPanel = new JPanel();
 //        cards.add(bergPanel, "Berg Panel");
@@ -334,13 +411,24 @@ public class GUI extends JFrame {
         bigCaveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                wallSelect = 6;
+
                 cardLayout.show(cards, "Wall Panel");
                 climbs = new JLabel();
-                climbs.setText(gym.getBigCave().getProblems());
+                climbs.setText(getProblemsForRemoveGUI(gym.getBigCave()));
                 wallPanel.add(climbs);
+
+                int numOptions = gym.getBigCave().getProblemList().size();
+                numbers = new Integer[numOptions];
+
+                for (int i = 0; i <= numOptions - 1; i++) {
+                    numbers[i] = i + 1;
+                }
+                removePanelOptions = new JComboBox(numbers);
+                wallPanel.add(removePanelOptions);
             }
         });
-        wallSelect = 6;
+
 
 //        bergPanel = new JPanel();
 //        cards.add(bergPanel, "Berg Panel");
