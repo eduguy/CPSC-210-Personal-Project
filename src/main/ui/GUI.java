@@ -181,16 +181,7 @@ public class GUI extends JFrame {
     public void initMapPanels() {
         wallPanel = new JPanel(null);
         cards.add(wallPanel, "Wall Panel");
-        backOutWallPanel = new JButton("Back");
-        backOutWallPanel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                cardLayout.show(cards, "Main Panel");
-                climbs.setText("");
-                wallSelect = 0;
-                wallPanel.remove(removePanelOptions);
-            }
-        });
+        backOutWallPanelOperations();
         removeClimbButtonMapPanel = new JButton("Remove");
         wallPanel.add(removeClimbButtonMapPanel, BorderLayout.SOUTH);
         removeClimbButtonMapPanel.setBounds(500, 300, 150, 25);
@@ -211,18 +202,21 @@ public class GUI extends JFrame {
 
     }
 
+    public void backOutWallPanelOperations() {
+        backOutWallPanel = new JButton("Back");
+        backOutWallPanel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                cardLayout.show(cards, "Main Panel");
+                climbs.setText("");
+                wallSelect = 0;
+                wallPanel.remove(removePanelOptions);
+            }
+        });
+    }
+
     public void addClimbForWallPanel() {
-        wallPanel.add(textBox1, BorderLayout.NORTH);
-        textBox1.setPreferredSize(new Dimension(200, 50));
-        textBox1.setBounds(100, 25, 250, 25);
-        wallPanel.add(addPanelGrade, BorderLayout.CENTER);
-        wallPanel.add(colorClimbAdded, BorderLayout.CENTER);
-        wallPanel.add(backOutWallPanel, BorderLayout.NORTH);
-        backOutWallPanel.setBounds(10, 10, 75, 25);
-        colorClimbAdded.setBounds(350, 25, 75, 25);
-        addPanelGrade.setBounds(450,25,75,25);
-        addWallPanel = new JButton("Add");
-        addWallPanel.setBounds(600, 10, 75, 25);
+        wallPanelSetup();
 
         addWallPanel.addActionListener(new ActionListener() {
             @Override
@@ -243,6 +237,20 @@ public class GUI extends JFrame {
         wallPanel.add(addWallPanel);
     }
 
+    public void wallPanelSetup() {
+        wallPanel.add(textBox1, BorderLayout.NORTH);
+        textBox1.setPreferredSize(new Dimension(200, 50));
+        textBox1.setBounds(100, 25, 250, 25);
+        wallPanel.add(addPanelGrade, BorderLayout.CENTER);
+        wallPanel.add(colorClimbAdded, BorderLayout.CENTER);
+        wallPanel.add(backOutWallPanel, BorderLayout.NORTH);
+        backOutWallPanel.setBounds(10, 10, 75, 25);
+        colorClimbAdded.setBounds(350, 25, 75, 25);
+        addPanelGrade.setBounds(450, 25, 75, 25);
+        addWallPanel = new JButton("Add");
+        addWallPanel.setBounds(600, 10, 75, 25);
+    }
+
     private void initShip() {
 
         shipButton = new JButton("Ship");
@@ -257,7 +265,7 @@ public class GUI extends JFrame {
                 climbs = new JLabel("");
                 climbs.setText(getProblemsForRemoveGUI(gym.getShip()));
                 wallPanel.add(climbs, BorderLayout.CENTER);
-                climbs.setBounds(100,200, 200, 250);
+                climbs.setBounds(100, 200, 200, 250);
                 int numOptions = gym.getShip().getProblemList().size();
                 numbers = new Integer[numOptions];
 
@@ -298,7 +306,7 @@ public class GUI extends JFrame {
 
                 wallPanel.add(removePanelOptions);
 
-                climbs.setBounds(100,200, 200, 250);
+                climbs.setBounds(100, 200, 200, 250);
 
             }
         });
@@ -330,7 +338,7 @@ public class GUI extends JFrame {
                 cardLayout.show(cards, "Wall Panel");
                 climbs = new JLabel();
                 climbs.setText(getProblemsForRemoveGUI(gym.getBerg()));
-                wallPanel.add(climbs,BorderLayout.CENTER);
+                wallPanel.add(climbs, BorderLayout.CENTER);
 
                 int numOptions = gym.getBerg().getProblemList().size();
                 numbers = new Integer[numOptions];
@@ -343,7 +351,7 @@ public class GUI extends JFrame {
 
                 wallPanel.add(removePanelOptions);
 
-                climbs.setBounds(100,200, 200, 250);
+                climbs.setBounds(100, 200, 200, 250);
 
             }
         });
@@ -375,7 +383,7 @@ public class GUI extends JFrame {
                 cardLayout.show(cards, "Wall Panel");
                 climbs = new JLabel();
                 climbs.setText(getProblemsForRemoveGUI(gym.getShowWall()));
-                wallPanel.add(climbs,BorderLayout.CENTER);
+                wallPanel.add(climbs, BorderLayout.CENTER);
 
                 int numOptions = gym.getShowWall().getProblemList().size();
                 numbers = new Integer[numOptions];
@@ -388,7 +396,7 @@ public class GUI extends JFrame {
 
                 wallPanel.add(removePanelOptions);
 
-                climbs.setBounds(100,200, 200, 250);
+                climbs.setBounds(100, 200, 200, 250);
 
             }
         });
@@ -411,7 +419,7 @@ public class GUI extends JFrame {
                 cardLayout.show(cards, "Wall Panel");
                 climbs = new JLabel();
                 climbs.setText(gym.getSmallCave().getProblems());
-                climbs.setBounds(100,200, 200, 250);
+                climbs.setBounds(100, 200, 200, 250);
                 wallPanel.add(climbs);
 
                 int numOptions = gym.getSmallCave().getProblemList().size();
@@ -424,7 +432,6 @@ public class GUI extends JFrame {
                 removePanelOptions.setBounds(350, 300, 75, 25);
 
                 wallPanel.add(removePanelOptions);
-
 
 
             }
@@ -448,7 +455,7 @@ public class GUI extends JFrame {
                 cardLayout.show(cards, "Wall Panel");
                 climbs = new JLabel();
                 climbs.setText(getProblemsForRemoveGUI(gym.getBigCave()));
-                wallPanel.add(climbs,BorderLayout.CENTER);
+                wallPanel.add(climbs, BorderLayout.CENTER);
 
                 int numOptions = gym.getBigCave().getProblemList().size();
                 numbers = new Integer[numOptions];
@@ -461,7 +468,7 @@ public class GUI extends JFrame {
 
                 wallPanel.add(removePanelOptions);
 
-                climbs.setBounds(100,200, 200, 250);
+                climbs.setBounds(100, 200, 200, 250);
 
             }
         });
@@ -506,6 +513,7 @@ public class GUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 cardLayout.show(cards, "Main Panel");
+                allClimbs.setText("");
             }
         });
         climbsPanel.add(backClimbPanel);
