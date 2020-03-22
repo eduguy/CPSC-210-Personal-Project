@@ -24,7 +24,7 @@ public class GUI extends JFrame {
 
     private static final int HEIGHT = 500;
     private static final int WIDTH = 750;
-    private static final String GYM_FILE = "./data/testfile2.txt";
+    private static final String GYM_FILE = "./data/GymFile.txt";
     Integer[] numbers;
     int wallSelect = 0;
     private static final int WALL_QUANTITY = 6;
@@ -140,7 +140,7 @@ public class GUI extends JFrame {
         //mapPanel = new JPanel(null);
         photo = new JLabel();
         photo.setLayout(null);
-        ImageIcon img = new ImageIcon("./data/24.png");
+        ImageIcon img = new ImageIcon("./data/Photo.png");
         photo.setIcon(img);
         //mapPanel.add(photo);
         mainPanel.add(photo, BorderLayout.CENTER);

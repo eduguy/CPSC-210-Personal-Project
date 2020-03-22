@@ -1,2 +1,1 @@
-Blue,1,Ship
 Black,3,Big Cave
