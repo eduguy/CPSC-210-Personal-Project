@@ -483,27 +483,11 @@ public class GUI extends JFrame {
 
     public void initSeeClimbs() {
         climbsPanel = new JPanel();
-
-//        String fixed = "<html>" + base.replaceAll("<", "&lt;").replaceAll(">", "&gt;")
-//                .replaceAll("\n", "<br/>") + "</html>";
-
-//        String s1 = ("<html>" + s.replaceAll("<", "&lt;")
-//                .replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
-//        return s1;
-
         allClimbs = new JLabel();
         climbsPanel.add(allClimbs);
         cards.add("Climbs Panel", climbsPanel);
 
-        sortingOptionsComboBox = new JComboBox<String>(options);
-        sortingOptionsComboBox.setSelectedIndex(OPTIONS_SIZE - 1);
-        sortingOptionsGo = new JButton("Sort");
-        sortingOptionsGo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                sortIndex();
-            }
-        });
+        sortingOptionsComboBox();
 
 
         climbsPanel.add(sortingOptionsGo);
@@ -517,6 +501,18 @@ public class GUI extends JFrame {
             }
         });
         climbsPanel.add(backClimbPanel);
+    }
+
+    public void sortingOptionsComboBox() {
+        sortingOptionsComboBox = new JComboBox<String>(options);
+        sortingOptionsComboBox.setSelectedIndex(OPTIONS_SIZE - 1);
+        sortingOptionsGo = new JButton("Sort");
+        sortingOptionsGo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                sortIndex();
+            }
+        });
     }
 
     private void sortIndex() {
