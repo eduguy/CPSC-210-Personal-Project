@@ -34,7 +34,20 @@ public class Wall {
         for (Problem p : problemList) {
             s += ("Color: " + p.getColor() + " | Grade: " + p.getGrade() + " | Wall: " + this.name + "\n");
         }
+//        String s1 = ("<html>" + s.replaceAll("<", "&lt;")
+//                .replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
+//        return s1;
         return s;
+//        String s = "";
+//        int i = 1;
+//        for (Problem p : problemList) {
+//            s += (i + ": Color: " + p.getColor() + " | Grade: " + p.getGrade() + " | Wall: " + p.getWall() + "\n");
+//            i++;
+//        }
+//        //code used from stackoverflow:https://stackoverflow.com/questions/1090098/newline-in-jlabel
+//        String s1 = ("<html>" + s.replaceAll("<", "&lt;")
+//                .replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
+//        return s1;
     }
 
     public List<Problem> getProblemList() {

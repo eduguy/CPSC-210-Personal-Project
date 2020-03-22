@@ -36,12 +36,13 @@ and provide a map of where they are in the gym would be useful to newcomers.
 
 - As a user, I want to be able to load the list of climbs when the program starts.
 
+## Instructions for Grader
 
-
-- As a user, I want to be able to add climbs that I want to do at a later point in time.
-
-- As a user, I want to be able to track climbs that I have already completed.
-
-- As a user, I want to be able to see a map of the gym as a whole.
+- You can generate the first required event by clicking on any wall button, then choosing a Color (string)
+- and a grade and the wall, then press add.
+- You can generate the second required event by looking on the same panel to see that this new climb has been added
+- You can locate my visual component on the home panel, which displays a image on a jlabel.
+- You can save the state of my application by exiting out of the program.
+- You can reload the state of my application by launching the program.
 
 

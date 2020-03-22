@@ -1,3 +1,2 @@
-Red,5,Show Wall
-Blue,2,Small Cave
-Green,2,Berg
+Blue,1,Ship
+Black,3,Big Cave

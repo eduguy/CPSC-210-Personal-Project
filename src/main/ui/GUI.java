@@ -1,5 +1,6 @@
 package ui;
 
+import javafx.scene.layout.BorderRepeat;
 import model.Gym;
 import model.Problem;
 import model.Wall;
@@ -16,6 +17,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.ByteOrder;
 import java.util.List;
 
 public class GUI extends JFrame {
@@ -68,7 +70,7 @@ public class GUI extends JFrame {
     private JPanel wallPanel;
     private JLabel climbs;
     private JButton addWallPanel;
-    private JButton backOutShip;
+    private JButton backOutWallPanel;
     private JButton removeClimbButtonMapPanel;
 
     public GUI() {
@@ -119,11 +121,13 @@ public class GUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 cardLayout.show(cards, "Climbs Panel");
-                allClimbs.setText(gym.toStringAllProblems());
+                //allClimbs.setText(gym.toStringAllProblems());
             }
         });
         removeClimbsButton = new JButton("Click here to remove climbs.");
-        mainPanel.add(addNewButton, BorderLayout.NORTH);
+        JLabel intro = new JLabel("Press on one of the walls to see more information!");
+        mainPanel.add(intro, BorderLayout.NORTH);
+        //mainPanel.add(addNewButton, BorderLayout.NORTH);
         mainPanel.add(seeClimbsButton, BorderLayout.SOUTH);
 
 
@@ -153,7 +157,7 @@ public class GUI extends JFrame {
         initShip();
 
         initMapPanels();
-        addClimbForWallPanel(backOutShip);
+        addClimbForWallPanel();
 
 
     }
@@ -167,22 +171,18 @@ public class GUI extends JFrame {
             s += (i + ": Color: " + p.getColor() + " | Grade: " + p.getGrade() + " | Wall: " + p.getWall() + "\n");
             i++;
         }
-        return s;
+        //code used from stackoverflow:https://stackoverflow.com/questions/1090098/newline-in-jlabel
+        String s1 = ("<html>" + s.replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
+        return s1;
     }
 
-
-    //EFFECTS: splits a line of information into a list of individual strings
-    public static String[] splitLine(String line) {
-        String[] splits = line.split(";");
-        System.out.println(splits.length);
-        return splits;
-    }
 
     public void initMapPanels() {
-        wallPanel = new JPanel();
+        wallPanel = new JPanel(null);
         cards.add(wallPanel, "Wall Panel");
-        backOutShip = new JButton("Back");
-        backOutShip.addActionListener(new ActionListener() {
+        backOutWallPanel = new JButton("Back");
+        backOutWallPanel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 cardLayout.show(cards, "Main Panel");
@@ -191,9 +191,9 @@ public class GUI extends JFrame {
                 wallPanel.remove(removePanelOptions);
             }
         });
-
         removeClimbButtonMapPanel = new JButton("Remove");
-        wallPanel.add(removeClimbButtonMapPanel);
+        wallPanel.add(removeClimbButtonMapPanel, BorderLayout.SOUTH);
+        removeClimbButtonMapPanel.setBounds(500, 300, 150, 25);
         removeClimbButtonMapPanel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -203,31 +203,40 @@ public class GUI extends JFrame {
                         "Success!.",
                         "Message",
                         JOptionPane.PLAIN_MESSAGE);
+                climbs.setText(getProblemsForRemoveGUI(selectWall(wallSelect)));
+
             }
         });
 
 
     }
 
-    public void addClimbForWallPanel(JButton backOutShip) {
-        wallPanel.add(textBox1);
-
-        wallPanel.add(addPanelGrade);
-        wallPanel.add(colorClimbAdded);
-        wallPanel.add(backOutShip);
+    public void addClimbForWallPanel() {
+        wallPanel.add(textBox1, BorderLayout.NORTH);
+        textBox1.setPreferredSize(new Dimension(200, 50));
+        textBox1.setBounds(100, 25, 250, 25);
+        wallPanel.add(addPanelGrade, BorderLayout.CENTER);
+        wallPanel.add(colorClimbAdded, BorderLayout.CENTER);
+        wallPanel.add(backOutWallPanel, BorderLayout.NORTH);
+        backOutWallPanel.setBounds(10, 10, 75, 25);
+        colorClimbAdded.setBounds(350, 25, 75, 25);
+        addPanelGrade.setBounds(450,25,75,25);
         addWallPanel = new JButton("Add");
+        addWallPanel.setBounds(600, 10, 75, 25);
+
         addWallPanel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
 
                 int grade = addPanelGrade.getSelectedIndex() + 1;
                 String color = colorClimbAdded.getText();
-                gym.addProblem(new Problem(color, grade), selectWall(wallSelect + 1));
+                gym.addProblem(new Problem(color, grade), selectWall(wallSelect));
                 JOptionPane.showMessageDialog(addRemovePanel,
                         "Success!.",
                         "Message",
                         JOptionPane.PLAIN_MESSAGE);
                 colorClimbAdded.setText("");
+                climbs.setText(getProblemsForRemoveGUI(selectWall(wallSelect)));
 
             }
         });
@@ -247,7 +256,8 @@ public class GUI extends JFrame {
                 cardLayout.show(cards, "Wall Panel");
                 climbs = new JLabel("");
                 climbs.setText(getProblemsForRemoveGUI(gym.getShip()));
-                wallPanel.add(climbs);
+                wallPanel.add(climbs, BorderLayout.CENTER);
+                climbs.setBounds(100,200, 200, 250);
                 int numOptions = gym.getShip().getProblemList().size();
                 numbers = new Integer[numOptions];
 
@@ -255,7 +265,8 @@ public class GUI extends JFrame {
                     numbers[i] = i + 1;
                 }
                 removePanelOptions = new JComboBox(numbers);
-                wallPanel.add(removePanelOptions);
+                removePanelOptions.setBounds(500, 350, 75, 25);
+                wallPanel.add(removePanelOptions, BorderLayout.SOUTH);
             }
         });
 
@@ -274,7 +285,7 @@ public class GUI extends JFrame {
                 cardLayout.show(cards, "Wall Panel");
                 climbs = new JLabel();
                 climbs.setText(getProblemsForRemoveGUI(gym.getSlab()));
-                wallPanel.add(climbs);
+                wallPanel.add(climbs, BorderLayout.CENTER);
 
                 int numOptions = gym.getSlab().getProblemList().size();
                 numbers = new Integer[numOptions];
@@ -283,7 +294,12 @@ public class GUI extends JFrame {
                     numbers[i] = i + 1;
                 }
                 removePanelOptions = new JComboBox(numbers);
+                removePanelOptions.setBounds(350, 350, 75, 25);
+
                 wallPanel.add(removePanelOptions);
+
+                climbs.setBounds(100,200, 200, 250);
+
             }
         });
 
@@ -314,7 +330,7 @@ public class GUI extends JFrame {
                 cardLayout.show(cards, "Wall Panel");
                 climbs = new JLabel();
                 climbs.setText(getProblemsForRemoveGUI(gym.getBerg()));
-                wallPanel.add(climbs);
+                wallPanel.add(climbs,BorderLayout.CENTER);
 
                 int numOptions = gym.getBerg().getProblemList().size();
                 numbers = new Integer[numOptions];
@@ -323,7 +339,12 @@ public class GUI extends JFrame {
                     numbers[i] = i + 1;
                 }
                 removePanelOptions = new JComboBox(numbers);
+                removePanelOptions.setBounds(350, 350, 75, 25);
+
                 wallPanel.add(removePanelOptions);
+
+                climbs.setBounds(100,200, 200, 250);
+
             }
         });
 
@@ -354,7 +375,7 @@ public class GUI extends JFrame {
                 cardLayout.show(cards, "Wall Panel");
                 climbs = new JLabel();
                 climbs.setText(getProblemsForRemoveGUI(gym.getShowWall()));
-                wallPanel.add(climbs);
+                wallPanel.add(climbs,BorderLayout.CENTER);
 
                 int numOptions = gym.getShowWall().getProblemList().size();
                 numbers = new Integer[numOptions];
@@ -363,7 +384,12 @@ public class GUI extends JFrame {
                     numbers[i] = i + 1;
                 }
                 removePanelOptions = new JComboBox(numbers);
+                removePanelOptions.setBounds(350, 350, 75, 25);
+
                 wallPanel.add(removePanelOptions);
+
+                climbs.setBounds(100,200, 200, 250);
+
             }
         });
 //        showWallPanel = new JPanel();
@@ -384,7 +410,8 @@ public class GUI extends JFrame {
 
                 cardLayout.show(cards, "Wall Panel");
                 climbs = new JLabel();
-                climbs.setText(getProblemsForRemoveGUI(gym.getSmallCave()));
+                climbs.setText(gym.getSmallCave().getProblems());
+                climbs.setBounds(100,200, 200, 250);
                 wallPanel.add(climbs);
 
                 int numOptions = gym.getSmallCave().getProblemList().size();
@@ -394,7 +421,12 @@ public class GUI extends JFrame {
                     numbers[i] = i + 1;
                 }
                 removePanelOptions = new JComboBox(numbers);
+                removePanelOptions.setBounds(350, 300, 75, 25);
+
                 wallPanel.add(removePanelOptions);
+
+
+
             }
         });
 
@@ -416,7 +448,7 @@ public class GUI extends JFrame {
                 cardLayout.show(cards, "Wall Panel");
                 climbs = new JLabel();
                 climbs.setText(getProblemsForRemoveGUI(gym.getBigCave()));
-                wallPanel.add(climbs);
+                wallPanel.add(climbs,BorderLayout.CENTER);
 
                 int numOptions = gym.getBigCave().getProblemList().size();
                 numbers = new Integer[numOptions];
@@ -425,7 +457,12 @@ public class GUI extends JFrame {
                     numbers[i] = i + 1;
                 }
                 removePanelOptions = new JComboBox(numbers);
+                removePanelOptions.setBounds(350, 350, 75, 25);
+
                 wallPanel.add(removePanelOptions);
+
+                climbs.setBounds(100,200, 200, 250);
+
             }
         });
 
@@ -438,10 +475,17 @@ public class GUI extends JFrame {
 
 
     public void initSeeClimbs() {
-        climbsPanel = new JPanel(new FlowLayout());
-        allClimbs = new JLabel(gym.toStringAllProblems());
+        climbsPanel = new JPanel();
+
+//        String fixed = "<html>" + base.replaceAll("<", "&lt;").replaceAll(">", "&gt;")
+//                .replaceAll("\n", "<br/>") + "</html>";
+
+//        String s1 = ("<html>" + s.replaceAll("<", "&lt;")
+//                .replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
+//        return s1;
+
+        allClimbs = new JLabel();
         climbsPanel.add(allClimbs);
-        System.out.println(gym.toStringAllProblems());
         cards.add("Climbs Panel", climbsPanel);
 
         sortingOptionsComboBox = new JComboBox<String>(options);
@@ -453,8 +497,7 @@ public class GUI extends JFrame {
                 sortIndex();
             }
         });
-        // TODO: 2020-03-12 : continue the sorting method, take input for how to sort, also reformat
-        // TODO: possibly make names clickable to add to wishilst
+
 
         climbsPanel.add(sortingOptionsGo);
         climbsPanel.add(sortingOptionsComboBox);
@@ -470,18 +513,33 @@ public class GUI extends JFrame {
 
     private void sortIndex() {
         if (sortingOptionsComboBox.getSelectedIndex() == 0) {
-            allClimbs.setText(gym.toStringAllProblems());
+
+            allClimbs.setText(sortIndexAllClimbs());
         } else if (sortingOptionsComboBox.getSelectedIndex() == 1) {
-            allClimbs.setText(gym.getAllClimbsInOrderOfDifficulty());
+            String first = gym.getAllClimbsInOrderOfDifficulty();
+            String s1 = ("<html>" + first.replaceAll("<", "&lt;")
+                    .replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
+            allClimbs.setText(s1);
         }
 
 
     }
 
+    public String sortIndexAllClimbs() {
+        String record = "";
+        for (Wall w : gym.wallList) {
+            record += w.getProblems();
+        }
+        System.out.println(record);
+        String s1 = ("<html>" + record.replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
+        return s1;
+    }
+
     public void initAddAndRemovePanel() {
 
         addRemovePanel = new JPanel();
-        textBox1 = new JLabel("Add climbs below\nWhat is the color of the climb?");
+        textBox1 = new JLabel("<html>Add climbs below<br>What is the color of the climb?</html>");
         addRemovePanel.add(textBox1);
         colorClimbAdded = new JTextField();
         colorClimbAdded.setColumns(10);
@@ -551,15 +609,13 @@ public class GUI extends JFrame {
         addRemovePanel.add(removePanelGrade);
         removeClimbsButton = new JButton("Remove");
         addRemovePanel.add(removeClimbsButton);
+
         removeClimbsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 int grade = addPanelGrade.getSelectedIndex() + 1;
                 String color = colorClimbAdded.getText();
                 int index = addPanelWalls.getSelectedIndex() + 1;
-                // TODO: 2020-03-12: not possible to remove problems because I can't match problems,
-                //  should probably make a seperate panel
-
 
                 gym.addProblem(new Problem(color, grade), selectWall(index));
 

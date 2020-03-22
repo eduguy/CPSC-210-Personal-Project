@@ -32,6 +32,7 @@ public class Gym {
         for (Wall w : wallList) {
             record += w.getProblems();
         }
+        System.out.println(record);
         return record;
     }
 
