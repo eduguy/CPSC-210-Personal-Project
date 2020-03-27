@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.ClimbAlreadyExists;
+
 import java.util.ArrayList;
 
 //Represents the whole Gym, which consists of walls with climbs
@@ -59,8 +61,7 @@ public class Gym {
 
     //MODIFIES: wall parameter
     //EFFECTS: adds a new problem to given wall
-    public void addProblem(Problem p, Wall wall) {
-
+    public void addProblem(Problem p, Wall wall) throws ClimbAlreadyExists {
         wall.addProblem(p);
     }
 

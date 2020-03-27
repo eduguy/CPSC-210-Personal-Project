@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.List;
 import java.util.Scanner;
 
+import exceptions.ClimbAlreadyExists;
 import model.Gym;
 import model.Problem;
 import model.Wall;
@@ -64,7 +65,7 @@ public class GymApp {
                     gym.getBigCave().addProblem(p);
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | ClimbAlreadyExists e) {
             gym = new Gym();
         }
     }
@@ -215,7 +216,7 @@ public class GymApp {
         System.out.println("1: Show Wall\n2: Ship\n3: Slab\n4: Berg\n5: Small Cave\n6: Big Cave");
         int response = kbReader.nextInt();
         Wall w = selectWall(response);
-        gym.addProblem(new Problem(color, grade), w);
+        //gym.addProblem(new Problem(color, grade), w);
     }
 
 

@@ -1,5 +1,6 @@
 package ui;
 
+import exceptions.ClimbAlreadyExists;
 import javafx.scene.layout.BorderRepeat;
 import model.Gym;
 import model.Problem;
@@ -189,12 +190,19 @@ public class GUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 removeWall = selectWall(wallSelect);
-                removeWall.getProblemList().remove(removePanelOptions.getSelectedIndex());
-                JOptionPane.showMessageDialog(addRemovePanel,
-                        "Success!.",
-                        "Message",
-                        JOptionPane.PLAIN_MESSAGE);
-                climbs.setText(getProblemsForRemoveGUI(selectWall(wallSelect)));
+                try {
+                    removeWall.getProblemList().remove(removePanelOptions.getSelectedIndex());
+                    JOptionPane.showMessageDialog(addRemovePanel,
+                            "Success!.",
+                            "Message",
+                            JOptionPane.PLAIN_MESSAGE);
+                    climbs.setText(getProblemsForRemoveGUI(selectWall(wallSelect)));
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(addRemovePanel,
+                            "Something went wrong, go back and try again!.",
+                            "Message",
+                            JOptionPane.PLAIN_MESSAGE);
+                }
 
             }
         });
@@ -224,13 +232,22 @@ public class GUI extends JFrame {
 
                 int grade = addPanelGrade.getSelectedIndex() + 1;
                 String color = colorClimbAdded.getText();
-                gym.addProblem(new Problem(color, grade), selectWall(wallSelect));
-                JOptionPane.showMessageDialog(addRemovePanel,
-                        "Success!.",
-                        "Message",
-                        JOptionPane.PLAIN_MESSAGE);
-                colorClimbAdded.setText("");
-                climbs.setText(getProblemsForRemoveGUI(selectWall(wallSelect)));
+                try {
+                    gym.addProblem(new Problem(color, grade), selectWall(wallSelect));
+                    JOptionPane.showMessageDialog(addRemovePanel,
+                            "Success!.",
+                            "Message",
+                            JOptionPane.PLAIN_MESSAGE);
+                    colorClimbAdded.setText("");
+                    climbs.setText(getProblemsForRemoveGUI(selectWall(wallSelect)));
+                } catch (ClimbAlreadyExists climbAlreadyExists) {
+                    JOptionPane.showMessageDialog(addRemovePanel,
+                            "Failed because climb already exists!.",
+                            "Message",
+                            JOptionPane.PLAIN_MESSAGE);
+                    colorClimbAdded.setText("");
+                }
+
 
             }
         });
@@ -400,10 +417,6 @@ public class GUI extends JFrame {
 
             }
         });
-//        showWallPanel = new JPanel();
-//        cards.add(showWallPanel, "Show Wall Panel");
-//        JLabel climbs = new JLabel(gym.getShowWall().getProblems());
-//        showWallPanel.add(climbs);
     }
 
     private void initSmallCave() {
@@ -473,11 +486,6 @@ public class GUI extends JFrame {
             }
         });
 
-
-//        bergPanel = new JPanel();
-//        cards.add(bergPanel, "Berg Panel");
-//        JLabel climbs = new JLabel(gym.getBerg().getProblems());
-//        bergPanel.add(climbs);
     }
 
 
@@ -585,7 +593,11 @@ public class GUI extends JFrame {
                 int grade = addPanelGrade.getSelectedIndex() + 1;
                 String color = colorClimbAdded.getText();
                 int index = addPanelWalls.getSelectedIndex() + 1;
-                gym.addProblem(new Problem(color, grade), selectWall(index));
+                try {
+                    gym.addProblem(new Problem(color, grade), selectWall(index));
+                } catch (ClimbAlreadyExists climbAlreadyExists) {
+                    climbAlreadyExists.printStackTrace();
+                }
                 JOptionPane.showMessageDialog(addRemovePanel,
                         "Success!.",
                         "Message",
@@ -621,7 +633,7 @@ public class GUI extends JFrame {
                 String color = colorClimbAdded.getText();
                 int index = addPanelWalls.getSelectedIndex() + 1;
 
-                gym.addProblem(new Problem(color, grade), selectWall(index));
+                //gym.addProblem(new Problem(color, grade), selectWall(index));
 
             }
         });
@@ -669,7 +681,7 @@ public class GUI extends JFrame {
                     gym.getBigCave().addProblem(p);
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | ClimbAlreadyExists e) {
             gym = new Gym();
         }
     }
@@ -692,7 +704,7 @@ public class GUI extends JFrame {
             e.printStackTrace();
         }
         writer.close();
-        System.out.println("Gym saved");
+        //System.out.println("Gym saved");
 
     }
 

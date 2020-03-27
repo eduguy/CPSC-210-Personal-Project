@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.ClimbAlreadyExists;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +18,16 @@ public class Wall {
 
     //MODIFIES: this
     //EFFECTS: adds climb to this wall
-    public void addProblem(Problem p) {
+    public void addProblem(Problem p) throws ClimbAlreadyExists {
+        String n = p.getColor();
+        int g = p.getGrade();
+
+        for (Problem p2 : problemList) {
+            if (p2.getColor().equals(n) && p2.getGrade() == g) {
+                throw new ClimbAlreadyExists();
+            }
+        }
+
         problemList.add(p);
         p.setWall(this.name);
     }
@@ -34,20 +45,8 @@ public class Wall {
         for (Problem p : problemList) {
             s += ("Color: " + p.getColor() + " | Grade: " + p.getGrade() + " | Wall: " + this.name + "\n");
         }
-//        String s1 = ("<html>" + s.replaceAll("<", "&lt;")
-//                .replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
-//        return s1;
         return s;
-//        String s = "";
-//        int i = 1;
-//        for (Problem p : problemList) {
-//            s += (i + ": Color: " + p.getColor() + " | Grade: " + p.getGrade() + " | Wall: " + p.getWall() + "\n");
-//            i++;
-//        }
-//        //code used from stackoverflow:https://stackoverflow.com/questions/1090098/newline-in-jlabel
-//        String s1 = ("<html>" + s.replaceAll("<", "&lt;")
-//                .replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
-//        return s1;
+
     }
 
     public List<Problem> getProblemList() {

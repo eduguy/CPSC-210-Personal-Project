@@ -45,4 +45,11 @@ and provide a map of where they are in the gym would be useful to newcomers.
 - You can save the state of my application by exiting out of the program.
 - You can reload the state of my application by launching the program.
 
+##Task 4
+
+- There is exesscive couplling in my GUI class from in the initializing of walls. I recognized this while initially working
+on the program but I was just trying to finish the GUI as fast as possible.
+- There is a lack of cohesion in the methods. Even I cannot figure out how the program works sometimes. I want to try to 
+put similar pieces of code together into methods.
+
 

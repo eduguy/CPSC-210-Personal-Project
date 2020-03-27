@@ -24,8 +24,8 @@ public class WriterTest {
         p1 = new Problem("Red", 5);
         p2 = new Problem("Blue", 2);
         gym = new Gym();
-        gym.addProblem(p1, gym.getShowWall());
-        gym.addProblem(p2, gym.getBigCave());
+//        gym.addProblem(p1, gym.getShowWall());
+//        gym.addProblem(p2, gym.getBigCave());
         test = new Writer(new File(testFile));
 
     }
