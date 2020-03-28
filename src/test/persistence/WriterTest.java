@@ -30,6 +30,7 @@ public class WriterTest {
             gym.addProblem(p2, gym.getBigCave());
         } catch (ClimbAlreadyExists climbAlreadyExists) {
             climbAlreadyExists.printStackTrace();
+            fail();
         }
         test = new Writer(new File(testFile));
 
