@@ -16,8 +16,11 @@ public class Wall {
         this.name = name;
     }
 
+    //todo Noticed that I was allowing duplicate climbs which should not be allowed. Instead of a requires clause,
+    //     I used a checked exception
+
     //MODIFIES: this
-    //EFFECTS: adds climb to this wall
+    //EFFECTS: adds climb to this wall, if a climb that is the same, throw exception because this is not allowed
     public void addProblem(Problem p) throws ClimbAlreadyExists {
         String n = p.getColor();
         int g = p.getGrade();

@@ -204,6 +204,8 @@ public class GUI extends JFrame {
                             JOptionPane.PLAIN_MESSAGE);
                 }
 
+                //todo Added exception handling to a trouble prone area just in case to make the program more robust
+
             }
         });
 
@@ -247,6 +249,8 @@ public class GUI extends JFrame {
                             JOptionPane.PLAIN_MESSAGE);
                     colorClimbAdded.setText("");
                 }
+
+                //todo   Added exception handling here for the new exception thrown by addProblem
 
 
             }
@@ -373,18 +377,6 @@ public class GUI extends JFrame {
             }
         });
 
-//        bergPanel = new JPanel();
-//        cards.add(bergPanel, "Berg Panel");
-//        JLabel climbs = new JLabel(gym.getBerg().getProblems());
-//        bergPanel.add(climbs);
-//        JButton backOutBerg = new JButton("Back");
-//        backOutBerg.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent actionEvent) {
-//                cardLayout.show(cards, "Main Panel");
-//            }
-//        });
-//        bergPanel.add(backOutBerg);
     }
 
     private void initShowWall() {
@@ -633,7 +625,11 @@ public class GUI extends JFrame {
                 String color = colorClimbAdded.getText();
                 int index = addPanelWalls.getSelectedIndex() + 1;
 
-                //gym.addProblem(new Problem(color, grade), selectWall(index));
+                try {
+                    gym.addProblem(new Problem(color, grade), selectWall(index));
+                } catch (ClimbAlreadyExists climbAlreadyExists) {
+                    climbAlreadyExists.printStackTrace();
+                }
 
             }
         });

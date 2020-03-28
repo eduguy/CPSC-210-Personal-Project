@@ -1,2 +1,2 @@
 Black,3,Big Cave
-Red,1,Small Cave
+Yellow,4,Small Cave

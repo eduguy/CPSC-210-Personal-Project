@@ -1,5 +1,6 @@
 package persistence;
 
+import exceptions.ClimbAlreadyExists;
 import model.Gym;
 import model.Problem;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,8 +25,12 @@ public class WriterTest {
         p1 = new Problem("Red", 5);
         p2 = new Problem("Blue", 2);
         gym = new Gym();
-//        gym.addProblem(p1, gym.getShowWall());
-//        gym.addProblem(p2, gym.getBigCave());
+        try {
+            gym.addProblem(p1, gym.getShowWall());
+            gym.addProblem(p2, gym.getBigCave());
+        } catch (ClimbAlreadyExists climbAlreadyExists) {
+            climbAlreadyExists.printStackTrace();
+        }
         test = new Writer(new File(testFile));
 
     }
