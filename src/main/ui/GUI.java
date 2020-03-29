@@ -1,7 +1,6 @@
 package ui;
 
 import exceptions.ClimbAlreadyExists;
-import javafx.scene.layout.BorderRepeat;
 import model.Gym;
 import model.Problem;
 import model.Wall;
@@ -18,7 +17,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.nio.ByteOrder;
 import java.util.List;
 
 public class GUI extends JFrame {
@@ -100,8 +98,7 @@ public class GUI extends JFrame {
         cards.add("Main Panel", mainPanel);
         add(cards);
         //setting up all panels that will be seen
-        initAddAndRemovePanel();
-        initSeeClimbs();
+        initSeeAllClimbsPanel();
         setUpHome();
 
 
@@ -138,14 +135,7 @@ public class GUI extends JFrame {
     }
 
     public void initMapPanel() {
-        //mapPanel = new JPanel(null);
-        photo = new JLabel();
-        photo.setLayout(null);
-        ImageIcon img = new ImageIcon("./data/Photo.png");
-        photo.setIcon(img);
-        //mapPanel.add(photo);
-        mainPanel.add(photo, BorderLayout.CENTER);
-        photo.setBounds(0, -45, 750, 500);
+        initMapPhoto();
         kidsAreaLabel = new JLabel("Children's Area");
         kidsAreaLabel.setBounds(50, 10, 125, 25);
         photo.add(kidsAreaLabel);
@@ -157,10 +147,18 @@ public class GUI extends JFrame {
         initBerg();
         initShip();
 
-        initMapPanels();
-        addClimbForWallPanel();
+        setUpWallPanel();
 
 
+    }
+
+    private void initMapPhoto() {
+        photo = new JLabel();
+        photo.setLayout(null);
+        ImageIcon img = new ImageIcon("./data/Photo.png");
+        photo.setIcon(img);
+        mainPanel.add(photo, BorderLayout.CENTER);
+        photo.setBounds(0, -45, 750, 500);
     }
 
 
@@ -179,10 +177,20 @@ public class GUI extends JFrame {
     }
 
 
-    public void initMapPanels() {
+    public void setUpWallPanel() {
+
         wallPanel = new JPanel(null);
         cards.add(wallPanel, "Wall Panel");
-        backOutWallPanelOperations();
+
+        backButtonForWallPanel();
+        setUpFieldsAndLabels();
+        removeClimbsForWallPanel();
+        addClimbForWallPanel();
+
+
+    }
+
+    private void removeClimbsForWallPanel() {
         removeClimbButtonMapPanel = new JButton("Remove");
         wallPanel.add(removeClimbButtonMapPanel, BorderLayout.SOUTH);
         removeClimbButtonMapPanel.setBounds(500, 300, 150, 25);
@@ -208,11 +216,9 @@ public class GUI extends JFrame {
 
             }
         });
-
-
     }
 
-    public void backOutWallPanelOperations() {
+    public void backButtonForWallPanel() {
         backOutWallPanel = new JButton("Back");
         backOutWallPanel.addActionListener(new ActionListener() {
             @Override
@@ -226,8 +232,6 @@ public class GUI extends JFrame {
     }
 
     public void addClimbForWallPanel() {
-        wallPanelSetup();
-
         addWallPanel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -258,7 +262,14 @@ public class GUI extends JFrame {
         wallPanel.add(addWallPanel);
     }
 
-    public void wallPanelSetup() {
+    public void setUpFieldsAndLabels() {
+
+        textBox1 = new JLabel("<html>Add climbs below<br>What is the color of the climb?</html>");
+        colorClimbAdded = new JTextField();
+        colorClimbAdded.setColumns(10);
+        addPanelWalls = new JComboBox(wallNames);
+        addPanelWalls.setSelectedIndex(WALL_QUANTITY - 1);
+        addPanelGrade = new JComboBox<>(grades);
         wallPanel.add(textBox1, BorderLayout.NORTH);
         textBox1.setPreferredSize(new Dimension(200, 50));
         textBox1.setBounds(100, 25, 250, 25);
@@ -332,18 +343,6 @@ public class GUI extends JFrame {
             }
         });
 
-//        slabPanel = new JPanel();
-//        cards.add(slabPanel, "Slab Panel");
-//        JLabel climbs = new JLabel(gym.getSlab().getProblems());
-//        slabPanel.add(climbs);
-//        JButton backOutSlab = new JButton("Back");
-//        backOutSlab.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent actionEvent) {
-//                cardLayout.show(cards, "Main Panel");
-//            }
-//        });
-//        slabPanel.add(backOutSlab);
     }
 
     private void initBerg() {
@@ -442,10 +441,7 @@ public class GUI extends JFrame {
             }
         });
 
-//        bergPanel = new JPanel();
-//        cards.add(bergPanel, "Berg Panel");
-//        JLabel climbs = new JLabel(gym.getBerg().getProblems());
-//        bergPanel.add(climbs);
+
     }
 
     private void initBigCave() {
@@ -481,13 +477,13 @@ public class GUI extends JFrame {
     }
 
 
-    public void initSeeClimbs() {
+    public void initSeeAllClimbsPanel() {
         climbsPanel = new JPanel();
         allClimbs = new JLabel();
         climbsPanel.add(allClimbs);
         cards.add("Climbs Panel", climbsPanel);
 
-        sortingOptionsComboBox();
+        initSortingOptionsComboBox();
 
 
         climbsPanel.add(sortingOptionsGo);
@@ -503,19 +499,19 @@ public class GUI extends JFrame {
         climbsPanel.add(backClimbPanel);
     }
 
-    public void sortingOptionsComboBox() {
+    public void initSortingOptionsComboBox() {
         sortingOptionsComboBox = new JComboBox<String>(options);
         sortingOptionsComboBox.setSelectedIndex(OPTIONS_SIZE - 1);
         sortingOptionsGo = new JButton("Sort");
         sortingOptionsGo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                sortIndex();
+                sortingForComboBox();
             }
         });
     }
 
-    private void sortIndex() {
+    private void sortingForComboBox() {
         if (sortingOptionsComboBox.getSelectedIndex() == 0) {
 
             allClimbs.setText(sortIndexAllClimbs());
@@ -540,103 +536,103 @@ public class GUI extends JFrame {
         return s1;
     }
 
-    public void initAddAndRemovePanel() {
+//    public void initAddAndRemovePanel() {
+//
+//        addRemovePanel = new JPanel();
+//        textBox1 = new JLabel("<html>Add climbs below<br>What is the color of the climb?</html>");
+//        addRemovePanel.add(textBox1);
+//        colorClimbAdded = new JTextField();
+//        colorClimbAdded.setColumns(10);
+//
+//        addRemovePanel.add(colorClimbAdded);
+//
+//        addPanelWalls = new JComboBox(wallNames);
+//        addPanelWalls.setSelectedIndex(WALL_QUANTITY - 1);
+//
+//        confirmAddOption = new JOptionPane("Success!");
+//
+//        addRemovePanel.add(addPanelWalls);
+//        addPanelGrade = new JComboBox<>(grades);
+//        addRemovePanel.add(addPanelGrade);
+//        cards.add("Add Panel", addRemovePanel);
+//
+//        backAddPanel = new JButton("Back");
+//        addRemovePanel.add(backAddPanel);
+//        backAddPanel.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                cardLayout.show(cards, "Main Panel");
+//
+//            }
+//        });
 
-        addRemovePanel = new JPanel();
-        textBox1 = new JLabel("<html>Add climbs below<br>What is the color of the climb?</html>");
-        addRemovePanel.add(textBox1);
-        colorClimbAdded = new JTextField();
-        colorClimbAdded.setColumns(10);
+//        initAddClimbButton();
+//
+//        initRemovePanel();
 
-        addRemovePanel.add(colorClimbAdded);
+//    }
 
-        addPanelWalls = new JComboBox(wallNames);
-        addPanelWalls.setSelectedIndex(WALL_QUANTITY - 1);
-
-        confirmAddOption = new JOptionPane("Success!");
-
-        addRemovePanel.add(addPanelWalls);
-        addPanelGrade = new JComboBox<>(grades);
-        addRemovePanel.add(addPanelGrade);
-        cards.add("Add Panel", addRemovePanel);
-
-        backAddPanel = new JButton("Back");
-        addRemovePanel.add(backAddPanel);
-        backAddPanel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                cardLayout.show(cards, "Main Panel");
-
-            }
-        });
-
-        initAddClimbButton();
-
-        initRemovePanel();
-
-    }
-
-    //https://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html
-    private void initAddClimbButton() {
-        addClimbButton = new JButton("Add");
-        addClimbButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                int grade = addPanelGrade.getSelectedIndex() + 1;
-                String color = colorClimbAdded.getText();
-                int index = addPanelWalls.getSelectedIndex() + 1;
-                try {
-                    gym.addProblem(new Problem(color, grade), selectWall(index));
-                } catch (ClimbAlreadyExists climbAlreadyExists) {
-                    climbAlreadyExists.printStackTrace();
-                }
-                JOptionPane.showMessageDialog(addRemovePanel,
-                        "Success!.",
-                        "Message",
-                        JOptionPane.PLAIN_MESSAGE);
-                colorClimbAdded.setText("");
-            }
-        });
-        addRemovePanel.add(addClimbButton);
-    }
-
-    public void initRemovePanel() {
-        removeLabel = new JLabel("Remove climbs here");
-        addRemovePanel.add(removeLabel);
-
-        colorClimbRemove = new JTextField();
-        colorClimbRemove.setColumns(10);
-
-        addRemovePanel.add(colorClimbRemove);
-
-        removePanelWalls = new JComboBox(wallNames);
-        removePanelWalls.setSelectedIndex(WALL_QUANTITY - 1);
-
-        addRemovePanel.add(removePanelWalls);
-        removePanelGrade = new JComboBox<>(grades);
-        addRemovePanel.add(removePanelGrade);
-        removeClimbsButton = new JButton("Remove");
-        addRemovePanel.add(removeClimbsButton);
-
-        removeClimbsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                int grade = addPanelGrade.getSelectedIndex() + 1;
-                String color = colorClimbAdded.getText();
-                int index = addPanelWalls.getSelectedIndex() + 1;
-
-                try {
-                    gym.addProblem(new Problem(color, grade), selectWall(index));
-                } catch (ClimbAlreadyExists climbAlreadyExists) {
-                    climbAlreadyExists.printStackTrace();
-                }
-
-            }
-        });
-
-        addRemovePanel.add(removeClimbsButton);
-
-    }
+//    //https://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html
+//    private void initAddClimbButton() {
+//        addClimbButton = new JButton("Add");
+//        addClimbButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                int grade = addPanelGrade.getSelectedIndex() + 1;
+//                String color = colorClimbAdded.getText();
+//                int index = addPanelWalls.getSelectedIndex() + 1;
+//                try {
+//                    gym.addProblem(new Problem(color, grade), selectWall(index));
+//                } catch (ClimbAlreadyExists climbAlreadyExists) {
+//                    climbAlreadyExists.printStackTrace();
+//                }
+//                JOptionPane.showMessageDialog(addRemovePanel,
+//                        "Success!.",
+//                        "Message",
+//                        JOptionPane.PLAIN_MESSAGE);
+//                colorClimbAdded.setText("");
+//            }
+//        });
+//        addRemovePanel.add(addClimbButton);
+//    }
+//
+//    public void initRemovePanel() {
+//        removeLabel = new JLabel("Remove climbs here");
+//        addRemovePanel.add(removeLabel);
+//
+//        colorClimbRemove = new JTextField();
+//        colorClimbRemove.setColumns(10);
+//
+//        addRemovePanel.add(colorClimbRemove);
+//
+//        removePanelWalls = new JComboBox(wallNames);
+//        removePanelWalls.setSelectedIndex(WALL_QUANTITY - 1);
+//
+//        addRemovePanel.add(removePanelWalls);
+//        removePanelGrade = new JComboBox<>(grades);
+//        addRemovePanel.add(removePanelGrade);
+//        removeClimbsButton = new JButton("Remove");
+//        addRemovePanel.add(removeClimbsButton);
+//
+//        removeClimbsButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                int grade = addPanelGrade.getSelectedIndex() + 1;
+//                String color = colorClimbAdded.getText();
+//                int index = addPanelWalls.getSelectedIndex() + 1;
+//
+//                try {
+//                    gym.addProblem(new Problem(color, grade), selectWall(index));
+//                } catch (ClimbAlreadyExists climbAlreadyExists) {
+//                    climbAlreadyExists.printStackTrace();
+//                }
+//
+//            }
+//        });
+//
+//        addRemovePanel.add(removeClimbsButton);
+//
+//    }
 
     public Wall selectWall(int index) {
         if (index == 1) {
