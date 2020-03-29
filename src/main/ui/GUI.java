@@ -82,7 +82,7 @@ public class GUI extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                // saveGym();
+                 //saveGym();
                 e.getWindow().dispose();
             }
         });
@@ -101,6 +101,7 @@ public class GUI extends JFrame {
         //todo asdfasdf
         //initSeeAllClimbsPanel();
         gym = new Gym();
+
 //        wallPanel = new WallPanel(null, cardLayout, cards);
 //        cards.add(wallPanel, "Wall Panel");
 
@@ -644,56 +645,56 @@ public class GUI extends JFrame {
 //
 //    }
 //
-//    //stright copy from app
-//    //MODIFIES: this
-//    //EFFECTS: Loads climbs from the gym file, if climbs exist;
-//    //         otherwise it will initialize an empty gym
-//    public void loadGym() {
-//        try {
-//            List<Problem> list = Reader.readProblems(new File(GYM_FILE));
-//            gym = new Gym();
-//            for (Problem p : list) {
-//                if (p.getWall().equals("Show Wall")) {
-//                    gym.getShowWall().addProblem(p);
-//                } else if (p.getWall().equals("Ship")) {
-//                    gym.getShip().addProblem(p);
-//                } else if (p.getWall().equals("Slab")) {
-//                    gym.getSlab().addProblem(p);
-//                } else if (p.getWall().equals("Berg")) {
-//                    gym.getBerg().addProblem(p);
-//                } else if (p.getWall().equals("Small Cave")) {
-//                    gym.getSmallCave().addProblem(p);
-//                } else {
-//                    gym.getBigCave().addProblem(p);
-//                }
-//            }
-//        } catch (IOException | ClimbAlreadyExists e) {
-//            gym = new Gym();
-//        }
-//    }
-//
-//    //EFFECTS: saves all problems to GYM_FILE
-//    public void saveGym() {
-//        Writer writer = null;
-//        try {
-//            writer = new Writer(new File(GYM_FILE));
-//
-//            for (Wall w : gym.wallList) {
-//                for (Problem p : w.getProblemList()) {
-//                    writer.write(p);
-//                }
-//            }
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//            System.out.println("Unable to save to the gym file");
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
-//        writer.close();
-//        //System.out.println("Gym saved");
-//
-//    }
-//
+//stright copy from app
+//MODIFIES: this
+//EFFECTS: Loads climbs from the gym file, if climbs exist;
+//         otherwise it will initialize an empty gym
+public void loadGym() {
+    try {
+        List<Problem> list = Reader.readProblems(new File(GYM_FILE));
+        gym = new Gym();
+        for (Problem p : list) {
+            if (p.getWall().equals("Show Wall")) {
+                gym.getShowWall().addProblem(p);
+            } else if (p.getWall().equals("Ship")) {
+                gym.getShip().addProblem(p);
+            } else if (p.getWall().equals("Slab")) {
+                gym.getSlab().addProblem(p);
+            } else if (p.getWall().equals("Berg")) {
+                gym.getBerg().addProblem(p);
+            } else if (p.getWall().equals("Small Cave")) {
+                gym.getSmallCave().addProblem(p);
+            } else {
+                gym.getBigCave().addProblem(p);
+            }
+        }
+    } catch (IOException | ClimbAlreadyExists e) {
+        gym = new Gym();
+    }
+}
+
+    //EFFECTS: saves all problems to GYM_FILE
+    public void saveGym() {
+        Writer writer = null;
+        try {
+            writer = new Writer(new File(GYM_FILE));
+
+            for (Wall w : gym.wallList) {
+                for (Problem p : w.getProblemList()) {
+                    writer.write(p);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("Unable to save to the gym file");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        writer.close();
+        //System.out.println("Gym saved");
+
+    }
+
 //    //EFFECTS: Prints out all problems on this wall with their information
 //    public String getProblemsForRemoveGUI(Wall w) {
 //        String s = "";
