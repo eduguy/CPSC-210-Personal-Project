@@ -82,7 +82,7 @@ public class GUI extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                saveGym();
+               // saveGym();
                 e.getWindow().dispose();
             }
         });
@@ -91,63 +91,45 @@ public class GUI extends JFrame {
         //basic frame setup
         setLocationRelativeTo(null);
         setVisible(true);
-        loadGym();
+        //loadGym();
         //setting up card layout
         cards = new JPanel(cardLayout);
         mainPanel = new JPanel(new BorderLayout());
         cards.add("Main Panel", mainPanel);
         add(cards);
         //setting up all panels that will be seen
-        initSeeAllClimbsPanel();
-        setUpHome();
+        //todo asdfasdf
+        //initSeeAllClimbsPanel();
+        initHomePanel();
 
 
     }
 
-    public void setUpHome() {
+    public void initHomePanel() {
 
-        addNewButton = new JButton("Click here to add climbs");
-        addNewButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                CardLayout c1 = new CardLayout();
-                cardLayout.show(cards, "Add Panel");
-            }
-        });
+//        addNewButton = new JButton("Click here to add climbs");
+//        addNewButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                CardLayout c1 = new CardLayout();
+//                cardLayout.show(cards, "Add Panel");
+//            }
+//        });
+        //allClimbs.setText(gym.toStringAllProblems());
+        //removeClimbsButton = new JButton("Click here to remove climbs.");
+        //mainPanel.add(addNewButton, BorderLayout.NORTH);
+
         seeClimbsButton = new JButton("Click here to see all climbs");
         seeClimbsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 cardLayout.show(cards, "Climbs Panel");
-                //allClimbs.setText(gym.toStringAllProblems());
             }
         });
-        removeClimbsButton = new JButton("Click here to remove climbs.");
         JLabel intro = new JLabel("Press on one of the walls to see more information!");
         mainPanel.add(intro, BorderLayout.NORTH);
-        //mainPanel.add(addNewButton, BorderLayout.NORTH);
         mainPanel.add(seeClimbsButton, BorderLayout.SOUTH);
-
-
         initMapPanel();
-
-
-    }
-
-    public void initMapPanel() {
-        initMapPhoto();
-        kidsAreaLabel = new JLabel("Children's Area");
-        kidsAreaLabel.setBounds(50, 10, 125, 25);
-        photo.add(kidsAreaLabel);
-
-        initSlab();
-        initBigCave();
-        initSmallCave();
-        initShowWall();
-        initBerg();
-        initShip();
-
-        setUpWallPanel();
 
 
     }
@@ -161,127 +143,130 @@ public class GUI extends JFrame {
         photo.setBounds(0, -45, 750, 500);
     }
 
+    public void initMapPanel() {
+        initMapPhoto();
+        kidsAreaLabel = new JLabel("Children's Area");
+        kidsAreaLabel.setBounds(50, 10, 125, 25);
+        photo.add(kidsAreaLabel);
 
-    //EFFECTS: Prints out all problems on this wall with their information
-    public String getProblemsForRemoveGUI(Wall w) {
-        String s = "";
-        int i = 1;
-        for (Problem p : w.getProblemList()) {
-            s += (i + ": Color: " + p.getColor() + " | Grade: " + p.getGrade() + " | Wall: " + p.getWall() + "\n");
-            i++;
-        }
-        //code used from stackoverflow:https://stackoverflow.com/questions/1090098/newline-in-jlabel
-        String s1 = ("<html>" + s.replaceAll("<", "&lt;")
-                .replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
-        return s1;
-    }
+//        initSlab();
+//        initBigCave();
+//        initSmallCave();
+//        initShowWall();
+//        initBerg();
+        initShip();
 
-
-    public void setUpWallPanel() {
-
-        wallPanel = new JPanel(null);
-        cards.add(wallPanel, "Wall Panel");
-
-        backButtonForWallPanel();
-        setUpFieldsAndLabels();
-        removeClimbsForWallPanel();
-        addClimbForWallPanel();
+        //setUpWallPanel();
 
 
     }
 
-    private void removeClimbsForWallPanel() {
-        removeClimbButtonMapPanel = new JButton("Remove");
-        wallPanel.add(removeClimbButtonMapPanel, BorderLayout.SOUTH);
-        removeClimbButtonMapPanel.setBounds(500, 300, 150, 25);
-        removeClimbButtonMapPanel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                removeWall = selectWall(wallSelect);
-                try {
-                    removeWall.getProblemList().remove(removePanelOptions.getSelectedIndex());
-                    JOptionPane.showMessageDialog(addRemovePanel,
-                            "Success!.",
-                            "Message",
-                            JOptionPane.PLAIN_MESSAGE);
-                    climbs.setText(getProblemsForRemoveGUI(selectWall(wallSelect)));
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(addRemovePanel,
-                            "Something went wrong, go back and try again!.",
-                            "Message",
-                            JOptionPane.PLAIN_MESSAGE);
-                }
 
-                //todo Added exception handling to a trouble prone area just in case to make the program more robust
+//    public void setUpWallPanel() {
+//
+//        // wallPanel = new JPanel(null);
+//        //cards.add(wallPanel, "Wall Panel");
+//
+//        backButtonForWallPanel();
+//        setUpFieldsAndLabelsForWallPanel();
+//        removeClimbsForWallPanel();
+//        addClimbForWallPanel();
+//
+//    }
 
-            }
-        });
-    }
-
-    public void backButtonForWallPanel() {
-        backOutWallPanel = new JButton("Back");
-        backOutWallPanel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                cardLayout.show(cards, "Main Panel");
-                climbs.setText("");
-                wallSelect = 0;
-                wallPanel.remove(removePanelOptions);
-            }
-        });
-    }
-
-    public void addClimbForWallPanel() {
-        addWallPanel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-
-                int grade = addPanelGrade.getSelectedIndex() + 1;
-                String color = colorClimbAdded.getText();
-                try {
-                    gym.addProblem(new Problem(color, grade), selectWall(wallSelect));
-                    JOptionPane.showMessageDialog(addRemovePanel,
-                            "Success!.",
-                            "Message",
-                            JOptionPane.PLAIN_MESSAGE);
-                    colorClimbAdded.setText("");
-                    climbs.setText(getProblemsForRemoveGUI(selectWall(wallSelect)));
-                } catch (ClimbAlreadyExists climbAlreadyExists) {
-                    JOptionPane.showMessageDialog(addRemovePanel,
-                            "Failed because climb already exists!.",
-                            "Message",
-                            JOptionPane.PLAIN_MESSAGE);
-                    colorClimbAdded.setText("");
-                }
-
-                //todo   Added exception handling here for the new exception thrown by addProblem
-
-
-            }
-        });
-        wallPanel.add(addWallPanel);
-    }
-
-    public void setUpFieldsAndLabels() {
-
-        textBox1 = new JLabel("<html>Add climbs below<br>What is the color of the climb?</html>");
-        colorClimbAdded = new JTextField();
-        colorClimbAdded.setColumns(10);
-        addPanelWalls = new JComboBox(wallNames);
-        addPanelWalls.setSelectedIndex(WALL_QUANTITY - 1);
-        addPanelGrade = new JComboBox<>(grades);
-        wallPanel.add(textBox1, BorderLayout.NORTH);
-        textBox1.setPreferredSize(new Dimension(200, 50));
-        textBox1.setBounds(100, 25, 250, 25);
-        wallPanel.add(addPanelGrade, BorderLayout.CENTER);
-        wallPanel.add(colorClimbAdded, BorderLayout.CENTER);
-        wallPanel.add(backOutWallPanel, BorderLayout.NORTH);
-        backOutWallPanel.setBounds(10, 10, 75, 25);
-        colorClimbAdded.setBounds(350, 25, 75, 25);
-        addPanelGrade.setBounds(450, 25, 75, 25);
-        addWallPanel = new JButton("Add");
-        addWallPanel.setBounds(600, 10, 75, 25);
-    }
+//    private void removeClimbsForWallPanel() {
+//        removeClimbButtonMapPanel = new JButton("Remove");
+//        wallPanel.add(removeClimbButtonMapPanel, BorderLayout.SOUTH);
+//        removeClimbButtonMapPanel.setBounds(500, 300, 150, 25);
+//        removeClimbButtonMapPanel.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                removeWall = selectWall(wallSelect);
+//                try {
+//                    removeWall.getProblemList().remove(removePanelOptions.getSelectedIndex());
+//                    JOptionPane.showMessageDialog(addRemovePanel,
+//                            "Success!.",
+//                            "Message",
+//                            JOptionPane.PLAIN_MESSAGE);
+//                    climbs.setText(getProblemsForRemoveGUI(selectWall(wallSelect)));
+//                } catch (Exception e) {
+//                    JOptionPane.showMessageDialog(addRemovePanel,
+//                            "Something went wrong, go back and try again!.",
+//                            "Message",
+//                            JOptionPane.PLAIN_MESSAGE);
+//                }
+//
+//                //todo Added exception handling to a trouble prone area just in case to make the program more robust
+//
+//            }
+//        });
+//    }
+//
+//    public void backButtonForWallPanel() {
+//        backOutWallPanel = new JButton("Back");
+//        backOutWallPanel.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                cardLayout.show(cards, "Main Panel");
+//                climbs.setText("");
+//                wallSelect = 0;
+//                wallPanel.remove(removePanelOptions);
+//            }
+//        });
+//    }
+//
+//    public void addClimbForWallPanel() {
+//        addWallPanel.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent actionEvent) {
+//
+//                int grade = addPanelGrade.getSelectedIndex() + 1;
+//                String color = colorClimbAdded.getText();
+//                try {
+//                    gym.addProblem(new Problem(color, grade), selectWall(wallSelect));
+//                    JOptionPane.showMessageDialog(addRemovePanel,
+//                            "Success!.",
+//                            "Message",
+//                            JOptionPane.PLAIN_MESSAGE);
+//                    colorClimbAdded.setText("");
+//                    climbs.setText(getProblemsForRemoveGUI(selectWall(wallSelect)));
+//                } catch (ClimbAlreadyExists climbAlreadyExists) {
+//                    JOptionPane.showMessageDialog(addRemovePanel,
+//                            "Failed because climb already exists!.",
+//                            "Message",
+//                            JOptionPane.PLAIN_MESSAGE);
+//                    colorClimbAdded.setText("");
+//                }
+//
+//                //todo   Added exception handling here for the new exception thrown by addProblem
+//
+//
+//            }
+//        });
+//        wallPanel.add(addWallPanel);
+//    }
+//
+//    public void setUpFieldsAndLabelsForWallPanel() {
+//
+//        textBox1 = new JLabel("<html>Add climbs below<br>What is the color of the climb?</html>");
+//        colorClimbAdded = new JTextField();
+//        colorClimbAdded.setColumns(10);
+//        addPanelWalls = new JComboBox(wallNames);
+//        addPanelWalls.setSelectedIndex(WALL_QUANTITY - 1);
+//        addPanelGrade = new JComboBox<>(grades);
+//        wallPanel.add(textBox1, BorderLayout.NORTH);
+//        textBox1.setPreferredSize(new Dimension(200, 50));
+//        textBox1.setBounds(100, 25, 250, 25);
+//        wallPanel.add(addPanelGrade, BorderLayout.CENTER);
+//        wallPanel.add(colorClimbAdded, BorderLayout.CENTER);
+//        wallPanel.add(backOutWallPanel, BorderLayout.NORTH);
+//        backOutWallPanel.setBounds(10, 10,
+//                75, 25);
+//        colorClimbAdded.setBounds(350, 25, 75, 25);
+//        addPanelGrade.setBounds(450, 25, 75, 25);
+//        addWallPanel = new JButton("Add");
+//        addWallPanel.setBounds(600, 10, 75, 25);
+//    }
 
     private void initShip() {
 
@@ -292,249 +277,252 @@ public class GUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 wallSelect = 2;
+                wallPanel = new WallPanel(null, cardLayout, cards);
+                cards.add(wallPanel, "Wall Panel");
 
                 cardLayout.show(cards, "Wall Panel");
-                climbs = new JLabel("");
-                climbs.setText(getProblemsForRemoveGUI(gym.getShip()));
-                wallPanel.add(climbs, BorderLayout.CENTER);
-                climbs.setBounds(100, 200, 200, 250);
-                int numOptions = gym.getShip().getProblemList().size();
-                numbers = new Integer[numOptions];
-
-                for (int i = 0; i <= numOptions - 1; i++) {
-                    numbers[i] = i + 1;
-                }
-                removePanelOptions = new JComboBox(numbers);
-                removePanelOptions.setBounds(500, 350, 75, 25);
-                wallPanel.add(removePanelOptions, BorderLayout.SOUTH);
+//                climbs = new JLabel("");
+//                climbs.setText(getProblemsForRemoveGUI(gym.getShip()));
+//                wallPanel.add(climbs, BorderLayout.CENTER);
+//                climbs.setBounds(100, 200, 200, 250);
+//                int numOptions = gym.getShip().getProblemList().size();
+//                numbers = new Integer[numOptions];
+//
+//                for (int i = 0; i <= numOptions - 1; i++) {
+//                    numbers[i] = i + 1;
+//                }
+//                removePanelOptions = new JComboBox(numbers);
+//                removePanelOptions.setBounds(500, 350, 75, 25);
+//                wallPanel.add(removePanelOptions, BorderLayout.SOUTH);
             }
         });
 
     }
 
-    public void initSlab() {
-
-        slabButton = new JButton("Slab");
-        slabButton.setBounds(250, 375, 75, 25);
-        photo.add(slabButton);
-        slabButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                wallSelect = 3;
-
-                cardLayout.show(cards, "Wall Panel");
-                climbs = new JLabel();
-                climbs.setText(getProblemsForRemoveGUI(gym.getSlab()));
-                wallPanel.add(climbs, BorderLayout.CENTER);
-
-                int numOptions = gym.getSlab().getProblemList().size();
-                numbers = new Integer[numOptions];
-
-                for (int i = 0; i <= numOptions - 1; i++) {
-                    numbers[i] = i + 1;
-                }
-                removePanelOptions = new JComboBox(numbers);
-                removePanelOptions.setBounds(350, 350, 75, 25);
-
-                wallPanel.add(removePanelOptions);
-
-                climbs.setBounds(100, 200, 200, 250);
-
-            }
-        });
-
-    }
-
-    private void initBerg() {
-
-        bergButton = new JButton("Berg");
-        bergButton.setBounds(400, 50, 100, 25);
-        photo.add(bergButton);
-        bergButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                wallSelect = 4;
-
-                cardLayout.show(cards, "Wall Panel");
-                climbs = new JLabel();
-                climbs.setText(getProblemsForRemoveGUI(gym.getBerg()));
-                wallPanel.add(climbs, BorderLayout.CENTER);
-
-                int numOptions = gym.getBerg().getProblemList().size();
-                numbers = new Integer[numOptions];
-
-                for (int i = 0; i <= numOptions - 1; i++) {
-                    numbers[i] = i + 1;
-                }
-                removePanelOptions = new JComboBox(numbers);
-                removePanelOptions.setBounds(350, 350, 75, 25);
-
-                wallPanel.add(removePanelOptions);
-
-                climbs.setBounds(100, 200, 200, 250);
-
-            }
-        });
-
-    }
-
-    private void initShowWall() {
-
-        showWallButton = new JButton("Show Wall");
-        showWallButton.setBounds(590, 350, 100, 25);
-        photo.add(showWallButton);
-        showWallButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                wallSelect = 1;
-
-                cardLayout.show(cards, "Wall Panel");
-                climbs = new JLabel();
-                climbs.setText(getProblemsForRemoveGUI(gym.getShowWall()));
-                wallPanel.add(climbs, BorderLayout.CENTER);
-
-                int numOptions = gym.getShowWall().getProblemList().size();
-                numbers = new Integer[numOptions];
-
-                for (int i = 0; i <= numOptions - 1; i++) {
-                    numbers[i] = i + 1;
-                }
-                removePanelOptions = new JComboBox(numbers);
-                removePanelOptions.setBounds(350, 350, 75, 25);
-
-                wallPanel.add(removePanelOptions);
-
-                climbs.setBounds(100, 200, 200, 250);
-
-            }
-        });
-    }
-
-    private void initSmallCave() {
-
-        smallCaveButton = new JButton("Small Cave");
-        smallCaveButton.setBounds(515, 50, 100, 25);
-        photo.add(smallCaveButton);
-        smallCaveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                wallSelect = 5;
-
-                cardLayout.show(cards, "Wall Panel");
-                climbs = new JLabel();
-                climbs.setText(gym.getSmallCave().getProblems());
-                climbs.setBounds(100, 200, 200, 250);
-                wallPanel.add(climbs);
-
-                int numOptions = gym.getSmallCave().getProblemList().size();
-                numbers = new Integer[numOptions];
-
-                for (int i = 0; i <= numOptions - 1; i++) {
-                    numbers[i] = i + 1;
-                }
-                removePanelOptions = new JComboBox(numbers);
-                removePanelOptions.setBounds(350, 300, 75, 25);
-
-                wallPanel.add(removePanelOptions);
-
-
-            }
-        });
-
-
-    }
-
-    private void initBigCave() {
-        bigCaveButton = new JButton("Big Cave");
-        bigCaveButton.setBounds(600, 100, 100, 25);
-        photo.add(bigCaveButton);
-        bigCaveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                wallSelect = 6;
-
-                cardLayout.show(cards, "Wall Panel");
-                climbs = new JLabel();
-                climbs.setText(getProblemsForRemoveGUI(gym.getBigCave()));
-                wallPanel.add(climbs, BorderLayout.CENTER);
-
-                int numOptions = gym.getBigCave().getProblemList().size();
-                numbers = new Integer[numOptions];
-
-                for (int i = 0; i <= numOptions - 1; i++) {
-                    numbers[i] = i + 1;
-                }
-                removePanelOptions = new JComboBox(numbers);
-                removePanelOptions.setBounds(350, 350, 75, 25);
-
-                wallPanel.add(removePanelOptions);
-
-                climbs.setBounds(100, 200, 200, 250);
-
-            }
-        });
-
-    }
-
-
-    public void initSeeAllClimbsPanel() {
-        climbsPanel = new JPanel();
-        allClimbs = new JLabel();
-        climbsPanel.add(allClimbs);
-        cards.add("Climbs Panel", climbsPanel);
-
-        initSortingOptionsComboBox();
+//    public void initSlab() {
+//
+//        slabButton = new JButton("Slab");
+//        slabButton.setBounds(250, 375, 75, 25);
+//        photo.add(slabButton);
+//        slabButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                wallSelect = 3;
+//
+//                cardLayout.show(cards, "Wall Panel");
+//                climbs = new JLabel();
+//                climbs.setText(getProblemsForRemoveGUI(gym.getSlab()));
+//                wallPanel.add(climbs, BorderLayout.CENTER);
+//
+//                int numOptions = gym.getSlab().getProblemList().size();
+//                numbers = new Integer[numOptions];
+//
+//                for (int i = 0; i <= numOptions - 1; i++) {
+//                    numbers[i] = i + 1;
+//                }
+//                removePanelOptions = new JComboBox(numbers);
+//                removePanelOptions.setBounds(350, 350, 75, 25);
+//
+//                wallPanel.add(removePanelOptions);
+//
+//                climbs.setBounds(100, 200, 200, 250);
+//
+//            }
+//        });
+//
+//    }
+//
+//    private void initBerg() {
+//
+//        bergButton = new JButton("Berg");
+//        bergButton.setBounds(400, 50, 100, 25);
+//        photo.add(bergButton);
+//        bergButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                wallSelect = 4;
+//
+//                cardLayout.show(cards, "Wall Panel");
+//                climbs = new JLabel();
+//                climbs.setText(getProblemsForRemoveGUI(gym.getBerg()));
+//                wallPanel.add(climbs, BorderLayout.CENTER);
+//
+//                int numOptions = gym.getBerg().getProblemList().size();
+//                numbers = new Integer[numOptions];
+//
+//                for (int i = 0; i <= numOptions - 1; i++) {
+//                    numbers[i] = i + 1;
+//                }
+//                removePanelOptions = new JComboBox(numbers);
+//                removePanelOptions.setBounds(350, 350, 75, 25);
+//
+//                wallPanel.add(removePanelOptions);
+//
+//                climbs.setBounds(100, 200, 200, 250);
+//
+//            }
+//        });
+//
+//    }
+//
+//    private void initShowWall() {
+//
+//        showWallButton = new JButton("Show Wall");
+//        showWallButton.setBounds(590, 350, 100, 25);
+//        photo.add(showWallButton);
+//        showWallButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                wallSelect = 1;
+//
+//                cardLayout.show(cards, "Wall Panel");
+//                climbs = new JLabel();
+//                climbs.setText(getProblemsForRemoveGUI(gym.getShowWall()));
+//                wallPanel.add(climbs, BorderLayout.CENTER);
+//
+//                int numOptions = gym.getShowWall().getProblemList().size();
+//                numbers = new Integer[numOptions];
+//
+//                for (int i = 0; i <= numOptions - 1; i++) {
+//                    numbers[i] = i + 1;
+//                }
+//                removePanelOptions = new JComboBox(numbers);
+//                removePanelOptions.setBounds(350, 350, 75, 25);
+//
+//                wallPanel.add(removePanelOptions);
+//
+//                climbs.setBounds(100, 200, 200, 250);
+//
+//            }
+//        });
+//    }
+//
+//    private void initSmallCave() {
+//
+//        smallCaveButton = new JButton("Small Cave");
+//        smallCaveButton.setBounds(515, 50, 100, 25);
+//        photo.add(smallCaveButton);
+//        smallCaveButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                wallSelect = 5;
+//
+//                cardLayout.show(cards, "Wall Panel");
+//                climbs = new JLabel();
+//                climbs.setText(gym.getSmallCave().getProblems());
+//                climbs.setBounds(100, 200, 200, 250);
+//                wallPanel.add(climbs);
+//
+//                int numOptions = gym.getSmallCave().getProblemList().size();
+//                numbers = new Integer[numOptions];
+//
+//                for (int i = 0; i <= numOptions - 1; i++) {
+//                    numbers[i] = i + 1;
+//                }
+//                removePanelOptions = new JComboBox(numbers);
+//                removePanelOptions.setBounds(350, 300, 75, 25);
+//
+//                wallPanel.add(removePanelOptions);
+//
+//
+//            }
+//        });
+//
+//
+//    }
+//
+//    private void initBigCave() {
+//        bigCaveButton = new JButton("Big Cave");
+//        bigCaveButton.setBounds(600, 100, 100, 25);
+//        photo.add(bigCaveButton);
+//        bigCaveButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                wallSelect = 6;
+//
+//                cardLayout.show(cards, "Wall Panel");
+//                climbs = new JLabel();
+//                climbs.setText(getProblemsForRemoveGUI(gym.getBigCave()));
+//                wallPanel.add(climbs, BorderLayout.CENTER);
+//
+//                int numOptions = gym.getBigCave().getProblemList().size();
+//                numbers = new Integer[numOptions];
+//
+//                for (int i = 0; i <= numOptions - 1; i++) {
+//                    numbers[i] = i + 1;
+//                }
+//                removePanelOptions = new JComboBox(numbers);
+//                removePanelOptions.setBounds(350, 350, 75, 25);
+//
+//                wallPanel.add(removePanelOptions);
+//
+//                climbs.setBounds(100, 200, 200, 250);
+//
+//            }
+//        });
+//
+//    }
 
 
-        climbsPanel.add(sortingOptionsGo);
-        climbsPanel.add(sortingOptionsComboBox);
-        backClimbPanel = new JButton("Back");
-        backClimbPanel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                cardLayout.show(cards, "Main Panel");
-                allClimbs.setText("");
-            }
-        });
-        climbsPanel.add(backClimbPanel);
-    }
-
-    public void initSortingOptionsComboBox() {
-        sortingOptionsComboBox = new JComboBox<String>(options);
-        sortingOptionsComboBox.setSelectedIndex(OPTIONS_SIZE - 1);
-        sortingOptionsGo = new JButton("Sort");
-        sortingOptionsGo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                sortingForComboBox();
-            }
-        });
-    }
-
-    private void sortingForComboBox() {
-        if (sortingOptionsComboBox.getSelectedIndex() == 0) {
-
-            allClimbs.setText(sortIndexAllClimbs());
-        } else if (sortingOptionsComboBox.getSelectedIndex() == 1) {
-            String first = gym.getAllClimbsInOrderOfDifficulty();
-            String s1 = ("<html>" + first.replaceAll("<", "&lt;")
-                    .replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
-            allClimbs.setText(s1);
-        }
-
-
-    }
-
-    public String sortIndexAllClimbs() {
-        String record = "";
-        for (Wall w : gym.wallList) {
-            record += w.getProblems();
-        }
-        System.out.println(record);
-        String s1 = ("<html>" + record.replaceAll("<", "&lt;")
-                .replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
-        return s1;
-    }
+//    public void initSeeAllClimbsPanel() {
+//        climbsPanel = new JPanel();
+//        allClimbs = new JLabel();
+//        climbsPanel.add(allClimbs);
+//        cards.add("Climbs Panel", climbsPanel);
+//
+//        initSortingOptionsComboBox();
+//
+//
+//        climbsPanel.add(sortingOptionsGo);
+//        climbsPanel.add(sortingOptionsComboBox);
+//        backClimbPanel = new JButton("Back");
+//        backClimbPanel.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                cardLayout.show(cards, "Main Panel");
+//                allClimbs.setText("");
+//            }
+//        });
+//        climbsPanel.add(backClimbPanel);
+//    }
+//
+//    public void initSortingOptionsComboBox() {
+//        sortingOptionsComboBox = new JComboBox<String>(options);
+//        sortingOptionsComboBox.setSelectedIndex(OPTIONS_SIZE - 1);
+//        sortingOptionsGo = new JButton("Sort");
+//        sortingOptionsGo.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                sortingForComboBox();
+//            }
+//        });
+//    }
+//
+//    private void sortingForComboBox() {
+//        if (sortingOptionsComboBox.getSelectedIndex() == 0) {
+//
+//            allClimbs.setText(sortIndexAllClimbs());
+//        } else if (sortingOptionsComboBox.getSelectedIndex() == 1) {
+//            String first = gym.getAllClimbsInOrderOfDifficulty();
+//            String s1 = ("<html>" + first.replaceAll("<", "&lt;")
+//                    .replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
+//            allClimbs.setText(s1);
+//        }
+//
+//
+//    }
+//
+//    public String sortIndexAllClimbs() {
+//        String record = "";
+//        for (Wall w : gym.wallList) {
+//            record += w.getProblems();
+//        }
+//        System.out.println(record);
+//        String s1 = ("<html>" + record.replaceAll("<", "&lt;")
+//                .replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
+//        return s1;
+//    }
+//todo commented out stuff above this that should be in so that I can check for wallPanel functionality
 
 //    public void initAddAndRemovePanel() {
 //
@@ -634,70 +622,84 @@ public class GUI extends JFrame {
 //
 //    }
 
-    public Wall selectWall(int index) {
-        if (index == 1) {
-            return gym.getShowWall();
-        } else if (index == 2) {
-            return gym.getShip();
-        } else if (index == 3) {
-            return gym.getSlab();
-        } else if (index == 4) {
-            return gym.getBerg();
-        } else if (index == 5) {
-            return gym.getSmallCave();
-        }
-        return gym.getBigCave();
-
-    }
-
-    //stright copy from app
-    //MODIFIES: this
-    //EFFECTS: Loads climbs from the gym file, if climbs exist;
-    //         otherwise it will initialize an empty gym
-    public void loadGym() {
-        try {
-            List<Problem> list = Reader.readProblems(new File(GYM_FILE));
-            gym = new Gym();
-            for (Problem p : list) {
-                if (p.getWall().equals("Show Wall")) {
-                    gym.getShowWall().addProblem(p);
-                } else if (p.getWall().equals("Ship")) {
-                    gym.getShip().addProblem(p);
-                } else if (p.getWall().equals("Slab")) {
-                    gym.getSlab().addProblem(p);
-                } else if (p.getWall().equals("Berg")) {
-                    gym.getBerg().addProblem(p);
-                } else if (p.getWall().equals("Small Cave")) {
-                    gym.getSmallCave().addProblem(p);
-                } else {
-                    gym.getBigCave().addProblem(p);
-                }
-            }
-        } catch (IOException | ClimbAlreadyExists e) {
-            gym = new Gym();
-        }
-    }
-
-    //EFFECTS: saves all problems to GYM_FILE
-    public void saveGym() {
-        Writer writer = null;
-        try {
-            writer = new Writer(new File(GYM_FILE));
-
-            for (Wall w : gym.wallList) {
-                for (Problem p : w.getProblemList()) {
-                    writer.write(p);
-                }
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("Unable to save to the gym file");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        writer.close();
-        //System.out.println("Gym saved");
-
-    }
-
+//    public Wall selectWall(int index) {
+//        if (index == 1) {
+//            return gym.getShowWall();
+//        } else if (index == 2) {
+//            return gym.getShip();
+//        } else if (index == 3) {
+//            return gym.getSlab();
+//        } else if (index == 4) {
+//            return gym.getBerg();
+//        } else if (index == 5) {
+//            return gym.getSmallCave();
+//        }
+//        return gym.getBigCave();
+//
+//    }
+//
+//    //stright copy from app
+//    //MODIFIES: this
+//    //EFFECTS: Loads climbs from the gym file, if climbs exist;
+//    //         otherwise it will initialize an empty gym
+//    public void loadGym() {
+//        try {
+//            List<Problem> list = Reader.readProblems(new File(GYM_FILE));
+//            gym = new Gym();
+//            for (Problem p : list) {
+//                if (p.getWall().equals("Show Wall")) {
+//                    gym.getShowWall().addProblem(p);
+//                } else if (p.getWall().equals("Ship")) {
+//                    gym.getShip().addProblem(p);
+//                } else if (p.getWall().equals("Slab")) {
+//                    gym.getSlab().addProblem(p);
+//                } else if (p.getWall().equals("Berg")) {
+//                    gym.getBerg().addProblem(p);
+//                } else if (p.getWall().equals("Small Cave")) {
+//                    gym.getSmallCave().addProblem(p);
+//                } else {
+//                    gym.getBigCave().addProblem(p);
+//                }
+//            }
+//        } catch (IOException | ClimbAlreadyExists e) {
+//            gym = new Gym();
+//        }
+//    }
+//
+//    //EFFECTS: saves all problems to GYM_FILE
+//    public void saveGym() {
+//        Writer writer = null;
+//        try {
+//            writer = new Writer(new File(GYM_FILE));
+//
+//            for (Wall w : gym.wallList) {
+//                for (Problem p : w.getProblemList()) {
+//                    writer.write(p);
+//                }
+//            }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//            System.out.println("Unable to save to the gym file");
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
+//        writer.close();
+//        //System.out.println("Gym saved");
+//
+//    }
+//
+//    //EFFECTS: Prints out all problems on this wall with their information
+//    public String getProblemsForRemoveGUI(Wall w) {
+//        String s = "";
+//        int i = 1;
+//        for (Problem p : w.getProblemList()) {
+//            s += (i + ": Color: " + p.getColor() + " | Grade: " + p.getGrade() + " | Wall: " + p.getWall() + "\n");
+//            i++;
+//        }
+//        //code used from stackoverflow:https://stackoverflow.com/questions/1090098/newline-in-jlabel
+//        String s1 = ("<html>" + s.replaceAll("<", "&lt;")
+//                .replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
+//        return s1;
+//    }
+//
 }
