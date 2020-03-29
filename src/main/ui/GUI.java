@@ -82,7 +82,7 @@ public class GUI extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-               // saveGym();
+                // saveGym();
                 e.getWindow().dispose();
             }
         });
@@ -100,6 +100,11 @@ public class GUI extends JFrame {
         //setting up all panels that will be seen
         //todo asdfasdf
         //initSeeAllClimbsPanel();
+        gym = new Gym();
+//        wallPanel = new WallPanel(null, cardLayout, cards);
+//        cards.add(wallPanel, "Wall Panel");
+
+
         initHomePanel();
 
 
@@ -277,10 +282,11 @@ public class GUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 wallSelect = 2;
-                wallPanel = new WallPanel(null, cardLayout, cards);
+                wallPanel = new WallPanel(gym.getShip(), cardLayout, cards);
                 cards.add(wallPanel, "Wall Panel");
 
                 cardLayout.show(cards, "Wall Panel");
+                System.out.println("moved to wall panel!");
 //                climbs = new JLabel("");
 //                climbs.setText(getProblemsForRemoveGUI(gym.getShip()));
 //                wallPanel.add(climbs, BorderLayout.CENTER);
