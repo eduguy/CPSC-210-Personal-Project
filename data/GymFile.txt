@@ -1,2 +1,6 @@
+qwer,1,Ship
+Blue,5,Ship
+Grey,2,Ship
+Sdfasdf xc,1,Ship
 Black,3,Big Cave
 Yellow,4,Small Cave

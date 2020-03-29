@@ -82,7 +82,7 @@ public class GUI extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                 //saveGym();
+                saveGym();
                 e.getWindow().dispose();
             }
         });
@@ -90,8 +90,8 @@ public class GUI extends JFrame {
 
         //basic frame setup
         setLocationRelativeTo(null);
-        setVisible(true);
-        //loadGym();
+
+        loadGym();
         //setting up card layout
         cards = new JPanel(cardLayout);
         mainPanel = new JPanel(new BorderLayout());
@@ -100,7 +100,7 @@ public class GUI extends JFrame {
         //setting up all panels that will be seen
         //todo asdfasdf
         //initSeeAllClimbsPanel();
-        gym = new Gym();
+        //gym = new Gym();
 
 //        wallPanel = new WallPanel(null, cardLayout, cards);
 //        cards.add(wallPanel, "Wall Panel");
@@ -108,6 +108,7 @@ public class GUI extends JFrame {
 
         initHomePanel();
 
+        setVisible(true);
 
     }
 
@@ -629,7 +630,7 @@ public class GUI extends JFrame {
 //
 //    }
 
-//    public Wall selectWall(int index) {
+    //    public Wall selectWall(int index) {
 //        if (index == 1) {
 //            return gym.getShowWall();
 //        } else if (index == 2) {
@@ -649,29 +650,29 @@ public class GUI extends JFrame {
 //MODIFIES: this
 //EFFECTS: Loads climbs from the gym file, if climbs exist;
 //         otherwise it will initialize an empty gym
-public void loadGym() {
-    try {
-        List<Problem> list = Reader.readProblems(new File(GYM_FILE));
-        gym = new Gym();
-        for (Problem p : list) {
-            if (p.getWall().equals("Show Wall")) {
-                gym.getShowWall().addProblem(p);
-            } else if (p.getWall().equals("Ship")) {
-                gym.getShip().addProblem(p);
-            } else if (p.getWall().equals("Slab")) {
-                gym.getSlab().addProblem(p);
-            } else if (p.getWall().equals("Berg")) {
-                gym.getBerg().addProblem(p);
-            } else if (p.getWall().equals("Small Cave")) {
-                gym.getSmallCave().addProblem(p);
-            } else {
-                gym.getBigCave().addProblem(p);
+    public void loadGym() {
+        try {
+            List<Problem> list = Reader.readProblems(new File(GYM_FILE));
+            gym = new Gym();
+            for (Problem p : list) {
+                if (p.getWall().equals("Show Wall")) {
+                    gym.getShowWall().addProblem(p);
+                } else if (p.getWall().equals("Ship")) {
+                    gym.getShip().addProblem(p);
+                } else if (p.getWall().equals("Slab")) {
+                    gym.getSlab().addProblem(p);
+                } else if (p.getWall().equals("Berg")) {
+                    gym.getBerg().addProblem(p);
+                } else if (p.getWall().equals("Small Cave")) {
+                    gym.getSmallCave().addProblem(p);
+                } else {
+                    gym.getBigCave().addProblem(p);
+                }
             }
+        } catch (IOException | ClimbAlreadyExists e) {
+            gym = new Gym();
         }
-    } catch (IOException | ClimbAlreadyExists e) {
-        gym = new Gym();
     }
-}
 
     //EFFECTS: saves all problems to GYM_FILE
     public void saveGym() {
