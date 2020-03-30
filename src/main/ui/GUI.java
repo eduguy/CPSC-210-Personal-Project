@@ -156,11 +156,11 @@ public class GUI extends JFrame {
         kidsAreaLabel.setBounds(50, 10, 125, 25);
         photo.add(kidsAreaLabel);
 
-//        initSlab();
-//        initBigCave();
-//        initSmallCave();
-//        initShowWall();
-//        initBerg();
+        initSlab();
+        initBigCave();
+        initSmallCave();
+        initShowWall();
+        initBerg();
         initShip();
 
         //setUpWallPanel();
@@ -307,17 +307,19 @@ public class GUI extends JFrame {
 
     }
 
-//    public void initSlab() {
-//
-//        slabButton = new JButton("Slab");
-//        slabButton.setBounds(250, 375, 75, 25);
-//        photo.add(slabButton);
-//        slabButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent actionEvent) {
-//                wallSelect = 3;
-//
-//                cardLayout.show(cards, "Wall Panel");
+    public void initSlab() {
+
+        slabButton = new JButton("Slab");
+        slabButton.setBounds(250, 375, 75, 25);
+        photo.add(slabButton);
+        slabButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                wallSelect = 3;
+                wallPanel = new WallPanel(gym.getSlab(), cardLayout, cards);
+
+                cards.add(wallPanel, "Wall Panel");
+                cardLayout.show(cards, "Wall Panel");
 //                climbs = new JLabel();
 //                climbs.setText(getProblemsForRemoveGUI(gym.getSlab()));
 //                wallPanel.add(climbs, BorderLayout.CENTER);
@@ -334,23 +336,25 @@ public class GUI extends JFrame {
 //                wallPanel.add(removePanelOptions);
 //
 //                climbs.setBounds(100, 200, 200, 250);
-//
-//            }
-//        });
-//
-//    }
-//
-//    private void initBerg() {
-//
-//        bergButton = new JButton("Berg");
-//        bergButton.setBounds(400, 50, 100, 25);
-//        photo.add(bergButton);
-//        bergButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent actionEvent) {
-//                wallSelect = 4;
-//
-//                cardLayout.show(cards, "Wall Panel");
+
+            }
+        });
+
+    }
+
+    private void initBerg() {
+
+        bergButton = new JButton("Berg");
+        bergButton.setBounds(400, 50, 100, 25);
+        photo.add(bergButton);
+        bergButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                wallSelect = 4;
+                wallPanel = new WallPanel(gym.getBerg(), cardLayout, cards);
+                cards.add(wallPanel, "Wall Panel");
+                cardLayout.show(cards, "Wall Panel");
+
 //                climbs = new JLabel();
 //                climbs.setText(getProblemsForRemoveGUI(gym.getBerg()));
 //                wallPanel.add(climbs, BorderLayout.CENTER);
@@ -367,23 +371,24 @@ public class GUI extends JFrame {
 //                wallPanel.add(removePanelOptions);
 //
 //                climbs.setBounds(100, 200, 200, 250);
-//
-//            }
-//        });
-//
-//    }
-//
-//    private void initShowWall() {
-//
-//        showWallButton = new JButton("Show Wall");
-//        showWallButton.setBounds(590, 350, 100, 25);
-//        photo.add(showWallButton);
-//        showWallButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent actionEvent) {
-//                wallSelect = 1;
-//
-//                cardLayout.show(cards, "Wall Panel");
+
+            }
+        });
+
+    }
+
+    private void initShowWall() {
+
+        showWallButton = new JButton("Show Wall");
+        showWallButton.setBounds(590, 350, 100, 25);
+        photo.add(showWallButton);
+        showWallButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                wallSelect = 1;
+                wallPanel = new WallPanel(gym.getShowWall(), cardLayout, cards);
+                cards.add(wallPanel, "Wall Panel");
+                cardLayout.show(cards, "Wall Panel");
 //                climbs = new JLabel();
 //                climbs.setText(getProblemsForRemoveGUI(gym.getShowWall()));
 //                wallPanel.add(climbs, BorderLayout.CENTER);
@@ -400,22 +405,23 @@ public class GUI extends JFrame {
 //                wallPanel.add(removePanelOptions);
 //
 //                climbs.setBounds(100, 200, 200, 250);
-//
-//            }
-//        });
-//    }
-//
-//    private void initSmallCave() {
-//
-//        smallCaveButton = new JButton("Small Cave");
-//        smallCaveButton.setBounds(515, 50, 100, 25);
-//        photo.add(smallCaveButton);
-//        smallCaveButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent actionEvent) {
-//                wallSelect = 5;
-//
-//                cardLayout.show(cards, "Wall Panel");
+
+            }
+        });
+    }
+
+    private void initSmallCave() {
+
+        smallCaveButton = new JButton("Small Cave");
+        smallCaveButton.setBounds(515, 50, 100, 25);
+        photo.add(smallCaveButton);
+        smallCaveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                wallSelect = 5;
+                wallPanel = new WallPanel(gym.getSmallCave(), cardLayout, cards);
+                cards.add(wallPanel, "Wall Panel");
+                cardLayout.show(cards, "Wall Panel");
 //                climbs = new JLabel();
 //                climbs.setText(gym.getSmallCave().getProblems());
 //                climbs.setBounds(100, 200, 200, 250);
@@ -431,24 +437,25 @@ public class GUI extends JFrame {
 //                removePanelOptions.setBounds(350, 300, 75, 25);
 //
 //                wallPanel.add(removePanelOptions);
-//
-//
-//            }
-//        });
-//
-//
-//    }
-//
-//    private void initBigCave() {
-//        bigCaveButton = new JButton("Big Cave");
-//        bigCaveButton.setBounds(600, 100, 100, 25);
-//        photo.add(bigCaveButton);
-//        bigCaveButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent actionEvent) {
-//                wallSelect = 6;
-//
-//                cardLayout.show(cards, "Wall Panel");
+
+
+            }
+        });
+
+
+    }
+
+    private void initBigCave() {
+        bigCaveButton = new JButton("Big Cave");
+        bigCaveButton.setBounds(600, 100, 100, 25);
+        photo.add(bigCaveButton);
+        bigCaveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                wallSelect = 6;
+                wallPanel = new WallPanel(gym.getBigCave(), cardLayout, cards);
+                cards.add(wallPanel, "Wall Panel");
+                cardLayout.show(cards, "Wall Panel");
 //                climbs = new JLabel();
 //                climbs.setText(getProblemsForRemoveGUI(gym.getBigCave()));
 //                wallPanel.add(climbs, BorderLayout.CENTER);
@@ -465,11 +472,11 @@ public class GUI extends JFrame {
 //                wallPanel.add(removePanelOptions);
 //
 //                climbs.setBounds(100, 200, 200, 250);
-//
-//            }
-//        });
-//
-//    }
+
+            }
+        });
+
+    }
 
 
 //    public void initSeeAllClimbsPanel() {
