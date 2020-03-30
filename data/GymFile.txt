@@ -2,7 +2,9 @@ qwer,1,Ship
 Blue,5,Ship
 Grey,2,Ship
 Sdfasdf xc,1,Ship
-Yellow,4,Small Cave
+qwer,1,Big Cave
+asdf,1,Small Cave
+qwer,1,Small Cave
 asdf,1,Berg
 asdf,1,Slab
 qwer,1,Slab

@@ -45,11 +45,18 @@ and provide a map of where they are in the gym would be useful to newcomers.
 - You can save the state of my application by exiting out of the program.
 - You can reload the state of my application by launching the program.
 
-##Task 4
+##Phase 4 Task 2
 
-- There is exesscive couplling in my GUI class from in the initializing of walls. I recognized this while initially working
-on the program but I was just trying to finish the GUI as fast as possible.
-- There is a lack of cohesion in the methods. Even I cannot figure out how the program works sometimes. I want to try to 
-put similar pieces of code together into methods.
+
+##Phase 4 Task 3
+
+- There is excessive coupling in my GUI class from in the initializing of walls. I got rid of this coupling when I refactored
+my design to seperate the Main Panel and Wall Panel. Before the code was almost identical in all of the initializing methods with very small differences.
+I took what I could into the wall Panel class, so now i only need to edit that class to make changes to all wall panels. 
+- After that, I noticed that there was still some code in the action listeners of each wall initializing method where I was
+ making the new panel and adding it to my cards for cardlayout. The code was basically the same but with different
+wall parameters, so I made it into a method. Once again, this means I only need to edit the method to make changes to all initialing methods.
+- To improve cohesion, I seperated the wall Panel from the main panel so the GUI class did not have to do anything with the wall panels, other than call the 
+constructor.
 
 

@@ -21,17 +21,24 @@ public class WallPanel extends JPanel {
     private Integer[] grades = {1, 2, 3, 4, 5, 6,};
     private JButton removeClimbButtonMapPanel;
     private JButton backOutWallPanel;
-    private Gym gym;
     private JLabel climbs;
     private JButton addWallPanel;
     private Integer[] numbers;
+    private JLabel removeInstructionsLabel;
 
     public WallPanel(Wall w, CardLayout cardLayout, JPanel cards) {
-        // setLayout(null);
-        //setVisible(true);
+
         currentWall = w;
-        gym = new Gym();
+        makeBackButton(cardLayout, cards);
+        setUpWallPanel();
+
+
+
+    }
+
+    private void makeBackButton(CardLayout cardLayout, JPanel cards) {
         backOutWallPanel = new JButton("Back");
+        add(backOutWallPanel);
         backOutWallPanel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -41,14 +48,11 @@ public class WallPanel extends JPanel {
                 remove(removePanelOptions);
             }
         });
-        setUpWallPanel();
-
-
     }
 
     public void setUpFieldsAndLabelsForWallPanel() {
 
-        textBox1 = new JLabel("<html>Add climbs below<br>What is the color of the climb?</html>");
+        textBox1 = new JLabel("<html>Add climbs to the right<br>Textbox is for the color of the climb.</html>");
         colorClimbAdded = new JTextField();
         colorClimbAdded.setColumns(10);
         addPanelWalls = new JComboBox(wallNames);
@@ -59,7 +63,7 @@ public class WallPanel extends JPanel {
         textBox1.setBounds(100, 25, 250, 25);
         add(addPanelGrade, BorderLayout.CENTER);
         add(colorClimbAdded, BorderLayout.CENTER);
-        add(backOutWallPanel, BorderLayout.NORTH);
+       // add(backOutWallPanel, BorderLayout.NORTH);
         backOutWallPanel.setBounds(10, 10,
                 75, 25);
         colorClimbAdded.setBounds(350, 25, 75, 25);
@@ -70,11 +74,9 @@ public class WallPanel extends JPanel {
 
     public void setUpWallPanel() {
 
-        // wallPanel = new JPanel(null);
-        //cards.add(wallPanel, "Wall Panel");
-
-        //backButtonForWallPanel(); don't need this as this is called in constructor
         setUpFieldsAndLabelsForWallPanel();
+        addClimbForWallPanel();
+
         removeClimbsForWallPanel();
         climbs = new JLabel("");
         climbs.setText(getProblemsForRemoveGUI(currentWall));
@@ -90,7 +92,8 @@ public class WallPanel extends JPanel {
         removePanelOptions = new JComboBox(numbers);
         removePanelOptions.setBounds(500, 350, 75, 25);
         add(removePanelOptions, BorderLayout.SOUTH);
-        addClimbForWallPanel();
+        removeInstructionsLabel = new JLabel("Choose the number corresponding to the climb you want to remove");
+        add(removeInstructionsLabel);
 
 
     }
@@ -123,18 +126,7 @@ public class WallPanel extends JPanel {
         });
     }
 
-//    public void backButtonForWallPanel() {
-//        backOutWallPanel = new JButton("Back");
-////        backOutWallPanel.addActionListener(new ActionListener() {
-////            @Override
-////            public void actionPerformed(ActionEvent actionEvent) {
-////                cardLayout.show(cards, "Main Panel");
-////                climbs.setText("");
-////                wallSelect = 0;
-////                wallPanel.remove(removePanelOptions);
-////            }
-////        });
-//    }
+
 
     public void addClimbForWallPanel() {
         addWallPanel.addActionListener(new ActionListener() {
