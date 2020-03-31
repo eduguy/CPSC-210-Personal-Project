@@ -47,6 +47,10 @@ and provide a map of where they are in the gym would be useful to newcomers.
 
 ##Phase 4 Task 2
 
+- There was not much to do to make my Wall class robust, but I was let add problem handle the duplicate climb
+situation by making it throw a checked exception, ClimbAlreadyExists. (Wall class, lines 28-32). I initially had no requires statement on
+this method but after testing the program I realized that I didn't want duplicate climbs.
+
 
 ##Phase 4 Task 3
 
@@ -57,6 +61,6 @@ I took what I could into the wall Panel class, so now i only need to edit that c
  making the new panel and adding it to my cards for cardlayout. The code was basically the same but with different
 wall parameters, so I made it into a method. Once again, this means I only need to edit the method to make changes to all initialing methods.
 - To improve cohesion, I seperated the wall Panel from the main panel so the GUI class did not have to do anything with the wall panels, other than call the 
-constructor.
+constructor. This seperated a huge amount of code away into a seperate class.
 
 

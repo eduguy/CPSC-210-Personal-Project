@@ -30,8 +30,10 @@ public class Gym {
 
     //EFFECTS: Prints out all problems in the gym with their information
     public String toStringAllProblems() {
+
         String record = "";
         for (Wall w : wallList) {
+
             record += w.getProblems();
         }
         System.out.println(record);
@@ -55,8 +57,12 @@ public class Gym {
 
     //EFFECTS: Prints out all problems in the gym in order of their grades
     public String getAllClimbsInOrderOfDifficulty() {
-        return getAllClimbsOfDifficulty(1) + getAllClimbsOfDifficulty(2) + getAllClimbsOfDifficulty(3)
+        String result = getAllClimbsOfDifficulty(1) + getAllClimbsOfDifficulty(2) + getAllClimbsOfDifficulty(3)
                 + getAllClimbsOfDifficulty(4) + getAllClimbsOfDifficulty(5) + getAllClimbsOfDifficulty(6);
+//        if (result.equals("")) {
+//            throw new NoClimbsExist();
+//        }
+        return result;
     }
 
     //MODIFIES: wall parameter

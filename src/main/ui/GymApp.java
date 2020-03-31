@@ -119,7 +119,9 @@ public class GymApp {
         if (!gym.hasClimbs()) {
             System.out.println("Gym has no climbs");
         } else {
+
             System.out.println(gym.toStringAllProblems());
+
 
         }
 
@@ -142,7 +144,9 @@ public class GymApp {
             System.out.println("Gym has no climbs");
         } else {
             Scanner kbReader = new Scanner(System.in);
+
             System.out.println(gym.toStringAllProblems());
+
             System.out.println("What wall is the climb you want to remove on?");
             System.out.println("1: Show Wall\n2: Ship\n3: Slab\n4: Berg\n5: Small Cave\n6: Big Cave");
             int response = kbReader.nextInt();

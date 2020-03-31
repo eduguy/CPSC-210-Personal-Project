@@ -44,6 +44,7 @@ public class Wall {
 
     //EFFECTS: Prints out all problems on this wall with their information
     public String getProblems() {
+
         String s = "";
         for (Problem p : problemList) {
             s += ("Color: " + p.getColor() + " | Grade: " + p.getGrade() + " | Wall: " + this.name + "\n");

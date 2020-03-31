@@ -310,7 +310,7 @@ public class GUI extends JFrame {
         slabButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-               // wallSelect = 3;
+                // wallSelect = 3;
                 setUpWallPanel(gym.getSlab());
 //                climbs = new JLabel();
 //                climbs.setText(getProblemsForRemoveGUI(gym.getSlab()));
@@ -406,7 +406,7 @@ public class GUI extends JFrame {
         smallCaveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-               // wallSelect = 5;
+                // wallSelect = 5;
                 setUpWallPanel(gym.getSmallCave());
 //                climbs = new JLabel();
 //                climbs.setText(gym.getSmallCave().getProblems());
@@ -509,9 +509,16 @@ public class GUI extends JFrame {
             allClimbs.setText(sortIndexAllClimbs());
         } else if (sortingOptionsComboBox.getSelectedIndex() == 1) {
             String first = gym.getAllClimbsInOrderOfDifficulty();
-            String s1 = ("<html>" + first.replaceAll("<", "&lt;")
-                    .replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
-            allClimbs.setText(s1);
+            if (first.equals("")) {
+                JOptionPane.showMessageDialog(null,
+                        "There are no climbs!",
+                        "Message",
+                        JOptionPane.PLAIN_MESSAGE);
+            } else {
+                String s1 = ("<html>" + first.replaceAll("<", "&lt;")
+                        .replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
+                allClimbs.setText(s1);
+            }
         }
 
 
@@ -520,7 +527,9 @@ public class GUI extends JFrame {
     public String sortIndexAllClimbs() {
         String record = "";
         for (Wall w : gym.wallList) {
+
             record += w.getProblems();
+
         }
         System.out.println(record);
         String s1 = ("<html>" + record.replaceAll("<", "&lt;")

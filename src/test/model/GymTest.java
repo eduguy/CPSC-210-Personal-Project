@@ -41,12 +41,16 @@ public class GymTest {
             climbAlreadyExists.printStackTrace();
             fail();
         }
-        assertEquals("Color: Black | Grade: 4 | Wall: Show Wall\n" +
-                "Color: Blue | Grade: 4 | Wall: Show Wall\n" +
-                "Color: Red | Grade: 4 | Wall: Big Cave\n", gym.toStringAllProblems());
+
+            assertEquals("Color: Black | Grade: 4 | Wall: Show Wall\n" +
+                    "Color: Blue | Grade: 4 | Wall: Show Wall\n" +
+                    "Color: Red | Grade: 4 | Wall: Big Cave\n", gym.toStringAllProblems());
+
 
 
     }
+
+
 
     @Test
     public void testGetClimbsOfDifficulty() {
