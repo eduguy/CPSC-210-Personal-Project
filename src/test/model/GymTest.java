@@ -152,7 +152,26 @@ public class GymTest {
         } catch (GradeOutOfBounds gradeOutOfBounds) {
             //expected
         }
+
+        try {
+            Problem p = new Problem("Red", 0, "Show Wall");
+            fail();
+        } catch (GradeOutOfBounds gradeOutOfBounds) {
+            //
+        }
+
+        try {
+            Problem p  = new Problem ("Red", 2, "Small Cave");
+        } catch (GradeOutOfBounds gradeOutOfBounds) {
+            fail();
+        }
     }
+
+
+
+
+
+
 
 
 }
