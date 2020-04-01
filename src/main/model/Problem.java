@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.GradeOutOfBounds;
 import persistence.Saveable;
 
 import java.io.PrintWriter;
@@ -11,18 +12,23 @@ public class Problem implements Saveable {
     int grade;
     String wall;
 
-    //REQUIRES: grade is integer in [1,6]
-    //EFFECTS: color of climb is set to color, grade of climb is set to grade
-    public Problem(String color, int grade) {
+    //EFFECTS: color of climb is set to color, grade of climb is set to grade, throws exception if grade is not in
+    // [1,6]
+    public Problem(String color, int grade) throws GradeOutOfBounds {
+        if (grade < 1 || grade > 6) {
+            throw new GradeOutOfBounds();
+        }
         this.color = color;
         this.grade = grade;
     }
 
 
-    //REQUIRES: grade is integer in [1,6], wall name is one of the walls in gym class
-    //EFFECTS: creates a new problem
+    //EFFECTS: creates a new problem, throws exception if grade is not in bounds
     //SHOULD ONLY BE USED FOR LOADING DATA
-    public Problem(String color, int grade, String wall) {
+    public Problem(String color, int grade, String wall) throws GradeOutOfBounds {
+        if (grade < 1 || grade > 6) {
+            throw new GradeOutOfBounds();
+        }
         this.color = color;
         this.grade = grade;
         this.wall = wall;

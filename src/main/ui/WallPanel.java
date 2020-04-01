@@ -1,6 +1,7 @@
 package ui;
 
 import exceptions.ClimbAlreadyExists;
+import exceptions.GradeOutOfBounds;
 import model.Gym;
 import model.Problem;
 import model.Wall;
@@ -33,7 +34,6 @@ public class WallPanel extends JPanel {
         setUpWallPanel();
 
 
-
     }
 
     private void makeBackButton(CardLayout cardLayout, JPanel cards) {
@@ -63,7 +63,7 @@ public class WallPanel extends JPanel {
         textBox1.setBounds(100, 25, 250, 25);
         add(addPanelGrade, BorderLayout.CENTER);
         add(colorClimbAdded, BorderLayout.CENTER);
-       // add(backOutWallPanel, BorderLayout.NORTH);
+        // add(backOutWallPanel, BorderLayout.NORTH);
         backOutWallPanel.setBounds(10, 10,
                 75, 25);
         colorClimbAdded.setBounds(350, 25, 75, 25);
@@ -127,7 +127,6 @@ public class WallPanel extends JPanel {
     }
 
 
-
     public void addClimbForWallPanel() {
         addWallPanel.addActionListener(new ActionListener() {
             @Override
@@ -149,6 +148,11 @@ public class WallPanel extends JPanel {
                             "Message",
                             JOptionPane.PLAIN_MESSAGE);
                     colorClimbAdded.setText("");
+                } catch (GradeOutOfBounds gradeOutOfBounds) {
+                    JOptionPane.showMessageDialog(null,
+                            "Failed because grade is out of bounds!",
+                            "Message",
+                            JOptionPane.PLAIN_MESSAGE);
                 }
 
                 //todo   Added exception handling here for the new exception thrown by addProblem

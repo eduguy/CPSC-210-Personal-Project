@@ -505,8 +505,15 @@ public class GUI extends JFrame {
 
     private void sortingForComboBox() {
         if (sortingOptionsComboBox.getSelectedIndex() == 0) {
-
-            allClimbs.setText(sortIndexAllClimbs());
+            String response = sortIndexAllClimbs();
+            if (response.equals("")) {
+                JOptionPane.showMessageDialog(null,
+                        "There are no climbs!",
+                        "Message",
+                        JOptionPane.PLAIN_MESSAGE);
+            } else {
+                allClimbs.setText(response);
+            }
         } else if (sortingOptionsComboBox.getSelectedIndex() == 1) {
             String first = gym.getAllClimbsInOrderOfDifficulty();
             if (first.equals("")) {
@@ -531,7 +538,9 @@ public class GUI extends JFrame {
             record += w.getProblems();
 
         }
-        System.out.println(record);
+        if (record.equals("")) {
+            return "";
+        }
         String s1 = ("<html>" + record.replaceAll("<", "&lt;")
                 .replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
         return s1;

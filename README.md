@@ -47,19 +47,17 @@ and provide a map of where they are in the gym would be useful to newcomers.
 
 ##Phase 4 Task 2
 
-- There was not much to do to make my Wall class robust, but I was let add problem handle the duplicate climb
+- I made my Wall class robust by making addProblem handle the duplicate climb
 situation by making it throw a checked exception, ClimbAlreadyExists. (Wall class, lines 28-32). I initially had no requires statement on
 this method but after testing the program I realized that I didn't want duplicate climbs.
+- I also made my Problem class robust by removing the requires clause on the constructor. It now throws an exception if the grade
+given to it is out of bounds.
 
 
 ##Phase 4 Task 3
 
-- There is excessive coupling in my GUI class from in the initializing of walls. I got rid of this coupling when I refactored
-my design to seperate the Main Panel and Wall Panel. Before the code was almost identical in all of the initializing methods with very small differences.
-I took what I could into the wall Panel class, so now i only need to edit that class to make changes to all wall panels. 
-- After that, I noticed that there was still some code in the action listeners of each wall initializing method where I was
- making the new panel and adding it to my cards for cardlayout. The code was basically the same but with different
-wall parameters, so I made it into a method. Once again, this means I only need to edit the method to make changes to all initialing methods.
+- There is excessive coupling in my GUI class in the wall initialization methods. The code was almost identical in all of the initializing methods 
+with very small differences. I refactored it to move most of the code into a seperate class, and then refactored what was left into one method.
 - To improve cohesion, I seperated the wall Panel from the main panel so the GUI class did not have to do anything with the wall panels, other than call the 
 constructor. This seperated a huge amount of code away into a seperate class.
 

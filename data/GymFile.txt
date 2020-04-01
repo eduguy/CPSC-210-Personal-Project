@@ -1,10 +1,12 @@
-qwer,1,Ship
-Blue,5,Ship
-Grey,2,Ship
-Sdfasdf xc,1,Ship
-qwer,1,Big Cave
-qwer,1,Small Cave
-asdf,4,Small Cave
-asdf,1,Berg
-asdf,1,Slab
-qwer,1,Slab
+Green,1,Show Wall
+Purple,5,Show Wall
+Blue,1,Ship
+Pink,2,Ship
+Black,4,Big Cave
+Green,2,Big Cave
+Pink,5,Small Cave
+Purple,6,Small Cave
+Yellow,1,Berg
+Blue,4,Berg
+Red,3,Slab
+Orange,5,Slab

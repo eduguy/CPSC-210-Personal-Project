@@ -1,12 +1,14 @@
 package persistence;
 
 import exceptions.ClimbAlreadyExists;
+import exceptions.GradeOutOfBounds;
 import model.Gym;
 import model.Problem;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
+import java.lang.reflect.GenericSignatureFormatError;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,8 +24,13 @@ public class WriterTest {
 
     @BeforeEach
     void setUp() throws FileNotFoundException, UnsupportedEncodingException {
-        p1 = new Problem("Red", 5);
-        p2 = new Problem("Blue", 2);
+        try{
+            p1 = new Problem("Red", 5);
+            p2 = new Problem("Blue", 2);
+
+        } catch (GradeOutOfBounds gradeOutOfBounds){
+            fail();
+        }
         gym = new Gym();
         try {
             gym.addProblem(p1, gym.getShowWall());

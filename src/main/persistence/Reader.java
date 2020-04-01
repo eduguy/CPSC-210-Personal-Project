@@ -1,5 +1,6 @@
 package persistence;
 
+import exceptions.GradeOutOfBounds;
 import model.*;
 
 import java.io.File;
@@ -45,7 +46,15 @@ public class Reader {
         String name = info.get(0);
         int grade = Integer.parseInt(info.get(1));
         String wall = info.get(2);
-        return new Problem(name, grade, wall);
+        Problem p = null;
+        try {
+            p = new Problem(name, grade, wall);
+        } catch (GradeOutOfBounds gradeOutOfBounds) {
+            System.out.println("Out of bounds");
+        }
+
+        return p;
+
 
     }
 
