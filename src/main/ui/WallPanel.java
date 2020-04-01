@@ -2,7 +2,6 @@ package ui;
 
 import exceptions.ClimbAlreadyExists;
 import exceptions.GradeOutOfBounds;
-import model.Gym;
 import model.Problem;
 import model.Wall;
 
@@ -43,8 +42,7 @@ public class WallPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 cardLayout.show(cards, "Main Panel");
-                //climbs.setText("");
-                //wallSelect = 0;
+
                 remove(removePanelOptions);
             }
         });
@@ -120,7 +118,6 @@ public class WallPanel extends JPanel {
                             JOptionPane.PLAIN_MESSAGE);
                 }
 
-                //todo Added exception handling to a trouble prone area just in case to make the program more robust
 
             }
         });
@@ -136,26 +133,20 @@ public class WallPanel extends JPanel {
                 String color = colorClimbAdded.getText();
                 try {
                     currentWall.addProblem(new Problem(color, grade));
-                    JOptionPane.showMessageDialog(null,
-                            "Success!.",
-                            "Message",
+                    JOptionPane.showMessageDialog(null,"Success!.","Message",
                             JOptionPane.PLAIN_MESSAGE);
                     colorClimbAdded.setText("");
                     climbs.setText(getProblemsForRemoveGUI(currentWall));
                 } catch (ClimbAlreadyExists climbAlreadyExists) {
-                    JOptionPane.showMessageDialog(null,
-                            "Failed because climb already exists!.",
-                            "Message",
-                            JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"Failed because climb already exists!.",
+                            "Message", JOptionPane.PLAIN_MESSAGE);
                     colorClimbAdded.setText("");
                 } catch (GradeOutOfBounds gradeOutOfBounds) {
-                    JOptionPane.showMessageDialog(null,
-                            "Failed because grade is out of bounds!",
+                    JOptionPane.showMessageDialog(null,"Failed because grade is out of bounds!",
                             "Message",
                             JOptionPane.PLAIN_MESSAGE);
                 }
 
-                //todo   Added exception handling here for the new exception thrown by addProblem
 
 
             }

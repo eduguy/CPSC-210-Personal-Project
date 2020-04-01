@@ -19,44 +19,29 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-public class GUI extends JFrame {
+public class MainPanel extends JFrame {
 
     private static final int HEIGHT = 500;
     private static final int WIDTH = 750;
     private static final String GYM_FILE = "./data/GymFile.txt";
-    Integer[] numbers;
-    int wallSelect = 0;
-    private static final int WALL_QUANTITY = 6;
-    Wall removeWall;
+
     JPanel mainPanel;
-    JPanel addRemovePanel;
-    JLabel textBox1;
     JPanel cards;
     Gym gym;
-    private JButton addNewButton;
+
     private JButton seeClimbsButton;
-    private JButton removeClimbsButton;
-    private JTextField colorClimbAdded;
-    private JButton backAddPanel;
-    private JComboBox addPanelWalls;
-    private JComboBox addPanelGrade;
-    String[] wallNames = {"Show Wall", "Ship", "Slab", "Berg", "Small Cave", "Big Cave"};
-    Integer[] grades = {1, 2, 3, 4, 5, 6,};
+
+
     String[] options = {"Wall", "Difficulty"};
     CardLayout cardLayout = new CardLayout();
     private JPanel climbsPanel;
     private JLabel allClimbs;
     private JButton backClimbPanel;
-    private JButton addClimbButton;
-    private JLabel removeLabel;
-    private JTextField colorClimbRemove;
-    private JComboBox removePanelWalls;
-    private JComboBox removePanelOptions;
-    private JComboBox<Integer> removePanelGrade;
+
     private JComboBox<String> sortingOptionsComboBox;
     private static int OPTIONS_SIZE = 1;
     private JButton sortingOptionsGo;
-    private JOptionPane confirmAddOption;
+
     JLabel photo;
     private JButton slabButton;
     private JButton bigCaveButton;
@@ -67,12 +52,9 @@ public class GUI extends JFrame {
 
     private JButton shipButton;
     private JPanel wallPanel;
-    private JLabel climbs;
-    private JButton addWallPanel;
-    private JButton backOutWallPanel;
-    private JButton removeClimbButtonMapPanel;
 
-    public GUI() {
+
+    public MainPanel() {
         super("The Hive Surrey");
         setLayout(new BorderLayout());
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
@@ -98,12 +80,7 @@ public class GUI extends JFrame {
         cards.add("Main Panel", mainPanel);
         add(cards);
         //setting up all panels that will be seen
-        //todo asdfasdf
         initSeeAllClimbsPanel();
-        //gym = new Gym();
-
-//        wallPanel = new WallPanel(null, cardLayout, cards);
-//        cards.add(wallPanel, "Wall Panel");
 
 
         initHomePanel();
@@ -203,7 +180,6 @@ public class GUI extends JFrame {
 //                            JOptionPane.PLAIN_MESSAGE);
 //                }
 //
-//                //todo Added exception handling to a trouble prone area just in case to make the program more robust
 //
 //            }
 //        });
@@ -245,7 +221,6 @@ public class GUI extends JFrame {
 //                    colorClimbAdded.setText("");
 //                }
 //
-//                //todo   Added exception handling here for the new exception thrown by addProblem
 //
 //
 //            }
@@ -545,7 +520,6 @@ public class GUI extends JFrame {
                 .replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
         return s1;
     }
-//todo commented out stuff above this that should be in so that I can check for wallPanel functionality
 
 //    public void initAddAndRemovePanel() {
 //

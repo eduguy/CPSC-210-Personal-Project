@@ -57,8 +57,8 @@ given to it is out of bounds.
 ##Phase 4 Task 3
 
 - There is excessive coupling in my GUI class in the wall initialization methods. The code was almost identical in all of the initializing methods 
-with very small differences. I refactored it to move most of the code into a seperate class, and then refactored what was left into one method.
-- To improve cohesion, I seperated the wall Panel from the main panel so the GUI class did not have to do anything with the wall panels, other than call the 
-constructor. This seperated a huge amount of code away into a seperate class.
+with very small differences. I refactored it to move most of the code into a separate class, and then refactored what was left into one method.
+- To improve cohesion, I separated the wall Panel from the main panel so the Main Panel class did not have to do anything with the wall panels, other than call the 
+constructor. This made the main Panel class much more cohesive.
 
 
