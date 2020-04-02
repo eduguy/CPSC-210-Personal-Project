@@ -145,6 +145,20 @@ public class GymTest {
     }
 
     @Test
+    public void addSameClimbTwice() {
+        try {
+            gym.addProblem(new Problem("Red", 5), gym.getShip());
+            gym.addProblem(new Problem("Red", 5), gym.getShip());
+            fail();
+        } catch (ClimbAlreadyExists climbAlreadyExists) {
+            //
+        } catch (GradeOutOfBounds gradeOutOfBounds) {
+            fail();
+
+        }
+    }
+
+    @Test
     public void addProblemException() {
         try {
             Problem p = new Problem("Red", 7);
@@ -161,17 +175,25 @@ public class GymTest {
         }
 
         try {
-            Problem p  = new Problem ("Red", 2, "Small Cave");
+            Problem p = new Problem("Red", 7, "Show Wall");
+            fail();
+        } catch (GradeOutOfBounds gradeOutOfBounds){
+            //
+        }
+
+        try {
+            Problem p = new Problem("Red", 0);
+            fail();
+        } catch (GradeOutOfBounds gradeOutOfBounds){
+            //
+        }
+
+        try {
+            Problem p = new Problem("Red", 2, "Small Cave");
         } catch (GradeOutOfBounds gradeOutOfBounds) {
             fail();
         }
     }
-
-
-
-
-
-
 
 
 }
