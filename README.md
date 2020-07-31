@@ -1,5 +1,9 @@
 # CPSC 210 Personal Project: Climb Tracker for the Climbing Gym
 
+## Still to do 
+
+- Fix the horrible GUI appearence 
+- Possibly try integrating a database and have basic user profiles
 ## Project Proposal
 
 The goal of this application is to provide an interface for a user to track climbs
@@ -20,7 +24,7 @@ amount of climbs and lack of organization annoying. There is never any documenta
  I think an application that could sort climbs 
 and provide a map of where they are in the gym would be useful to newcomers.
 
-##User Stories
+## User Stories
 
 - As a user, I want to be able to sort climbs in terms of their difficulty.
 
@@ -45,7 +49,7 @@ and provide a map of where they are in the gym would be useful to newcomers.
 - You can save the state of my application by exiting out of the program.
 - You can reload the state of my application by launching the program.
 
-##Phase 4 Task 2
+## Phase 4 Task 2
 
 - I made my Wall class robust by making addProblem handle the duplicate climb
 situation by making it throw a checked exception, ClimbAlreadyExists. (Wall class, lines 28-32). I initially had no requires statement on
@@ -54,7 +58,7 @@ this method but after testing the program I realized that I didn't want duplicat
 given to it is out of bounds.
 
 
-##Phase 4 Task 3
+## Phase 4 Task 3
 
 - There is excessive coupling in my GUI class in the wall initialization methods. The code was almost identical in all of the initializing methods 
 with very small differences. I refactored it to move most of the code into a separate class, and then refactored what was left into one method.
