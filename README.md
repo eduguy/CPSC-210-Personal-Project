@@ -1,11 +1,13 @@
 # CPSC 210 Personal Project: Climb Tracker for the Climbing Gym
 
 
-**Main Screen**
+**Main Screen** <br>
 ![](data/Capture.PNG)
-**Example of adding a climb**
+
+**Example of adding a climb** <br>
 ![](data/Panel.PNG)
-**After adding a climb**
+
+**After adding a climb** <br>
 ![](data/Added.PNG)
 
 ## Project Proposal
