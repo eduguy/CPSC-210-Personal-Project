@@ -1,6 +1,13 @@
 # CPSC 210 Personal Project: Climb Tracker for the Climbing Gym
 
 
+**Main Screen**
+![](data/Capture.PNG)
+**Example of adding a climb**
+![](data/Panel.PNG)
+**After adding a climb**
+![](data/Added.PNG)
+
 ## Project Proposal
 
 The goal of this application is to provide an interface for a user to track climbs
