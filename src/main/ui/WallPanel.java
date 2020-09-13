@@ -50,7 +50,8 @@ public class WallPanel extends JPanel {
 
     public void setUpFieldsAndLabelsForWallPanel() {
 
-        textBox1 = new JLabel("<html>Add climbs to the right<br>Textbox is for the color of the climb.</html>");
+        textBox1 = new JLabel("<html>Add climbs to the right! Use the textbox for color of the climb"
+                + " and the number menu for the grade. </html>");
         colorClimbAdded = new JTextField();
         colorClimbAdded.setColumns(10);
         addPanelWalls = new JComboBox(wallNames);
@@ -90,7 +91,8 @@ public class WallPanel extends JPanel {
         removePanelOptions = new JComboBox(numbers);
         removePanelOptions.setBounds(500, 350, 75, 25);
         add(removePanelOptions, BorderLayout.SOUTH);
-        removeInstructionsLabel = new JLabel("Choose the number corresponding to the climb you want to remove");
+        removeInstructionsLabel = new JLabel("Use the dropdown menu above to choose the number corresponding "
+                + "to the climb you want to remove.");
         add(removeInstructionsLabel);
 
 
@@ -133,20 +135,19 @@ public class WallPanel extends JPanel {
                 String color = colorClimbAdded.getText();
                 try {
                     currentWall.addProblem(new Problem(color, grade));
-                    JOptionPane.showMessageDialog(null,"Success!.","Message",
+                    JOptionPane.showMessageDialog(null, "Success!.", "Message",
                             JOptionPane.PLAIN_MESSAGE);
                     colorClimbAdded.setText("");
                     climbs.setText(getProblemsForRemoveGUI(currentWall));
                 } catch (ClimbAlreadyExists climbAlreadyExists) {
-                    JOptionPane.showMessageDialog(null,"Failed because climb already exists!.",
+                    JOptionPane.showMessageDialog(null, "Failed because climb already exists!.",
                             "Message", JOptionPane.PLAIN_MESSAGE);
                     colorClimbAdded.setText("");
                 } catch (GradeOutOfBounds gradeOutOfBounds) {
-                    JOptionPane.showMessageDialog(null,"Failed because grade is out of bounds!",
+                    JOptionPane.showMessageDialog(null, "Failed because grade is out of bounds!",
                             "Message",
                             JOptionPane.PLAIN_MESSAGE);
                 }
-
 
 
             }
