@@ -109,7 +109,7 @@ public class WallPanel extends JPanel {
                 try {
                     removeWall.getProblemList().remove(removePanelOptions.getSelectedIndex());
                     JOptionPane.showMessageDialog(null,
-                            "Success!.",
+                            "Success!",
                             "Message",
                             JOptionPane.PLAIN_MESSAGE);
                     climbs.setText(getProblemsForRemoveGUI(currentWall));

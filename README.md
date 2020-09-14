@@ -10,6 +10,9 @@
 **After adding a climb** <br>
 ![](data/Added.PNG)
 
+## Usage 
+
+Run main() in UI/Main
 ## Project Proposal
 
 The goal of this application is to provide an interface for a user to track climbs

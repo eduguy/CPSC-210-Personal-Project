@@ -2,6 +2,7 @@ Green,1,Show Wall
 Purple,5,Show Wall
 Blue,1,Ship
 Pink,2,Ship
+Purple,1,Ship
 Black,4,Big Cave
 Green,2,Big Cave
 Pink,5,Small Cave
